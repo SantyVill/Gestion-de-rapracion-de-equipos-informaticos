@@ -77,10 +77,9 @@ class EquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Equipo $equipo)
     {
-        
-        return view('equipos.edit');
+        return view('equipos.edit',compact('equipo'));
     }
 
     /**
@@ -90,9 +89,28 @@ class EquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Equipo $equipo)
     {
-        //
+        $fields = request()->validate([
+            'numero_serie'=>'required',
+            'tipo'=>'required',
+            'marca'=>'required',
+            'modelo'=>'required',
+            'fallas'=>'',
+            'accesorios'=>'',
+            'observacion'=>''
+        ]);
+
+        $equipo->update([
+            'numero_serie'=>request('numero_serie'),
+            'tipo'=>request('tipo'),
+            'marca'=>request('marca'),
+            'modelo'=>request('modelo'),
+            'fallas'=>request('fallas'),
+            'accesorios'=>request('accesorios'),
+            'observacion'=>request('observacion')
+        ]);
+        return redirect()->route('equipos.show',$equipo);
     }
 
     /**
@@ -101,8 +119,9 @@ class EquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Equipo $equipo)
     {
-        //
+        $equipo->delete();
+        return redirect()->route('equipos.index');
     }
 }
