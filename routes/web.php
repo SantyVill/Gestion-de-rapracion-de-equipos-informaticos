@@ -18,6 +18,7 @@ Route::get('/', function () {
 })->name('home');
 
 /* Route::get('/equipos',[App\Http\Controllers\EquiposController::class, 'index'])-> name('equipos.index'); */
-Route::get('/clientes',[App\Http\Controllers\ClientesController::class, 'index'])-> name('clientes.index');
+/*Route::get('/clientes',[App\Http\Controllers\ClientesController::class, 'index'])-> name('clientes.index');*/
 
 Route::resource('equipos', EquiposController::class);/* Crea todas las rutas del controlador de equipos. Para que funcione descomentar la linea 29 de app\Providers\RouteServiceProvider.php   https://www.youtube.com/watch?v=fb4GfNvEf8M&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16*/
+Route::resource('clientes', ClientesController::class);
