@@ -22,7 +22,7 @@
             {{-- <td><a href="{{route('equipos.show',$equipo)}}">Ver</a></td> --}}
         </tr>
         @empty
-            <p>No se registro ningun equipo.</p>
+            <p>No se registró ningún cliente</p>
         @endforelse
     </table>       
 @endsection
