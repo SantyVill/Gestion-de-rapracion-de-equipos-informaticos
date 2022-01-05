@@ -27,7 +27,7 @@
         {{-- <input type="text" name="observacion" placeholder="Observacion" value="{{ old('observacion',$equipo->observacion)}}" required><br>
         {!!$errors->first('observacion','<small>:message</small><br>')!!} --}}
         
-        <textarea name="observacion" placeholder="Observacion" value="prueba" cols="30" rows="10"></textarea><br>
+        <textarea name="observacion" placeholder="Observacion" value="prueba" cols="30" rows="10">{{ old('Observacion',$equipo->observacion)}}</textarea><br>
         {!!$errors->first('observacion','<small>:message</small><br>')!!}
     
         <input type="submit" value="Enviar"><br>
