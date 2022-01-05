@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    protected $fillable = ['']
-    protected $hidden = ['create_at','update_at']
+    protected $table = 'clientes';
+    protected $fillable = ['nombre','apellido','dni','telefono1','telefono2','direccion','mail','observacion'];
+    protected $hidden = ['create_at','update_at'];
     use HasFactory;
 }
