@@ -5,10 +5,13 @@
 @section('contenido')
     <h1>Aqui se mostrara la lista de clientes registrados</h1> 
     <table>
-        <tr>
-            <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Telefono 2</th><th>Dirección</th>
-            <th>Correo Electronico</th><th>Obs:</th>
-        </tr>
+    
+        @if (!$clientes)
+            <tr>
+                <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Telefono 2</th><th>Dirección</th>
+                <th>Correo Electronico</th><th>Obs:</th>
+            </tr>
+        @endif
         @forelse ($clientes as $cliente)
         <tr>
             <td>{{$cliente->nombre}}</td>
