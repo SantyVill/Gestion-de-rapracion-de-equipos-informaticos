@@ -37,7 +37,18 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $field=request()->validate([
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'dni'=>'',
+            'telefono1'=>'required',
+            'telefono2'=>'',
+            'direccion'=>'',
+            'mail'=>'required',
+            'observacion'=>''
+        ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
+        Cliente::create($field);
+        return redirect()->route('clientes.index');
     }
 
     /**

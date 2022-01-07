@@ -6,12 +6,12 @@
     <h1>Aqui se mostrara la lista de clientes registrados</h1> 
     <table>
     
-        @if (!$clientes)
+      {{--  @if (!$clientes)--}}
             <tr>
                 <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Telefono 2</th><th>Dirección</th>
                 <th>Correo Electronico</th><th>Obs:</th>
             </tr>
-        @endif
+       {{-- @endif--}}
         @forelse ($clientes as $cliente)
         <tr>
             <td>{{$cliente->nombre}}</td>

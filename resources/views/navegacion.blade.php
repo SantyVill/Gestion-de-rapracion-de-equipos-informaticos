@@ -14,7 +14,7 @@
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('equipos.index')}}">Equipos</a></li>
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('equipos.create')}}">Registrar Equipos</a></li>
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('clientes.index')}}">Clientes</a></li>
-            <li class="{{ setActiva('equipos.*') }}"><a href="{{route('clientes.create')}}">RegistrarClientes</a></li>
+            <li class="{{ setActiva('equipos.*') }}"><a href="{{route('clientes.create')}}">Registrar Clientes</a></li>
             {{-- <li class="{{ setActiva('equipos.create.*') }}"><a href="{{route('clientes.compras')}}">Clietnes</a></li> --}}
         </ul>
     </nav>

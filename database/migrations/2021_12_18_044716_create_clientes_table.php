@@ -17,12 +17,12 @@ class CreateClientesTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('dni');
+            $table->string('dni')->nullable();
             $table->string('telefono1');
-            $table->string('telefono2');
-            $table->string('direccion');
+            $table->string('telefono2')->nullable();
+            $table->string('direccion')->nullable();
             $table->string('mail');
-            $table->text('observacion');
+            $table->text('observacion')->nullable();
             $table->timestamps();
         });
     }

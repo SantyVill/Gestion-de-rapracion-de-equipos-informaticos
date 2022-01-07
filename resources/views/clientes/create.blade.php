@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Registrar equipo')
+@section('titulo','Registrar cliente')
 
 @section('contenido')
 <h1>Aqui registra los clientes</h1>
@@ -12,16 +12,16 @@
     <input type="text" name="apellido" placeholder="Apellido" value="{{ old('apellido')}}" required><br>
     {!!$errors->first('apellido','<small>:message</small><br>')!!}
     
-    <input type="text" name="dni" placeholder="DNI" value="{{ old('dni')}}" required><br>
+    <input type="text" name="dni" placeholder="DNI" value="{{ old('dni')}}"><br>
     {!!$errors->first('dni','<small>:message</small><br>')!!}
     
     <input type="text" name="telefono1" placeholder="Telefono1" value="{{ old('telefono1')}}" required><br>
     {!!$errors->first('telefono1','<small>:message</small><br>')!!}
     
-    <input type="text" name="telefono2" placeholder="Telefono2" value="{{ old('telefono2')}}" required><br>
+    <input type="text" name="telefono2" placeholder="Telefono2" value="{{ old('telefono2')}}"><br>
     {!!$errors->first('telefono2','<small>:message</small><br>')!!}
     
-    <input type="text" name="direccion" placeholder="Direccion" value="{{ old('direccion')}}" required><br>
+    <input type="text" name="direccion" placeholder="Direccion" value="{{ old('direccion')}}"><br>
     {!!$errors->first('direccion','<small>:message</small><br>')!!}
 
     <input type="text" name="mail" placeholder="Correo Electronico" value="{{ old('mail')}}" required><br>
