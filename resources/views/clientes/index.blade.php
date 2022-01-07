@@ -9,7 +9,7 @@
       {{--  @if (!$clientes)--}}
             <tr>
                 <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Telefono 2</th><th>Dirección</th>
-                <th>Correo Electronico</th><th>Obs:</th>
+                <th>Correo Electronico</th><th>Obs:</th><th>Accion</th>
             </tr>
        {{-- @endif--}}
         @forelse ($clientes as $cliente)
@@ -22,7 +22,7 @@
             <td>{{$cliente->direccion}}</td>
             <td>{{$cliente->mail}}</td>
             <td>{{$cliente->observacion}}</td>
-            {{-- <td><a href="{{route('equipos.show',$equipo)}}">Ver</a></td> --}}
+            <td><a href="{{route('clientes.show',$cliente)}}">Ver</a></td>
         </tr>
         @empty
             <p>No se registró ningún cliente</p>

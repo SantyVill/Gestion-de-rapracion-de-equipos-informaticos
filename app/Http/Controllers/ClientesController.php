@@ -59,7 +59,8 @@ class ClientesController extends Controller
      */
     public function show($id)
     {
-        //
+        $cliente = cliente::find($id);
+        return view('clientes.show',compact('cliente'));
     }
 
     /**
@@ -68,9 +69,9 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        //
+        return view('clientes.edit',compact('cliente'));
     }
 
     /**
@@ -80,9 +81,30 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Cliente $cliente)
     {
-        //
+        $fields = request()->validate([
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'dni'=>'',
+            'telefono1'=>'required',
+            'telefono2'=>'',
+            'direccion'=>'',
+            'mail'=>'required',
+            'observacion'=>''
+        ]);
+
+        $cliente->update([
+            'nombre'=>request('nombre'),
+            'apellido'=>request('apellido'),
+            'dni'=>request('dni'),
+            'telefono1'=>request('telefono1'),
+            'telefono2'=>request('telefono2'),
+            'direccion'=>request('direccion'),
+            'mail'=>request('mail'),
+            'observacion'=>request('observacion')
+        ]);
+        return redirect()->route('clientes.show',$cliente);
     }
 
     /**
@@ -91,8 +113,9 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+        return redirect()->route('clientes.index');
     }
 }
