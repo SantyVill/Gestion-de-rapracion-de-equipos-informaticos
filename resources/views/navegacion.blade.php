@@ -7,7 +7,20 @@
     <title>@yield('titulo')</title>
 </head>
 <body>
-    <h1>Gestion de reparaciones</h1>
+    <header>
+        <nav class="flex py-5 bg-indigo-500 text-white">
+            <ul>
+                @if (auth()->check())
+                    <li>Nombre de usuario {{auth()->user()->apellido.", ".auth()->user()->nombre }}</li>
+                    <li><a href="{{route('login.destroy')}}">Cerrar sesión</a></li>
+                @else
+                    <li><a href="{{route('login.index')}}">Log in</a></li>
+                @endif
+                <li><a href="{{route('registro.index')}}">Registrar usuario</a></li>
+            </ul>
+        </nav>
+        <h1>Gestion de reparaciones</h1>
+    </header>
     <nav>
         <ul>
             <li class="{{ setActiva('home.*') }}"><a href="/">Inicio</a></li>{{-- funcion setActiva: https://www.youtube.com/watch?v=Lx2bAjM3s80&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16 --}}
