@@ -24,7 +24,7 @@ class RegistrosController extends Controller
             'password_confirmar'=>'required|same:password',
         ]);
         $user = User::create($field);
-        Auth::loginUsingId($user->id);
+        /* Auth::loginUsingId($user->id); */
         return redirect()->route('home');
     }
 }
