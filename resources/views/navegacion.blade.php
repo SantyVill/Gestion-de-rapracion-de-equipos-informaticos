@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
     <title>@yield('titulo')</title>
 </head>
 <body>
     <header>
-        <nav class="flex py-5 bg-indigo-500 text-white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul>
                 @if (auth()->check())
                     <li>Nombre de usuario {{auth()->user()->apellido.", ".auth()->user()->nombre }}</li>

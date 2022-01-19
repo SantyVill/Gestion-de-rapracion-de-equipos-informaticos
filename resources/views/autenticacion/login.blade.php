@@ -16,6 +16,6 @@
     @error('message')
     <p>{{$message}}</p>
     @enderror
-    <input type="submit" value="Enviar"><br>
+    <input type="submit" class="btn btn-success" value="Enviar"><br>
 </form>
 @endsection
