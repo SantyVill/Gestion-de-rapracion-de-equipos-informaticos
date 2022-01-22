@@ -22,6 +22,10 @@
     <input type="password" name="password_confirmar" placeholder="Confirmar contraseña" required><br>
     {!!$errors->first('password_confirmar','<small>:message</small><br>')!!}
 
+    <label for=""><input type="checkbox" name="tecnico">Técnico</label><br>
+    
+    <label for=""><input type="checkbox" name="recepcionista">Recepcionista</label><br>
+
     <input type="submit" value="Enviar"><br>
 </form>
 @endsection
