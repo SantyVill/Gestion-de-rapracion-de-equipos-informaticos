@@ -43,6 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //Relacion uno a muchos: https://www.youtube.com/watch?v=G0B6v-dfhIU&t=1104s
+    // Relacion muchos a muchos: https://www.youtube.com/watch?v=i2kHe8noduU
+    public function roles(){
+        return $this->belongsToMany('App\Models\Rol');
+    }
+
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     } 

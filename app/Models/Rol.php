@@ -11,4 +11,12 @@ class Rol extends Model
     protected $fillable = ['rol'];
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
+
+
+
+    
+    // Relacion muchos a muchos
+    public function users(){
+        return $this->belongsToMany('App\Models\Usuario');
+    }
 }

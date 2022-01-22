@@ -12,13 +12,17 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul>
                 @if (auth()->check())
-                    <li>Nombre de usuario {{auth()->user()->apellido.", ".auth()->user()->nombre }}</li>
+                    <li>Nombre de usuario: {{auth()->user()->apellido.", ".auth()->user()->nombre." Roles: "}} 
+                    @foreach (auth()->user()->roles as $rol)
+                        {{$rol->rol}}
+                    @endforeach</li>
                     <li><a href="{{route('login.destroy')}}">Cerrar sesión</a></li>
                 @else
                     <li><a href="{{route('login.index')}}">Log in</a></li>
                 @endif
                 <li><a href="{{route('registro.index')}}">Registrar usuario</a></li>
             </ul>
+            {{-- <div>@dd(auth()->user()->roles()))</div> --}}
         </nav>
         <h1>Gestion de reparaciones</h1>
     </header>
