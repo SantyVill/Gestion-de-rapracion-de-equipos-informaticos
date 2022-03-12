@@ -33,7 +33,7 @@ class CreateRecepcionesTable extends Migration
             $table->date('fecha_entrega')->not_null();
             $table->string('informe_final')->not_null();
             $table->string('observación')->nullable();
-            $table->double('precio',7,2)->nullable();
+            $table->double('precio',9,2)->nullable();
             $table->date('garantia')->nullable();
             $table->timestamps();
         });
