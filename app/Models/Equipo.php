@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Equipo extends Model
 {
     protected $table = 'equipos';
-    protected $fillable = ['numero_serie','tipo','marca','fallas','modelo','accesorios','observacion'];//para permitir asignacion masiva
+    protected $fillable = ['numero_serie','obervacion'];
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
 }
