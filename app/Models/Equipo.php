@@ -11,4 +11,8 @@ class Equipo extends Model
     protected $fillable = ['numero_serie','obervacion'];
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
+    
+    public function caracteristicas(){
+        return $this->hasMany('App\Models\Rol');
+    }
 }
