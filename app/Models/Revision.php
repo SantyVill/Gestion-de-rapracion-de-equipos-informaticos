@@ -11,4 +11,12 @@ class Revision extends Model
     protected $fillable = ['nota','fecha','Observación'];
     protected $hidden = ['create_at','update_at'];
     use HasFactory;
+    
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function recepcion(){
+        return $this->belongsTo('App\Models\Recepcion');
+    }
 }
