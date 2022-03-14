@@ -14,7 +14,7 @@ class AddCaracteristicaIdToEquiposTable extends Migration
     public function up()
     {
         Schema::table('equipos', function (Blueprint $table) {
-            $table->unsignedBigInteger('caracteristica_id')->after("id");
+            $table->unsignedBigInteger('caracteristica_id')->after("id")->nullable();
             $table->foreign('caracteristica_id')->references('id')->on('caracteristicas');
         });
     }

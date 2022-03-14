@@ -74,7 +74,7 @@ class EquiposController extends Controller
         $caracteristica->tipo()->associate($tipo);
         $caracteristica->save();
 
-        $equipo=Equipo::create(['num_serie'=>request('num_serie'),'observacion'=>request('observacion')]);
+        $equipo=Equipo::create(['numero_serie'=>request('numero_serie'),'observacion'=>request('observacion')]);
         $equipo->caracteristica()->associate($caracteristica);
         
         return redirect()->route('equipos.index');

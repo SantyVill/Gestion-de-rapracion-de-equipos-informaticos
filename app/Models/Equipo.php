@@ -12,7 +12,7 @@ class Equipo extends Model
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
     
-    public function caracteristicas(){
+    public function caracteristica(){
         return $this->belongsTo('App\Models\Caracteristica');
     }
 }

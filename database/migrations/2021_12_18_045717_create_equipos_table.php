@@ -16,11 +16,6 @@ class CreateEquiposTable extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('numero_serie');
-            $table->string('tipo');
-            $table->string('marca');
-            $table->string('modelo');
-            $table->string('fallas');
-            $table->string('accesorios')->nullable();
             $table->text('observacion')->nullable();
             $table->timestamps();
         });
