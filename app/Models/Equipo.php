@@ -13,6 +13,6 @@ class Equipo extends Model
     use HasFactory;
     
     public function caracteristicas(){
-        return $this->hasMany('App\Models\Rol');
+        return $this->belongsTo('App\Models\Caracteristica');
     }
 }
