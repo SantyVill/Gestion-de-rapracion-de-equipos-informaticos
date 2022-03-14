@@ -11,4 +11,8 @@ class Marca extends Model
     protected $fillable = ['marca'];
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
+
+    public function caracteristica(){
+        return $this->hasMany('App\Models\Caracteristica','marca_id');
+    }
 }

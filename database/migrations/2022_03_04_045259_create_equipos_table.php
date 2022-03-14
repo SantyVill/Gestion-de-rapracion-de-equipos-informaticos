@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRevisionsTable extends Migration
+class CreateEquiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateRevisionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('revisions', function (Blueprint $table) {
+        Schema::create('equipos', function (Blueprint $table) {
             $table->id();
-            $table->string('nota')->nullable();
-            $table->timestamp('fecha')->nullable();
-            $table->text('Observación');
+            $table->unsignedBigInteger('caracteristica_id')->nullable();
+            $table->foreign('caracteristica_id')->references('id')->on('caracteristicas');
+            $table->string('numero_serie');
+            $table->text('observacion')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateRevisionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revisions');
+        Schema::dropIfExists('equipos');
     }
 }

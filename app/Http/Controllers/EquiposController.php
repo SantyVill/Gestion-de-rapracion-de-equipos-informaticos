@@ -12,7 +12,7 @@ use App\Models\Caracteristica;
 
 use App\Models\Tipo;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class EquiposController extends Controller
 {
@@ -62,35 +62,21 @@ class EquiposController extends Controller
             'accesorios'=>'',
         ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
 
-        $marca=Marca::get()->where('marca','=','marca2');
-        return empty($marca);
-        if (isset($marca->marca)) {
-            return ($marca);
-        } else {
-            return '0';
-        }
-        if (isset($request->marca)) {
+        if (count($marca=Marca::get()->where('marca','=',request('marca')))==0) { // Controlo que la marca no este cargada, sino la carga
             $marca = Marca::create(['marca'=> request('marca')]);
-            /* if (null==($marca=Marca::get()->where('marca','=',$request->marca))) {
-                $marca = Marca::create(['marca'=> request('marca')]);
-            } */
         }
-        return $marca;
-        if (isset($request->tipo)) {
+
+        if (count($tipo=Tipo::get()->where('tipo','=',request('tipo')))==0) {
             $tipo = Tipo::create(['tipo'=> request('tipo')]);
-            /* if (null==($tipo=Tipo::get()->where('tipo','=',$request->tipo))) {
-                $tipo = Tipo::create(['tipo'=> request('tipo')]);
-            } */
         }
-        
-        if (isset($request->modelo)) {
-            $caracteristica = Caracteristica::create(['modelo'=> request('modelo'),
-                                                    'marca_id'=>$marca,
-                                                    'tipo_id'=>$tipo]);
-            /* $caracteristica->tipo()->attach($tipo);
-            $caracteristica->marca()->attach($marca); */
-        }
-            $equipo = Equipo::create($field);
+        $caracteristica = Caracteristica::create(['modelo'=>request('modelo')]);
+        $caracteristica->marca()->associate($marca);
+        $caracteristica->tipo()->associate($tipo);
+        $caracteristica->save();
+
+        $equipo=Equipo::create(['numero_serie'=>request('numero_serie'),'observacion'=>request('observacion')]);
+        $equipo->caracteristica()->associate($caracteristica);
+        $equipo->save();
         
         return redirect()->route('equipos.index');
     }
