@@ -62,17 +62,16 @@ class EquiposController extends Controller
             'accesorios'=>'',
         ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
 
-        if (count($marca=Marca::get()->where('marca','=',request('marca')))==0) { // Controlo que la marca no este cargada, sino la carga
-            $marca = Marca::create(['marca'=> request('marca')]);
-        }
+        Marca::firstOrCreate(['marca'=> request('marca')]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
+        $id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
+        Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+        $id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
 
-        if (count($tipo=Tipo::get()->where('tipo','=',request('tipo')))==0) {
-            $tipo = Tipo::create(['tipo'=> request('tipo')]);
-        }
-        $caracteristica = Caracteristica::create(['modelo'=>request('modelo')]);
-        $caracteristica->marca()->associate($marca);
-        $caracteristica->tipo()->associate($tipo);
-        $caracteristica->save();
+        $caracteristica=Caracteristica::firstOrCreate([
+            'modelo'=>request('modelo'),
+            'marca_id'=> $id_marca,
+            'tipo_id'=>$id_tipo
+        ]);
 
         $equipo=Equipo::create(['numero_serie'=>request('numero_serie'),'observacion'=>request('observacion')]);
         $equipo->caracteristica()->associate($caracteristica);
