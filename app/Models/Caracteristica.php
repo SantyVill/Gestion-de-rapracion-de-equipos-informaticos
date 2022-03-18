@@ -19,6 +19,6 @@ class Caracteristica extends Model
     }
 
     public function tipo(){
-        return $this->belongsTo('App\Models\Marca');
+        return $this->belongsTo('App\Models\Tipo');
     }
 }
