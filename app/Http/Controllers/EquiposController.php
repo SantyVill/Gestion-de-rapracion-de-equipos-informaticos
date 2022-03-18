@@ -122,7 +122,7 @@ class EquiposController extends Controller
             'observacion'=>''
         ]);
 
-        $equipo->update([
+        /* $equipo->update([
             'numero_serie'=>request('numero_serie'),
             'tipo'=>request('tipo'),
             'marca'=>request('marca'),
@@ -130,7 +130,23 @@ class EquiposController extends Controller
             'fallas'=>request('fallas'),
             'accesorios'=>request('accesorios'),
             'observacion'=>request('observacion')
+        ]); */
+
+        Marca::firstOrCreate(['marca'=> request('marca')]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
+        $id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
+        Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+        $id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
+
+        $caracteristica=Caracteristica::firstOrCreate([
+            'modelo'=>request('modelo'),
+            'marca_id'=> $id_marca,
+            'tipo_id'=>$id_tipo
         ]);
+
+        $equipo->observacion=request('observacion');
+        $equipo->numero_serie=request('numero_serie');
+        $equipo->caracteristica()->associate($caracteristica);
+        $equipo->save();
         return redirect()->route('equipos.show',$equipo);
     }
 
