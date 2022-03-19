@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Equipo extends Model
 {
     protected $table = 'equipos';
-    protected $fillable = ['numero_serie','obervacion'];
+    protected $fillable = ['numero_serie','observacion'];
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
     

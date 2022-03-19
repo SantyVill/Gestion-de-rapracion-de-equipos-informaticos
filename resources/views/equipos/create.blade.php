@@ -18,12 +18,6 @@
     <input type="text" name="modelo" placeholder="Modelo" value="{{ old('modelo')}}" required><br>
     {!!$errors->first('modelo','<small>:message</small><br>')!!}
     
-    <input type="text" name="fallas" placeholder="Fallas" value="{{ old('fallas')}}" required><br>
-    {!!$errors->first('fallas','<small>:message</small><br>')!!}
-    
-    <input type="text" name="accesorios" placeholder="Accesorios" value="{{ old('accesorios')}}" required><br>
-    {!!$errors->first('accesorios','<small>:message</small><br>')!!}
-    
     <textarea name="observacion" placeholder="Observacion" cols="30" rows="10">{{ old('observacion')}}</textarea><br>
     {!!$errors->first('observacion','<small>:message</small><br>')!!}
 

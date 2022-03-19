@@ -3,18 +3,22 @@
 @section('titulo','Lista de equipos')
 
 @section('contenido')
-    <h1>Aqui se mostraran los equipos registrados</h1>
-    <table>
-        <tr>
-            <th>Numero de Serie</th><th>Tipo</th><th>Marca</th><th>Falla</th><th>Modelo</th><th>Accion</th>
-        </tr>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Numero de Serie</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Accion</th>
+            </tr>
+        </thead>
         @forelse ($equipos as $equipo)
         <tr>
             <td>{{$equipo->numero_serie}}</td>
-            <td>{{$equipo->tipo}}</td>
-            <td>{{$equipo->marca}}</td>
-            <td>{{$equipo->fallas}}</td>
-            <td>{{$equipo->modelo}}</td>
+            <td>{{$equipo->caracteristica->tipo->tipo}}</td>
+            <td>{{$equipo->caracteristica->marca->marca}}</td>
+            <td>{{$equipo->caracteristica->modelo}}</td>
             <td><a href="{{route('equipos.show',$equipo)}}">Ver</a></td>
         </tr>
         @empty
