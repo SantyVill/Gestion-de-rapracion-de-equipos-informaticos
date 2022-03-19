@@ -15,7 +15,7 @@ class CreateEquiposTable extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('caracteristica_id')->nullable();
+            $table->unsignedBigInteger('caracteristica_id');
             $table->foreign('caracteristica_id')->references('id')->on('caracteristicas');
             $table->string('numero_serie');
             $table->text('observacion')->nullable();

@@ -17,8 +17,8 @@ class CreateCaracteristicasTable extends Migration
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('marca_id')->nullable();
-            $table->unsignedBigInteger('tipo_id')->nullable();
+            $table->unsignedBigInteger('marca_id');
+            $table->unsignedBigInteger('tipo_id');
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
             $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('cascade');
 
