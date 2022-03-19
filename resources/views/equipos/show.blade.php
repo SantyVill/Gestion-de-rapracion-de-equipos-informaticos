@@ -20,7 +20,7 @@
             <td>
                 <form method="POST" action="{{route('equipos.destroy',$equipo)}}">
                     @csrf @method('DELETE')
-                    <button class="btn btn-danger">Eliminar1</button>
+                    <button class="btn btn-danger">Eliminar</button>
                 </form>
             </td>
         </tr>

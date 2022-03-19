@@ -4,22 +4,31 @@
 
 @section('contenido')
     <h1>Aqui se mostrara el formulario para registrar una recepcion</h1>
-    @if (!empty($equipo))
-        <p>Equipo Selecionado: </p>
-        <ul>
-            <li>Numero de serie: {{$equipo->numero_serie}}</li>
-            <li>Tipo: {{$equipo->caracteristica->tipo->tipo}}</li>
-            <li>Marca: {{$equipo->caracteristica->marca->marca}}</li>
-            <li>Modelo: {{$equipo->caracteristica->modelo}}</li>
-            <li>Observacion: {{$equipo->observacion}}</li>
-            <li>
-                <a href="{{route('recepciones.create')}}">Eliminar equipo</a>
-                <a href="{{route('equipos.index')}}">Elegir otro equipo</a>
-            </li>
-        </ul>
-    @else
-        <a href="{{route('equipos.index',$equipo)}}">Seleccionar equipo</a>
-    @endif
+    @if (isset($equipo->id))
+    <p>Equipo Selecionado: </p>
+    <ul>
+        <li>Numero de serie: {{$equipo->numero_serie}}</li>
+        <li>Tipo: {{$equipo->caracteristica->tipo->tipo}}</li>
+        <li>Marca: {{$equipo->caracteristica->marca->marca}}</li>
+        <li>Modelo: {{$equipo->caracteristica->modelo}}</li>
+        <li>Observacion: {{$equipo->observacion}}</li>            
+        <li>
+            <a href="{{route('recepciones.create')}}">Eliminar equipo</a>
+            <a href="{{route('equipos.index')}}">Elegir otro equipo</a>
+        </li>
+    </ul>
+    @if (isset($cliente->id))
+    <p>Cliente Selecionado: </p>
+    <ul>
+        <li>Apellido y Nombre: {{$cliente->Apellido.", ".$cliente->Nombre}}</li>
+        <li>DNI: {{$cliente->dni}}</li>
+        <li>Mail: {{$cliente->mail}}</li>
+        <li>Observacion: {{$cliente->observacion}}</li>            
+        <li>
+            <a href="{{route('recepciones.create',$equipo)}}">Eliminar cliente</a>
+            <a href="{{route('clientes.index',$equipo)}}">Elegir otro cliente</a>
+        </li>
+    </ul>
     <form method="POST" action="{{route('recepciones.store')}}">
         @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
 
@@ -35,4 +44,11 @@
     
         <input type="submit" value="Enviar"><br>
     </form>
+        
+    @else
+        <a href="{{route('clientes.index',$equipo)}}">Seleccionar cliente</a>
+    @endif
+    @else
+        <a href="{{route('equipos.index')}}">Seleccionar equipo</a>
+    @endif
 @endsection

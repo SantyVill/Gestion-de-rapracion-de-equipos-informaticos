@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
-
+use App\Models\Equipo;
 class ClientesController extends Controller
 {
     /**
@@ -12,11 +12,12 @@ class ClientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+
+    public function index(Equipo $equipo)
+    {   
         $clientes=Cliente::get();
         /*return $clientes;*/
-        return view('clientes.index',compact('clientes'));
+         return view('clientes.index',compact('clientes'),compact('equipo'));
     }
 
     /**

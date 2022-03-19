@@ -26,6 +26,7 @@ class RecepcionesController extends Controller
      */
     public function create(Equipo $equipo,Cliente $cliente)
     {
+    
         return view('recepciones.create',compact('equipo'),compact('cliente'));
     }
 
