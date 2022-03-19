@@ -6,7 +6,7 @@
 <h1>Aqui registra los equipos</h1>
 <form method="POST" action="{{route('equipos.store')}}">
     @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
-    <input type="text" name="numero_serie" placeholder="Numero de Serie" value="{{ old('num_serie')}}" required><br>
+    <input type="text" name="numero_serie" placeholder="Numero de Serie" value="{{ old('numero_serie')}}" required><br>
     {!!$errors->first('num_serie','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
     
     <input type="text" name="tipo" placeholder="Tipo" value="{{ old('tipo')}}" required><br>

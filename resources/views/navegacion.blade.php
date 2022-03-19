@@ -31,8 +31,9 @@
             <li class="{{ setActiva('home.*') }}"><a href="/">Inicio</a></li>{{-- funcion setActiva: https://www.youtube.com/watch?v=Lx2bAjM3s80&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16 --}}
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('equipos.index')}}">Equipos</a></li>
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('equipos.create')}}">Registrar Equipos</a></li>
-            <li class="{{ setActiva('equipos.*') }}"><a href="{{route('clientes.index')}}">Clientes</a></li>
-            <li class="{{ setActiva('equipos.*') }}"><a href="{{route('clientes.create')}}">Registrar Clientes</a></li>
+            <li class="{{ setActiva('clientes.*') }}"><a href="{{route('clientes.index')}}">Clientes</a></li>
+            <li class="{{ setActiva('clientes.*') }}"><a href="{{route('clientes.create')}}">Registrar Clientes</a></li>
+            <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('recepciones.create')}}">Registrar Recepcion</a></li>
             {{-- <li class="{{ setActiva('equipos.create.*') }}"><a href="{{route('clientes.compras')}}">Clietnes</a></li> --}}
         </ul>
     </nav>

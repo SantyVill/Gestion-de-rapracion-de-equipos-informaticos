@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegistrosController;
 use App\Http\Controllers\SesionesController;
+use App\Http\Controllers\RecepcionesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::get('/', function () {
 
 Route::resource('equipos', EquiposController::class);/* Crea todas las rutas del controlador de equipos. Para que funcione descomentar la linea 29 de app\Providers\RouteServiceProvider.php   https://www.youtube.com/watch?v=fb4GfNvEf8M&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16*/
 Route::resource('clientes', ClientesController::class);
+Route::resource('recepciones', RecepcionesController::class);
+Route::get('/create/{equipo?}/{cliente?}',[RecepcionesController::class,'create'])->name('recepciones.create');
 
 Route::get('/login',[SesionesController::class,'create'])->name('login.index');
 Route::post('/login',[SesionesController::class,'store'])->name('login.store');

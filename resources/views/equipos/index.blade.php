@@ -10,7 +10,7 @@
                 <th scope="col">Tipo</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
-                <th scope="col">Accion</th>
+                <th colspan="2" scope="col">Accion</th>
             </tr>
         </thead>
         @forelse ($equipos as $equipo)
@@ -20,6 +20,7 @@
             <td>{{$equipo->caracteristica->marca->marca}}</td>
             <td>{{$equipo->caracteristica->modelo}}</td>
             <td><a href="{{route('equipos.show',$equipo)}}">Ver</a></td>
+            <td><a href="{{route('recepciones.create',$equipo)}}">Agregar a recepcion</a></td>
         </tr>
         @empty
             <p>No se registro ningun equipo.</p>

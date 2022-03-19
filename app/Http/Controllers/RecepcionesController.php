@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Equipo;
+use App\Models\Cliente;
+
 class RecepcionesController extends Controller
 {
     /**
@@ -21,9 +24,9 @@ class RecepcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Equipo $equipo,Cliente $cliente)
     {
-        //
+        return view('recepciones.create',compact('equipo'),compact('cliente'));
     }
 
     /**
