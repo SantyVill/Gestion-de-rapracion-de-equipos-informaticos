@@ -23,8 +23,8 @@
             <td>{{$cliente->mail}}</td>
             <td>{{$cliente->observacion}}</td>
             <td><a href="{{route('clientes.show',$cliente)}}">Ver</a></td>
-            {{-- <td><a href="{{route('recepciones.create',$equipo,$cliente)}}">Agregar a recepcion</a></td> --}}
-            <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td>
+            <td><a href="{{route('recepciones.create',[$equipo,$cliente])}}">Agregar a recepcion</a></td>
+            {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
         </tr>
         @empty
             <p>No se registró ningún cliente</p>

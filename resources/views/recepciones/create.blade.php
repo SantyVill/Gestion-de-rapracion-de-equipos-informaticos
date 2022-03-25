@@ -29,7 +29,7 @@
             <a href="{{route('clientes.index',$equipo)}}">Elegir otro cliente</a>
         </li>
     </ul>
-    <form method="POST" action="{{route('recepciones.store')}}">
+    <form method="POST" action="{{-- {{route('recepciones.store')}} --}}">
         @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
 
 
