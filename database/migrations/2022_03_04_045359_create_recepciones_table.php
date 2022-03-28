@@ -20,19 +20,19 @@ class CreateRecepcionesTable extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('recepcionista_id');
             $table->unsignedBigInteger('equipo_id');
-            $table->unsignedBigInteger('id_estado');
+            $table->unsignedBigInteger('estado_id');
             
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->foreign('recepcionista_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
-            $table->foreign('id_estado')->references('id')->on('estados')->onDelete('cascade');
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             
             $table->string('falla')->not_null();
             $table->string('accesorio')->nullable();
             $table->date('fecha_recepcion')->not_null();
-            $table->date('fecha_entrega')->not_null();
-            $table->string('informe_final')->not_null();
-            $table->string('observación')->nullable();
+            $table->date('fecha_entrega')->nullable();
+            $table->string('informe_final')->nullable();
+            $table->string('observacion')->nullable();
             $table->double('precio',9,2)->nullable();
             $table->date('garantia')->nullable();
             $table->timestamps();

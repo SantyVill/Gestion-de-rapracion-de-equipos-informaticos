@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Equipo;
 use App\Models\Cliente;
+use App\Models\Recepcion;
+use App\Models\Estado;
 
 class RecepcionesController extends Controller
 {
@@ -24,10 +26,17 @@ class RecepcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Equipo $equipo,Cliente $cliente)
+    public function create(Equipo $equipo,Cliente $cliente/* ,Recepcion $recepcion */)
     {
-    
-        return view('recepciones.create',compact('equipo'),compact('cliente'));
+        /* if (!isset($recepcion)) {
+            $recepcion = New Recepcion();
+        }
+        $recepcion['equipo_id']=$equipo['id'];
+        if (is_null($recepcion['equipo_id'])) {
+            return redirect()->route('equipos.index');
+        } */
+        /* return $cliente; */
+        return view('recepciones.create',compact('equipo'),compact('cliente')/* ,compact('recepcion') */);
     }
 
     /**
@@ -36,9 +45,25 @@ class RecepcionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Equipo $equipo,Cliente $cliente)
     {
-        //
+        /* return $cliente['id']; */
+        /* return auth()->user()->id; */
+        $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
+        /* return $estado['id']; */
+        Recepcion::create([
+            'equipo_id'=>$equipo['id'],
+            'cliente_id'=>$cliente['id'],
+            'estado_id'=>$estado['id'],
+            'recepcionista_id'=>auth()->user()->id,//Hay que llenar este campo con el id del usuario logueado
+            'falla'=>$request['falla'],
+            'accesorio'=>$request['accesorio'],
+            'observacion'=>$request['observacion'],
+            'fecha_recepcion'=>now(),
+            'falla'=>$request['falla']
+        ]);
+
+        return redirect()->route('equipos.index');//Agregar el index de recepciones cuando este completa
     }
 
     /**

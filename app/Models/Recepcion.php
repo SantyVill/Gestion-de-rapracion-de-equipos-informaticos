@@ -8,7 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Recepcion extends Model
 {
     protected $table = 'recepciones';
-    protected $fillable = ['falla','accesorio','fecha_recepcion','fecha_entrega','informe_final','observacion','precio','garantia'];
+    protected $fillable = [
+        'recepcionista_id',
+        'equipo_id',
+        'estado_id',
+        'cliente_id',
+        'falla',
+        'accesorio',
+        'fecha_recepcion',
+        'fecha_entrega',
+        'informe_final',
+        'observacion',
+        'precio',
+        'garantia'];
     protected $hidden = ['create_at','update_at'];
     use HasFactory;
     public function cliente(){
