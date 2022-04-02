@@ -18,7 +18,8 @@ class RecepcionesController extends Controller
      */
     public function index()
     {
-        //
+        $recepciones=Recepcion::get();
+        return view('recepciones.index',compact('recepciones'));
     }
 
     /**
@@ -59,11 +60,11 @@ class RecepcionesController extends Controller
             'falla'=>$request['falla'],
             'accesorio'=>$request['accesorio'],
             'observacion'=>$request['observacion'],
-            'fecha_recepcion'=>now(),
+            'fecha_recepcion'=>date('Y-m-d H:i:s'),
             'falla'=>$request['falla']
         ]);
 
-        return redirect()->route('equipos.index');//Agregar el index de recepciones cuando este completa
+        return redirect()->route('recepciones.index');
     }
 
     /**
@@ -74,7 +75,8 @@ class RecepcionesController extends Controller
      */
     public function show($id)
     {
-        //
+        $recepcion=Recepcion::find($id);
+        return view('recepciones.show',compact('recepcion'));
     }
 
     /**
@@ -85,7 +87,8 @@ class RecepcionesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recepcion = Recepcion::find($id);
+        return view('recepciones.edit',compact('recepcion'));
     }
 
     /**
@@ -97,7 +100,12 @@ class RecepcionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $recepcion = Recepcion::find($id);
+        $recepcion['falla'] = $request['falla'];
+        $recepcion['accesorio'] = $request['accesorio'];
+        $recepcion['observacion'] = $request['observacion'];
+        $recepcion -> save();
+        return redirect()->route('recepciones.index');
     }
 
     /**
@@ -108,6 +116,13 @@ class RecepcionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recepcion= Recepcion::find($id);
+        $recepcion->delete();
+        return redirect()->route('recepciones.index');
     }
+/*     public function destroy(Recepcion $recepcion)
+    {  //NO FUNCIONA
+        $recepcion->delete();
+        return redirect()->route('recepciones.index');
+    } */
 }

@@ -29,8 +29,8 @@ class CreateRecepcionesTable extends Migration
             
             $table->string('falla')->not_null();
             $table->string('accesorio')->nullable();
-            $table->date('fecha_recepcion')->not_null();
-            $table->date('fecha_entrega')->nullable();
+            $table->timestamp('fecha_recepcion')->not_null();
+            $table->timestamp('fecha_entrega')->nullable();
             $table->string('informe_final')->nullable();
             $table->string('observacion')->nullable();
             $table->double('precio',9,2)->nullable();

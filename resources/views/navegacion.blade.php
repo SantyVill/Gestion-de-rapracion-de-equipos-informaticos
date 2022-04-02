@@ -12,7 +12,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul>
                 @if (auth()->check())
-                    <li>Nombre de usuario: {{auth()->user()->apellido.", ".auth()->user()->nombre." Roles: "}} 
+                    <li>Nombre de usuario: {{auth()->user()->apellido.", ".auth()->user()->nombre." Roles: "}} {{-- figura quien estaría logueado con su rol/es --}}
                     @foreach (auth()->user()->roles as $rol)
                         {{$rol->rol}}
                     @endforeach</li>
@@ -33,6 +33,7 @@
             <li class="{{ setActiva('equipos.*') }}"><a href="{{route('equipos.create')}}">Registrar Equipos</a></li>
             <li class="{{ setActiva('clientes.*') }}"><a href="{{route('clientes.index')}}">Clientes</a></li>
             <li class="{{ setActiva('clientes.*') }}"><a href="{{route('clientes.create')}}">Registrar Clientes</a></li>
+            <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('recepciones.index')}}">Recepciones</a></li>
             <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('recepciones.create')}}">Registrar Recepcion</a></li>
             {{-- <li class="{{ setActiva('equipos.create.*') }}"><a href="{{route('clientes.compras')}}">Clietnes</a></li> --}}
         </ul>

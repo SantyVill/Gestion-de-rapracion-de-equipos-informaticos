@@ -4,7 +4,7 @@
 
 @section('contenido')
     <h1>Aqui se mostrara la lista de clientes registrados</h1> 
-    <table>
+    <table class="table table-striped table-bordered">
     
       {{--  @if (!$clientes)--}}
             <tr>
@@ -23,7 +23,9 @@
             <td>{{$cliente->mail}}</td>
             <td>{{$cliente->observacion}}</td>
             <td><a href="{{route('clientes.show',$cliente)}}">Ver</a></td>
+        @if(isset($equipo->id))
             <td><a href="{{route('recepciones.create',[$equipo,$cliente])}}">Agregar a recepcion</a></td>
+        @endif
             {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
         </tr>
         @empty

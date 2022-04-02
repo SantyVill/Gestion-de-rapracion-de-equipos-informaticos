@@ -16,9 +16,9 @@
             <td>{{$equipo->caracteristica->modelo}}</td>
             <td>{{$equipo->observacion}}</td>
             <td><a href="{{route('equipos.edit',$equipo)}}" class="btn btn-primary">Editar</a></td>
-            {{-- <td><a href="{{route('equipos.destroy',$equipo)}}">Eliminar</a></td> --}}
+            
             <td>
-                <form method="POST" action="{{route('equipos.destroy',$equipo)}}">
+                <form method="POST" action="{{route('equipos.destroy',$equipo)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
                     @csrf @method('DELETE')
                     <button class="btn btn-danger">Eliminar</button>
                 </form>
