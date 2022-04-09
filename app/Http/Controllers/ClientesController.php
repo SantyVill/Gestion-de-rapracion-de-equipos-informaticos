@@ -18,6 +18,17 @@ class ClientesController extends Controller
         $clientes=Cliente::get();
         /*return $clientes;*/
          return view('clientes.index',compact('clientes'),compact('equipo'));
+
+         /* return auth()->user()->roles;
+        if (in_array('recepcionista',auth()->user()->roles)) { */
+        /* if(auth()->check()){
+            $clientes=Cliente::get();
+             return view('clientes.index',compact('clientes'),compact('equipo'));
+        } else {
+            return back()->withErrors([
+                'message' => 'Para acceder a esta ruta debes iniciar sesion',
+            ]);
+        } */
     }
 
     /**
@@ -116,6 +127,7 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
+        return $cliente;
         $cliente->delete();
         return redirect()->route('clientes.index');
     }

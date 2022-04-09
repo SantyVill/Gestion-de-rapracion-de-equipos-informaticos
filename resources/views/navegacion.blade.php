@@ -39,5 +39,10 @@
         </ul>
     </nav>
     @yield('contenido')
+    @if(session()->has('message'))
+        <div>
+            {{ session()->get('message') }}
+        </div>
+    @endif
 </body>
 </html>

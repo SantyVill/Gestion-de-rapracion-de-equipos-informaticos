@@ -26,9 +26,9 @@ Route::get('/', function () {
 
 Route::resource('equipos', EquiposController::class);/* Crea todas las rutas del controlador de equipos. Para que funcione descomentar la linea 29 de app\Providers\RouteServiceProvider.php   https://www.youtube.com/watch?v=fb4GfNvEf8M&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16*/
 
-Route::resource('clientes', ClientesController::class);
-Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create'); //la ruta tambien recibe un equipo
-Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index'); //la ruta tambien recibe un equipo
+Route::resource('clientes', ClientesController::class)->middleware(['auth'])->middleware(['auth','recepcionista']);
+Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create')->middleware(['auth','recepcionista']); //la ruta tambien recibe un equipo
+Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['auth','recepcionista']); //la ruta tambien recibe un equipo
 
 Route::resource('recepciones', RecepcionesController::class);
 Route::get('/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create');
