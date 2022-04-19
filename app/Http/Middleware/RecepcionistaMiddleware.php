@@ -16,11 +16,9 @@ class RecepcionistaMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        foreach (auth()->user()->roles as $rol) {
-            if ($rol=='recepcionista') {
-                return $next($request);
-            }
-        } 
+        if (auth()->user()->esRecepcionista()) {
+            return $next($request);
+        }
         return redirect()->back()->with('message','No tienes los permisos para acceder a esta ruta.');
     }
 }

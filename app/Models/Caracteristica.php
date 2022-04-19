@@ -21,4 +21,8 @@ class Caracteristica extends Model
     public function tipo(){
         return $this->belongsTo('App\Models\Tipo', 'tipo_id');
     }
+
+    public function precios(){
+        return $this->hasMany('App\Models\Precio','caracteristica_id');
+    }
 }

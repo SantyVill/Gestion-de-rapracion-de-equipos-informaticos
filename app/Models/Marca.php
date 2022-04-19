@@ -12,7 +12,7 @@ class Marca extends Model
     protected $hidden = ['created_at','updated_at'];
     use HasFactory;
 
-    public function caracteristica(){
+    public function caracteristicas(){
         return $this->hasMany('App\Models\Caracteristica','marca_id');
     }
 }

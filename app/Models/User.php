@@ -52,4 +52,30 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     } 
+
+    public function esAdmin(){
+        foreach ($this->roles as $rol) {
+            if ($rol->rol == "admin") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function esTecnico(){
+        foreach ($this->roles as $rol) {
+            if ($rol->rol == "tecnico") {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function esRecepcionista(){
+        foreach ($this->roles as $rol) {
+            if ($rol->rol == "recepcionista") {
+                return true;
+            }
+        }
+        return false;
+    }
 }

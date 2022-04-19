@@ -36,6 +36,16 @@
             <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('recepciones.index')}}">Recepciones</a></li>
             <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('recepciones.create')}}">Registrar Recepcion</a></li>
             {{-- <li class="{{ setActiva('equipos.create.*') }}"><a href="{{route('clientes.compras')}}">Clietnes</a></li> --}}
+            @if (auth()->check())
+                @if (auth()->user()->esAdmin())
+                    <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('precios.index')}}">Lista de precios</a></li>
+                @endif
+                {{-- @foreach (auth()->user()->roles as $rol)
+                    @if ($rol->rol==="admin")
+                        <li class="{{ setActiva('recepciones.*') }}"><a href="{{route('precios.index')}}">Lista de precios</a></li>
+                    @endif
+                @endforeach --}}
+            @endif
         </ul>
     </nav>
     @yield('contenido')
