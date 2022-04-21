@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Precio;
+
 use App\Models\Marca;
+
+use App\Models\Caracteristica;
 
 class PreciosController extends Controller
 {
@@ -24,9 +28,10 @@ class PreciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $caracteristica = Caracteristica::find($id);
+        return view('precios.create',compact('caracteristica'));
     }
 
     /**
@@ -35,9 +40,16 @@ class PreciosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //
+        $precio = Precio::create([
+            'caracteristica_id'=>$id,
+            'reparacion'=>$request['reparacion'],
+            'precio'=>$request['precio'],
+            'plazo'=>$request['plazo'],
+            'riesgo'=>$request['riesgo'],
+        ]);
+        return redirect()->route('precios.index');
     }
 
     /**

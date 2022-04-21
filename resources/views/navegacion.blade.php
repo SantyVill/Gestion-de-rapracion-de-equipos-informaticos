@@ -51,7 +51,7 @@
                         @endif
                     @endforeach --}}
                 @endif
-                <div class="text-rigth">
+                <div class="text-end">
                     @if (auth()->check())
                     <li>Usuario: {{auth()->user()->apellido.", ".auth()->user()->nombre/* ." Roles: " */}} {{-- figura quien estaría logueado con su rol/es --}}
                         {{-- @foreach (auth()->user()->roles as $rol)
@@ -68,11 +68,11 @@
         </nav>
         </div>
         </div>
-        <nav class="">
+        {{-- <nav class="">
             <ul>
             </ul>
-            {{-- <div>@dd(auth()->user()->roles()))</div> --}}
-        </nav>
+            <div>@dd(auth()->user()->roles()))</div>
+        </nav> --}}
     </header>
     @yield('contenido')
     @if(session()->has('message'))

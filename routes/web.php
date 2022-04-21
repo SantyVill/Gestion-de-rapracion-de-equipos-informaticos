@@ -31,8 +31,8 @@ Route::resource('equipos', EquiposController::class)->middleware(['logueo','rece
 Route::resource('clientes', ClientesController::class)->middleware(['auth'])->middleware(['auth','recepcionista']);
 Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
 Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
-/*=============== Rutas de recepciones ===============*/
 
+/*=============== Rutas de recepciones ===============*/
 Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo','recepcionista']);
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
@@ -48,3 +48,5 @@ Route::post('/registro',[RegistrosController::class,'store'])->name('registro.st
 
 /*=============== Rutas de Lista de precios ===============*/
 Route::resource('precios', PreciosController::class);
+Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create');
+Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store');

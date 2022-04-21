@@ -16,7 +16,16 @@
             </thead>
                 @forelse ($marca->caracteristicas as $caracteristica)  {{-- Muesto todos los Modelos de cada marca --}}
                 <tr>
-                    <th colspan="4">Modelo: {{$caracteristica->modelo}} <a href="{{-- {{route('precios.create',$caracteristica)}} --}}">Agregar nueva reparacion</a></th>
+                    <th colspan="4">
+                        <div class="row">
+                            <div class="col-md-10 text-left">
+                                Modelo: {{$caracteristica->modelo}} 
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <a class="text-end" href="{{route('precios.create',$caracteristica)}}">Agregar nueva reparacion</a>
+                            </div>
+                        </div>
+                    </th>
                 </tr>
                 <tr>
                     <th>Reparacion</th>
@@ -24,16 +33,16 @@
                     <th>Plazo</th>
                     <th>Riesgo</th>
                 </tr>
-                <tr>
-                    @forelse ($caracteristica->precios as $precio) {{-- Muestro todos los precios de reparaciones de cada modelo--}}
+                @forelse ($caracteristica->precios as $precio) {{-- Muestro todos los precios de reparaciones de cada modelo--}}
+                    <tr>
                         <td>{{$precio->reparacion}}</td>
                         <td>{{$precio->precio}}</td>
                         <td>{{$precio->plazo}}</td>
                         <td>{{$precio->riesgo}}</td>
+                    </tr>
                     @empty
                         <td colspan="4"><p>No se restraron precios</p></td>
                     @endforelse
-                </tr>
                 @empty
                     
                 @endforelse
