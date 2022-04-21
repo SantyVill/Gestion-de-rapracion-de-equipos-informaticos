@@ -1,5 +1,5 @@
 <?php
 
 function setActiva($ruta){
-    return request()->routeIs($ruta)? 'activa':'';
+    return request()->path()==$ruta? 'active':'';
 }

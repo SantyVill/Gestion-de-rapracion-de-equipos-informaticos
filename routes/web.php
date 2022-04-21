@@ -34,8 +34,8 @@ Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::c
 /*=============== Rutas de recepciones ===============*/
 
 Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo','recepcionista']);
-Route::get('/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
-Route::post('/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
+Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
+Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
 
 /*=============== Rutas de logueo ===============*/
 Route::get('/login',[SesionesController::class,'create'])->name('login.index');
