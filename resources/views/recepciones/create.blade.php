@@ -36,13 +36,13 @@
         </ul>
     @endif
     
-    @if (isset($equipo->id) && isset($cliente->id))
+    {{-- @if (isset($equipo->id) && isset($cliente->id))
     <form method="POST" action="{{route('recepciones.store',[$equipo,$cliente])}}">
-        @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
+        @csrf
 
 
         <input type="text" name="falla" placeholder="Falla" value="{{ old('falla')}}" required><br>
-        {!!$errors->first('falla','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
+        {!!$errors->first('falla','<small>:message</small><br>')!!}
         
         <input type="text" name="accesorio" placeholder="Accesorio" value="{{ old('accesorio')}}" required><br>
         {!!$errors->first('accesorio','<small>:message</small><br>')!!}
@@ -54,5 +54,39 @@
     
         <input type="submit" value="Enviar"><br>
     </form>
-    @endif
+    @endif --}}
+    
+    <form method="POST" action="{{route('recepciones.store')}}">
+        @csrf
+
+        @if (isset($recepcion))
+            
+        <input type="text" name="falla" placeholder="Falla" value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
+        {!!$errors->first('falla','<small>:message</small><br>')!!}
+        
+        <input type="text" name="accesorio" placeholder="Accesorio" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
+        {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+        
+        <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br>
+        
+        <textarea name="observacion" placeholder="Observacion" cols="30" rows="10">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
+        {!!$errors->first('observacion','<small>:message</small><br>')!!}
+            
+        @else
+            
+        <input type="text" name="falla" placeholder="Falla" value="{{ old('falla')}}" required><br>
+        {!!$errors->first('falla','<small>:message</small><br>')!!}
+        
+        <input type="text" name="accesorio" placeholder="Accesorio" value="{{ old('accesorio')}}" required><br>
+        {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+        
+        <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br>
+        
+        <textarea name="observacion" placeholder="Observacion" cols="30" rows="10">{{ old('observacion')}}</textarea><br>
+        {!!$errors->first('observacion','<small>:message</small><br>')!!}
+            
+        @endif
+    
+        <input type="submit" value="Enviar"><br>
+    </form>
 @endsection

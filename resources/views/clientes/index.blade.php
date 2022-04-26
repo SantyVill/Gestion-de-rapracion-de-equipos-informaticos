@@ -23,9 +23,17 @@
             <td>{{$cliente->mail}}</td>
             <td>{{$cliente->observacion}}</td>
             <td><a href="{{route('clientes.show',$cliente)}}">Ver</a></td>
-        @if(isset($equipo->id))
+            
+            <td><form method="POST" action="{{route('recepciones.store')}}">
+                @csrf
+                <input type="submit" value="Agregar a recepcion">
+                <input type="number" name="cliente_id" value="{{$cliente['id']}}" hidden>
+                {{-- <a href="{{route('recepciones.create',$equipo)}}">Agregar a recepcion</a> --}}
+            </form></td>
+
+        {{-- @if(isset($equipo->id))
             <td><a href="{{route('recepciones.create',[$equipo,$cliente])}}">Agregar a recepcion</a></td>
-        @endif
+        @endif --}}
             {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
         </tr>
         @empty

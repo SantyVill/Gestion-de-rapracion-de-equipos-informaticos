@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Cookie;
+
+use Symfony\Component\HttpFoundation\Response;
+
 use App\Models\Equipo;
 use App\Models\Cliente;
 use App\Models\Recepcion;
@@ -29,15 +33,12 @@ class RecepcionesController extends Controller
      */
     public function create(Equipo $equipo,Cliente $cliente/* ,Recepcion $recepcion */)
     {
-        /* if (!isset($recepcion)) {
-            $recepcion = New Recepcion();
+        if (null!==(Cookie::get('recepcion'))) {
+            $recepcion = json_decode(Cookie::get('recepcion'),true);
+            return view('recepciones.create',compact('recepcion'),compact('cliente')/* ,compact('recepcion') */);
+        } else {
+            return view('recepciones.create');
         }
-        $recepcion['equipo_id']=$equipo['id'];
-        if (is_null($recepcion['equipo_id'])) {
-            return redirect()->route('equipos.index');
-        } */
-        /* return $cliente; */
-        return view('recepciones.create',compact('equipo'),compact('cliente')/* ,compact('recepcion') */);
     }
 
     /**
@@ -48,22 +49,46 @@ class RecepcionesController extends Controller
      */
     public function store(Request $request,Equipo $equipo,Cliente $cliente)
     {
-        /* return $cliente['id']; */
-        /* return auth()->user()->id; */
-        $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
-        /* return $estado['id']; */
-        Recepcion::create([
-            'equipo_id'=>$equipo['id'],
-            'cliente_id'=>$cliente['id'],
-            'estado_id'=>$estado['id'],
-            'recepcionista_id'=>auth()->user()->id,//Hay que llenar este campo con el id del usuario logueado
-            'falla'=>$request['falla'],
-            'accesorio'=>$request['accesorio'],
-            'observacion'=>$request['observacion'],
-            'fecha_recepcion'=>date('Y-m-d H:i:s'),
-            'falla'=>$request['falla']
-        ]);
+        if (isset($request['falla'])) {
+            $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
+            $recepcion = new Recepcion([
+                'estado_id'=>$estado['id'],
+                'recepcionista_id'=>auth()->user()->id,//Hay que llenar este campo con el id del usuario logueado
+                'falla'=>$request['falla'],
+                'accesorio'=>$request['accesorio'],
+                'observacion'=>$request['observacion'],
+                'fecha_recepcion'=>date('Y-m-d H:i:s'),
+            ]);
+            Cookie::queue('recepcion', $recepcion, 100);
+        } else if(!(null!==(Cookie::get('recepcion')))) {
+            return redirect()->route('recepciones.create');
+        }
 
+        if (isset($request['equipo_id'])) {
+            Cookie::queue('equipo',$request['equipo_id'] , 10);
+        } else if(!(null!==(Cookie::get('equipo')))) {
+            return redirect()->route('equipos.index');
+        }
+
+        if (!isset($request['cliente_id'])) {
+            return redirect()->route('clientes.index');
+        }
+
+        $recepcion = json_decode(Cookie::get('recepcion'),true);
+        $equipo_id=Cookie::get('equipo');
+        Recepcion::create([
+            'equipo_id'=>$equipo_id,
+            'cliente_id'=>$request['cliente_id'],
+            'estado_id'=>$recepcion['estado_id'],
+            'recepcionista_id'=>$recepcion['recepcionista_id'],//Hay que llenar este campo con el id del usuario logueado
+            'falla'=>$recepcion['falla'],
+            'accesorio'=>$recepcion['accesorio'],
+            'observacion'=>$recepcion['observacion'],
+            'fecha_recepcion'=>$recepcion['fecha_recepcion'],
+        ]);
+        Cookie::queue(Cookie::forget('recepcion'));
+        Cookie::queue(Cookie::forget('equipo'));
+        Cookie::queue(Cookie::forget('cliente'));
         return redirect()->route('recepciones.index');
     }
 
