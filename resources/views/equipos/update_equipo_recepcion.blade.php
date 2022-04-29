@@ -20,12 +20,12 @@
             <td>{{$equipo->caracteristica->marca->marca}}</td>
             <td>{{$equipo->caracteristica->modelo}}</td>
             <td><a href="{{route('equipos.show',$equipo)}}">Ver</a></td>
-            {{-- <td><form method="POST" action="{{route('recepciones.store')}}">
+            <td><form method="POST" action="{{route('recepciones.store')}}">
                 @csrf
                 <input type="submit" value="Agregar a recepcion">
                 <input type="number" name="equipo_id" value="{{$equipo['id']}}" hidden>
-            </form></td> --}}
-            {{-- <a href="{{route('recepciones.create',$equipo)}}">Agregar a recepcion</a> --}}
+                {{-- <a href="{{route('recepciones.create',$equipo)}}">Agregar a recepcion</a> --}}
+            </form></td>
         </tr>
         @empty
             <p>No se registro ningun equipo.</p>

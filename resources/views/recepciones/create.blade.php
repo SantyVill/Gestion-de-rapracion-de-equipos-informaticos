@@ -4,9 +4,7 @@
 
 @section('contenido')
     <h1>Aqui se mostrara el formulario para registrar una recepcion</h1>
-    @if (!isset($equipo->id)) {{-- Si el quipo no esta selecionado, muestra el listado para seleccionar uno --}}
-        <a href="{{route('equipos.index')}}">Seleccionar equipo</a><br>
-    @else
+    @if (isset($equipo['id'])) {{-- Si el quipo no esta selecionado, muestra el listado para seleccionar uno --}}
         <p>Equipo Selecionado: </p>
         <ul>
             <li>Numero de serie: {{$equipo->numero_serie}}</li>
@@ -15,14 +13,13 @@
             <li>Modelo: {{$equipo->caracteristica->modelo}}</li>
             <li>Observacion: {{$equipo->observacion}}</li>            
             <li>
-                <a href="{{route('recepciones.create')}}">Eliminar equipo</a>
-                <a href="{{route('equipos.index')}}">Elegir otro equipo</a>
+                {{-- <a href="{{route('recepciones.create')}}">Eliminar equipo</a> --}}
+                <a href="{{route('equipos.select_recepcion')}}">Elegir otro equipo</a>
             </li>
         </ul>
     @endif
-    @if (!isset($cliente->id) && isset($equipo->id)){{-- Si el cliente no esta selecionado, muestra el listado para seleccionar uno --}}
-        <a href="{{route('clientes.index',$equipo)}}">Seleccionar cliente</a>
-    @elseif(isset($cliente->id))
+
+    @if (isset($cliente->id))
         <p>Cliente Selecionado: </p>
         <ul>
             <li>Apellido y Nombre: {{$cliente['apellido'].", ".$cliente->nombre}}</li>
@@ -30,8 +27,8 @@
             <li>Mail: {{$cliente->mail}}</li>
             <li>Observacion: {{$cliente->observacion}}</li>            
             <li>
-                <a href="{{route('recepciones.create',$equipo)}}">Eliminar cliente</a>
-                <a href="{{route('clientes.index',$equipo)}}">Elegir otro cliente</a>
+                {{-- <a href="{{route('recepciones.create',$equipo)}}">Eliminar cliente</a> --}}
+                <a href="{{route('clientes.select_recepcion')}}">Elegir otro cliente</a>
             </li>
         </ul>
     @endif
@@ -87,6 +84,12 @@
             
         @endif
     
-        <input type="submit" value="Enviar"><br>
+        @if (!(null!==(Cookie::get('equipo'))))
+            <input type="submit" value="Selecionar Equipo"><br>
+        @elseif(!(null!==(Cookie::get('cliente'))))
+            <input type="submit" value="Selecionar Cliente"><br>      
+        @else
+            <input type="submit" value="Confirmar"><br>
+        @endif
     </form>
 @endsection

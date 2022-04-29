@@ -31,11 +31,27 @@ class RecepcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Equipo $equipo,Cliente $cliente/* ,Recepcion $recepcion */)
+    public function create2(Equipo $equipo,Cliente $cliente,Recepcion $recepcion)
     {
         if (null!==(Cookie::get('recepcion'))) {
             $recepcion = json_decode(Cookie::get('recepcion'),true);
             return view('recepciones.create',compact('recepcion'),compact('cliente')/* ,compact('recepcion') */);
+        } else {
+            return view('recepciones.create');
+        }
+    }
+    
+    public function create(Equipo $equipo,Cliente $cliente /* ,Recepcion $recepcion */)
+    {
+        if (null!==(Cookie::get('equipo'))) {
+            $equipo = Equipo::find(Cookie::get('equipo'));
+        }
+        if (null!==(Cookie::get('cliente'))) {
+            $cliente = Cliente::find(Cookie::get('cliente'));
+        }
+        if (null!==(Cookie::get('recepcion'))) {
+            $recepcion = json_decode(Cookie::get('recepcion'),true);
+            return view('recepciones.create',compact('recepcion','cliente','equipo'));
         } else {
             return view('recepciones.create');
         }
@@ -65,20 +81,26 @@ class RecepcionesController extends Controller
         }
 
         if (isset($request['equipo_id'])) {
-            Cookie::queue('equipo',$request['equipo_id'] , 10);
+            Cookie::queue('equipo',$request['equipo_id'] , 100);
+            return redirect()->route('recepciones.create');
         } else if(!(null!==(Cookie::get('equipo')))) {
-            return redirect()->route('equipos.index');
+            return redirect()->route('equipos.select_recepcion');
         }
 
-        if (!isset($request['cliente_id'])) {
-            return redirect()->route('clientes.index');
+
+        if (isset($request['cliente_id'])) {
+            Cookie::queue('cliente',$request['cliente_id'] , 100);
+            return redirect()->route('recepciones.create');
+        } else if(!(null!==(Cookie::get('cliente')))) {
+            return redirect()->route('clientes.select_recepcion');
         }
 
         $recepcion = json_decode(Cookie::get('recepcion'),true);
         $equipo_id=Cookie::get('equipo');
+        $cliente_id=Cookie::get('equipo');
         Recepcion::create([
             'equipo_id'=>$equipo_id,
-            'cliente_id'=>$request['cliente_id'],
+            'cliente_id'=>$cliente_id,
             'estado_id'=>$recepcion['estado_id'],
             'recepcionista_id'=>$recepcion['recepcionista_id'],//Hay que llenar este campo con el id del usuario logueado
             'falla'=>$recepcion['falla'],

@@ -131,4 +131,10 @@ class ClientesController extends Controller
         $cliente->delete();
         return redirect()->route('clientes.index');
     }
+
+    public function select_cliente_recepcion()
+    {
+        $clientes=Cliente::get();
+        return view('clientes.select_cliente_recepcion',compact('clientes'));
+    }
 }

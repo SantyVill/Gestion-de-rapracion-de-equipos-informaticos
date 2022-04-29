@@ -165,4 +165,16 @@ class EquiposController extends Controller
         $equipo->delete();
         return redirect()->route('equipos.index');
     }
+
+    public function select_equipo_recepcion()
+    {
+        $equipos=Equipo::get();
+        return view('equipos.select_equipo_recepcion',compact('equipos'));
+    }
+
+    public function update_equipo_recepcion()
+    {
+        $equipos=Equipo::get();
+        return view('equipos.update_equipo_recepcion',compact('equipos'));
+    }
 }
