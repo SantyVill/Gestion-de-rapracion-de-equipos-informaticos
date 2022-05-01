@@ -21,7 +21,7 @@ class EquiposController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         /* $equipos = Equipo::get(); */
         /* $equipos = [
@@ -30,7 +30,15 @@ class EquiposController extends Controller
             ['marca' => 'marca3'],
             ['marca' => 'marca4'] 
         ]; */
-        $equipos=Equipo::get();
+        if ($request['buscar']!='') {
+            $buscar = $request['buscar'];
+            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')->get();
+            return view('equipos.index',compact('equipos'));
+            
+        } else {
+            $equipos=Equipo::get();
+        }
+        
         return view('equipos.index',compact('equipos'));
     }
 

@@ -3,6 +3,15 @@
 @section('titulo','Lista de equipos')
 
 @section('contenido')
+
+    <div class="container">
+        <div class="">
+            <form class="form-inlinefloat-right">
+                <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Equipo" aria-label="Search" value="">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>

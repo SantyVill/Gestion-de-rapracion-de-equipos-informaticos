@@ -74,7 +74,9 @@
             <div>@dd(auth()->user()->roles()))</div>
         </nav> --}}
     </header>
-    @yield('contenido')
+    <div class="container">
+        @yield('contenido')
+    </div>
     @if(session()->has('message'))
         <div>
             {{ session()->get('message') }}
