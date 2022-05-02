@@ -32,5 +32,13 @@ class DatabaseSeeder extends Seeder
             'user_id'=>1,
             'rol_id'=>1
         ]);
+        DB::table('rol_user')->insert([
+            'user_id'=>1,
+            'rol_id'=>2
+        ]);
+        DB::table('rol_user')->insert([
+            'user_id'=>1,
+            'rol_id'=>3
+        ]);
     }
 }

@@ -97,7 +97,7 @@ class RecepcionesController extends Controller
 
         $recepcion = json_decode(Cookie::get('recepcion'),true);
         $equipo_id=Cookie::get('equipo');
-        $cliente_id=Cookie::get('equipo');
+        $cliente_id=Cookie::get('cliente');
         Recepcion::create([
             'equipo_id'=>$equipo_id,
             'cliente_id'=>$cliente_id,
