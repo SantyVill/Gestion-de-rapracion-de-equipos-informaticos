@@ -31,15 +31,6 @@ class RecepcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create2(Equipo $equipo,Cliente $cliente,Recepcion $recepcion)
-    {
-        if (null!==(Cookie::get('recepcion'))) {
-            $recepcion = json_decode(Cookie::get('recepcion'),true);
-            return view('recepciones.create',compact('recepcion'),compact('cliente')/* ,compact('recepcion') */);
-        } else {
-            return view('recepciones.create');
-        }
-    }
     
     public function create(Equipo $equipo,Cliente $cliente /* ,Recepcion $recepcion */)
     {
@@ -123,6 +114,10 @@ class RecepcionesController extends Controller
     public function show($id)
     {
         $recepcion=Recepcion::find($id);
+  /*       foreach ($recepcion->revisiones as $revision) {
+            return $revision;
+        } */
+
         return view('recepciones.show',compact('recepcion'));
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegistrosController;
 use App\Http\Controllers\SesionesController;
+//use App\Http\Controllers\RevisionesController;
 //use App\Http\Controllers\RecepcionesController;
 //use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
@@ -53,3 +54,8 @@ Route::post('/registro',[RegistrosController::class,'store'])->name('registro.st
 Route::resource('precios', PreciosController::class);
 Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create');
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store');
+/*=============== Rutas de Revisiones ===============*/
+Route::resource('revisiones', RevisionesController::class);
+
+Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
+Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');

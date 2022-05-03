@@ -30,6 +30,7 @@
 
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
             <td><a href="{{route('recepciones.edit',$recepcion)}}">Editar</a></td>
+            <td><a href="{{route('revisiones.create',$recepcion)}}">Agregar Revision</a></td>
         
             <td>
                 <form method="POST" action="{{route('recepciones.destroy',$recepcion)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
@@ -41,4 +42,23 @@
             </td>
         </tr>
     </table>       
+    <table>
+        <tr>
+            <th>Nota</th>
+            <th>Fecha</th>
+            <th>Usuario</th>
+        </tr>
+        
+        @forelse ($recepcion->revisiones as $revision)
+            <tr>
+                <td>{{$revision->nota}}</td>
+                <td>{{$revision->fecha}}</td>
+                {{-- <td>{{$revision->user->apellido.', '.$revision->user->nombre}}</td>  --}}
+            </tr>        
+        @empty
+            <p>No se agregó ninguna revisión</p>
+        @endforelse
+        
+    </table> 
+    {{dd($recepcion)}} 
 @endsection

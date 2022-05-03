@@ -35,4 +35,7 @@ class Recepcion extends Model
     public function estado(){
         return $this->belongsTo('App\Models\Estado');
     }
+    public function revisiones(){
+        return $this->hasMany(Revision::class);
+    }
 }

@@ -21,7 +21,7 @@ class CreateRevisionsTable extends Migration
             $table->foreign('recepcion_id')->references('id')->on('recepciones');
             $table->string('nota')->nullable();
             $table->timestamp('fecha')->nullable();
-            $table->text('Observación');
+ //           $table->text('Observación');
             $table->timestamps();
         });
     }
