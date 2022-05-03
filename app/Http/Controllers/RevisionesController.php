@@ -6,6 +6,8 @@ use App\Models\Recepcion;
 use App\Models\Revision;
 use Illuminate\Http\Request;
 
+use App\Models\Estado;
+
 class RevisionesController extends Controller
 {
     /**
@@ -36,12 +38,16 @@ class RevisionesController extends Controller
      */
     public function store(Request $request, Recepcion $recepcion)
     {
-        Revision::create([
+        $revision = Revision::create([
             'tecnico_id'=>auth()->user()->id,
             'recepcion_id'=>$recepcion['id'],
             'nota'=>$request['nota'],
             'fecha'=>date('Y-m-d H:i:s'),
         ]);
+        $recepcion = $revision->recepcion;
+        $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
+        $recepcion->estado_id= $nuevoEstado['id'];
+        $recepcion->save();
         return redirect() -> route('recepciones.show',$recepcion);
     }
 

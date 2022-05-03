@@ -13,7 +13,7 @@ class Revision extends Model
     use HasFactory;
     
     public function user(){
-        return $this->belongsTo('App\Models\User','tecnico_id','id');
+        return $this->belongsTo('App\Models\User','tecnico_id');
     }
 
     public function recepcion(){

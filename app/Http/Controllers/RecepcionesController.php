@@ -114,8 +114,8 @@ class RecepcionesController extends Controller
     public function show($id)
     {
         $recepcion=Recepcion::find($id);
-  /*       foreach ($recepcion->revisiones as $revision) {
-            return $revision;
+        /* foreach ($recepcion->revisiones as $revision) {
+            return $revision->user;
         } */
 
         return view('recepciones.show',compact('recepcion'));
