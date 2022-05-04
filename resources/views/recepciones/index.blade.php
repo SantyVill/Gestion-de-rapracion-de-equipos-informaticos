@@ -4,6 +4,28 @@
 
 @section('contenido')
     <h1>Aqui se mostrara la lista de las recepciones</h1>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <a href="{{route('recepciones.create')}}" class="nav-link {{ setActiva('recepciones/create') }}">
+                    <button type="button" class="btn btn-success">Registrar Recepcion</button>
+                </a>
+            </div>
+            <div class="col-5">
+                <form class="form-inlinefloat-right">
+                    <div class="row">
+                        <div class="col-7">
+                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Recepcion" aria-label="Search" value="">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <table class="table table-striped table-bordered">
     
       {{--  @if (!$clientes)--}}

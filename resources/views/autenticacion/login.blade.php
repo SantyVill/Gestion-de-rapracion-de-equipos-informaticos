@@ -3,19 +3,36 @@
 @section('titulo','Logueo')
 
 @section('contenido')
-<h1>Aqui se loguean los usuarios</h1>
-<form method="POST" action="{{route('login.store')}}">
-    @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
-    
-    <input type="email" name="email" placeholder="Email" value="{{ old('email')}}" required><br>
-    {!!$errors->first('email','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
-    
-    
-    <input type="password" name="password" placeholder="Contraseña" required><br>
-    {!!$errors->first('password','<small>:message</small><br>')!!}
-    @error('message')
-    <p>{{$message}}</p>
-    @enderror
-    <input type="submit" class="btn btn-success" value="Enviar"><br>
-</form>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="mr-auto col-4">
+            <form class="form-signin" method="POST" action="{{route('login.store')}}">
+                @csrf
+                <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Por favor, registrese</font></font></h1>
+                
+                <div class="form-floating">
+                    <input  class="form-control" placeholder="nombre@ejemplo.com" type="email" name="email" placeholder="Email" value="{{ old('email')}}" required><br>
+                    {{-- <input type="email" class="form-control" id="floatingInput" placeholder="nombre@ejemplo.com"> --}}
+                    <label for="floatingInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dirección de correo electrónico</font></font></label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" type="password" name="password" placeholder="Contraseña" required placeholder="Clave"><br>
+                    {{-- <input type="password" class="form-control" id="floatingPassword" placeholder="Clave"> --}}
+                    <label for="floatingPassword"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Clave</font></font></label>
+                </div>
+                
+                {{-- <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Acuérdate de mí
+                        </font></font></label>
+                    </div> --}}
+                    <button class="w-100 btn btn-lg btn-primary" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
+                    {{-- <p class="mt-5 mb-3 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2017–2021</font></font></p> --}}
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
 @endsection
