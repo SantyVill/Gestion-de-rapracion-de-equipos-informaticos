@@ -23,18 +23,19 @@ class EquiposController extends Controller
      */
     public function index(Request $request)
     {
-        /* $equipos = Equipo::get(); */
-        /* $equipos = [
-             ['marca' => 'marca1'],
-            ['marca' => 'marca2'],
-            ['marca' => 'marca3'],
-            ['marca' => 'marca4'] 
-        ]; */
-        if ($request['buscar']!='') {
-            $buscar = $request['buscar'];
-            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')->get();
+        if (isset($request['buscar']) && $request['buscar']!='') {
+            $equipos=Equipo::where('numero_serie','like','%'.$request['buscar'].'%')
+            ->orwhereRelation(
+                'caracteristica', 'modelo', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.marca', 'marca', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.tipo', 'tipo', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->get();
             return view('equipos.index',compact('equipos'));
-            
         } else {
             $equipos=Equipo::get();
         }
