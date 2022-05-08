@@ -13,11 +13,35 @@ class ClientesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Equipo $equipo)
+    public function index(Request $request)
     {   
-        $clientes=Cliente::get();
+        if (isset($request['buscar']) && $request['buscar']!='') {
+            $clientes=Cliente::where('nombre','like','%'.$request['buscar'].'%')
+            ->orwhere(
+                'apellido','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'dni','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'telefono1','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'telefono2','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'direccion','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'mail','like','%'.$request['buscar'].'%'
+            )
+            ->get();
+        } else {
+            $clientes=Cliente::get();
+        }
+        
         /*return $clientes;*/
-         return view('clientes.index',compact('clientes'),compact('equipo'));
+         return view('clientes.index',compact('clientes'));
 
          /* return auth()->user()->roles;
         if (in_array('recepcionista',auth()->user()->roles)) { */

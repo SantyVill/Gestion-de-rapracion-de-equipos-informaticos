@@ -20,9 +20,35 @@ class RecepcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $recepciones=Recepcion::get();
+        if (isset($request['buscar']) && $request['buscar']!='') {
+            $recepciones=Recepcion::where('falla','like','%'.$request['buscar'].'%')
+            ->orwhere(
+                'accesorio', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'fecha_recepcion', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'equipo', 'numero_serie', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica', 'modelo', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'cliente', 'apellido', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'cliente', 'nombre', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->get();
+        } else {
+            $recepciones=Recepcion::get();
+        }
         return view('recepciones.index',compact('recepciones'));
     }
 
