@@ -28,7 +28,7 @@
                 
                 {{-- =============LINKS DE EQUIPOS============= --}}
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {{ setActiva('equipos') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle {{ setActiva('equipos.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Equipos
                   </a>
                   <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -43,7 +43,7 @@
                     
                 {{-- =============LINKS DE CLIENTES============= --}}
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {{ setActiva('clientes') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle {{ setActiva('clientes.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Clientes
                   </a>
                   <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -58,7 +58,7 @@
                     
                 {{-- =============LINKS DE RECEPCIONES============= --}}
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {{ setActiva('recepciones') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle {{ setActiva('recepciones.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Recepciones
                   </a>
                   <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -73,13 +73,13 @@
 
                 {{-- =============LINKS DE USUARIOS============= --}}
                 <li class="nav-item ">
-                    <a href="{{route('registro.index')}}"  class="nav-link {{ setActiva('recepciones') }}">Registrar usuario</a>
+                    <a href="{{route('registro.index')}}"  class="nav-link {{ setActiva('registro.*') }}">Registrar usuario</a>
                 </li>
                 
                 {{-- =============LINKS DE LISTA DE PRECIOS============= --}}
                 @if (auth()->check() && auth()->user()->esAdmin())
                 <li class="nav-item">
-                    <a href="{{route('precios.index')}}" class="nav-link {{ setActiva('precios') }}">Lista de precios</a>
+                    <a href="{{route('precios.index')}}" class="nav-link {{ setActiva('precios.*') }}">Lista de precios</a>
                 </li>
                 @endif
                 
