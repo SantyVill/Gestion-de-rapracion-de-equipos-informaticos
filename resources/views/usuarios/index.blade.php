@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-7">
-                <a href="{{route('registros.create')}}" class="nav-link}}">
+                <a href="{{route('usuarios.create')}}" class="nav-link}}">
                     <button type="button" class="btn btn-success">Registrar Usuario</button>
                 </a>
             </div>
@@ -45,7 +45,7 @@
                     No tiene roles
                 @endforelse
             </td>
-            <td><a href="{{route('registros.show',$usuario)}}">Ver</a></td>
+            <td><a href="{{route('usuarios.show',$usuario)}}">Ver</a></td>
         </tr>
         @empty
             <p>No se registro ningun equipo.</p>

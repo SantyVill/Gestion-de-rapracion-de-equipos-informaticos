@@ -19,10 +19,10 @@
                     No tiene roles
                 @endforelse
             </td>
-            <td><a href="{{route('registros.edit',$user)}}" class="btn btn-primary">Editar</a></td>
+            <td><a href="{{route('usuarios.edit',$user)}}" class="btn btn-primary">Editar</a></td>
             
             <td>
-                <form method="POST" action="{{route('registros.destroy',$user)}}"onclick="return confirm('¿Está seguro que desea borrar este usuario?')">
+                <form method="POST" action="{{route('usuarios.destroy',$user)}}"onclick="return confirm('¿Está seguro que desea borrar este usuario?')">
                     @csrf @method('DELETE')
                     <button class="btn btn-danger">Eliminar</button>
                 </form>

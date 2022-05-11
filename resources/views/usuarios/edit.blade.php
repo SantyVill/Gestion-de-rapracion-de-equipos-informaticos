@@ -4,8 +4,7 @@
 
 @section('contenido')
 <h1>Aqui registra los usuarios</h1>
-{{$user->esRecepcionista()?'ES RECEPCIONISTA':''}}
-<form method="POST" action="{{route('registros.update',$user)}}">
+<form method="POST" action="{{route('usuarios.update',$user)}}">
     @csrf @method('PATCH')
     <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre',$user->nombre)}}" required><br>
     {!!$errors->first('nombre','<small>:message</small><br>')!!}

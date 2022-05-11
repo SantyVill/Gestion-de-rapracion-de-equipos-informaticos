@@ -4,7 +4,7 @@
 
 @section('contenido')
 <h1>Aqui registra los usuarios</h1>
-<form method="POST" action="{{route('registros.store')}}">
+<form method="POST" action="{{route('usuarios.store')}}">
     @csrf {{-- token de seguridad https://www.youtube.com/watch?v=bNgV5hZ2Uco&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=17 --}}
     
     <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre')}}" required><br>
