@@ -36,4 +36,52 @@ class RegistrosController extends Controller
         /* Auth::loginUsingId($user->id); */
         return redirect()->route('home');
     }
+    public function index(){
+        $users = User::get();
+        return view('usuarios.index',compact('users'));
+    }
+
+    public function show(User $user){
+        return view('usuarios.show',compact('user'));
+    }
+
+    public function edit(User $user){
+        /* return $user->roles; */
+        return view('usuarios.edit',compact('user'));
+    }
+
+    public function update(Request $request,User $user){
+        $user = User::find($request->id);
+        $user['nombre']=request('nombre');
+        $user['apellido']=$request['apellido'];
+        $user['email']=$request['email'];
+        if ($request->tecnico=='on') {
+            if (!($user->esTecnico())) {
+                $rol = Rol::get()->where('rol','=','tecnico');
+                $user->roles()->attach($rol);
+            }
+        } else {
+            $user->roles()->detach(Rol::get()->where('rol','=','tecnico'));
+        }
+        if ($request->recepcionista=='on' ) {
+            if (!($user->esRecepcionista())) {
+                $rol = Rol::get()->where('rol','=','recepcionista');
+                $user->roles()->attach($rol);
+            }
+        } else {
+            $user->roles()->detach(Rol::get()->where('rol','=','recepcionista'));
+        }
+
+        if ($request->password!='') {
+            $user->password=$request->password;
+        }
+        $user->save();
+        return redirect()->route('registros.show',$user);
+    }
+
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('registros.index');
+    }
 }

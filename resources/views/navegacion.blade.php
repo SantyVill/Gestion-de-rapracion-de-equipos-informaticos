@@ -72,9 +72,20 @@
                 </li>
 
                 {{-- =============LINKS DE USUARIOS============= --}}
-                <li class="nav-item ">
-                    <a href="{{route('registro.index')}}"  class="nav-link {{ setActiva('registro.*') }}">Registrar usuario</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle {{ setActiva('registro.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuarios
+                  </a>
+                  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    <li class="nav-item ">
+                        <a href="{{route('registros.index')}}"  class="nav-link {{ setActiva('registro.*') }}">Lista de Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('registros.create')}}" class="dropdown-item nav-link">Registrar usuario</a>
+                    </li>
+                  </ul>
                 </li>
+
                 
                 {{-- =============LINKS DE LISTA DE PRECIOS============= --}}
                 @if (auth()->check() && auth()->user()->esAdmin())

@@ -47,8 +47,13 @@ Route::post('/login',[SesionesController::class,'store'])->name('login.store');
 Route::get('/login/destroy',[SesionesController::class,'destroy'])->name('login.destroy');
 
 /*=============== Rutas de registro de usuarios ===============*/
-Route::get('/registro',[RegistrosController::class,'create'])->name('registro.index');
-Route::post('/registro',[RegistrosController::class,'store'])->name('registro.store');
+Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index');
+Route::get('/registro/show/{user?}',[RegistrosController::class,'show'])->name('registros.show');
+Route::get('/registro/edit/{user}',[RegistrosController::class,'edit'])->name('registros.edit');
+Route::get('/registro',[RegistrosController::class,'create'])->name('registros.create');
+Route::post('/registro',[RegistrosController::class,'store'])->name('registros.store');
+Route::patch('/registro/update',[RegistrosController::class,'update'])->name('registros.update');
+Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('registros.destroy');
 
 /*=============== Rutas de Lista de precios ===============*/
 Route::resource('precios', PreciosController::class);
