@@ -49,7 +49,7 @@ class PreciosController extends Controller
             'plazo'=>$request['plazo'],
             'riesgo'=>$request['riesgo'],
         ]);
-        return redirect()->route('precios.index');
+        return redirect()->route('marcas.show',$precio->caracteristica->marca);
     }
 
     /**
@@ -103,6 +103,6 @@ class PreciosController extends Controller
     {
         $precio=Precio::find($id);
         $precio->delete();
-        return redirect()->route('precios.index');
+        return redirect()->route('marcas.show',$precio->caracteristica->marca);
     }
 }

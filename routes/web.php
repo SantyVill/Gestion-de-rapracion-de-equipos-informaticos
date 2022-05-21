@@ -60,8 +60,11 @@ Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('
 Route::resource('precios', PreciosController::class);
 Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create');
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store');
+
 /*=============== Rutas de Revisiones ===============*/
 Route::resource('revisiones', RevisionesController::class);
-
 Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
 Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
+
+/*=============== Rutas de Lista de precios ===============*/
+Route::resource('marcas', MarcasController::class);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Marca;
+
 class MarcasController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class MarcasController extends Controller
      */
     public function index()
     {
-        //
+        $marcas = Marca::get();
+        return view('marcas.index',compact('marcas'));
     }
 
     /**
@@ -45,7 +48,8 @@ class MarcasController extends Controller
      */
     public function show($id)
     {
-        //
+        $marca = Marca::find($id);
+        return view('marcas.show',compact('marca'));
     }
 
     /**
