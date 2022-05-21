@@ -37,9 +37,9 @@ Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::
 Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
 
 /*=============== Rutas de recepciones ===============*/
-Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo','recepcionista']);
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
+Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
 
 /*=============== Rutas de logueo ===============*/
 Route::get('/login',[SesionesController::class,'create'])->name('login.index');
@@ -47,7 +47,7 @@ Route::post('/login',[SesionesController::class,'store'])->name('login.store');
 Route::get('/login/destroy',[SesionesController::class,'destroy'])->name('login.destroy');
 
 /*=============== Rutas de registro de usuarios ===============*/
-Route::resource('usuarios', UsuariosController::class)/* ->middleware(['auth'])->middleware(['auth','recepcionista']) */;
+Route::resource('usuarios', UsuariosController::class)->middleware(['auth','admin']);
 /* Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index');
 Route::get('/registro/show/{user?}',[RegistrosController::class,'show'])->name('registros.show');
 Route::get('/registro/edit/{user}',[RegistrosController::class,'edit'])->name('registros.edit');
