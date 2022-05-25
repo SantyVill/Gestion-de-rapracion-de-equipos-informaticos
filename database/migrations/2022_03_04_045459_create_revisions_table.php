@@ -19,7 +19,7 @@ class CreateRevisionsTable extends Migration
             $table->foreign('tecnico_id')->references('id')->on('users');
             $table->unsignedBigInteger('recepcion_id')->nullable();
             $table->foreign('recepcion_id')->references('id')->on('recepciones');
-            $table->string('nota')->nullable();
+            $table->text('nota')->nullable();
             $table->timestamp('fecha')->nullable();
  //           $table->text('Observación');
             $table->timestamps();
