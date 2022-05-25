@@ -65,23 +65,79 @@
     </div>
     <table class="table  table-bordered"> 
         <thead class="thead-dark">
-        <tr>
-            <th>Notas</th>
-            <th>Fecha</th>
-            <th>Usuario</th>
+        <tr class="d-flex">
+            <th class="col-8">Notas</th>
+            <th class="col-2">Fecha</th>
+            <th class="col-2">Usuario</th>
         </tr>
         </thead>
         @forelse ($recepcion->revisiones as $revision)
-            <tr  class="{{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
-                <td>{{$revision->nota}}</td>
-                <td>{{$revision->fecha}}</td>
-                <td>{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
+            <tr class="d-flex {{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
+                <td class="col-8">{{$revision->nota}}</td>
+                <td class="col-2 text-center">{{$revision->fecha}}</td>
+                <td class="col-2 text-center">{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
                 {{-- <td>{{User::find($revision->tecnico_id)->apellido.', '.User::find($revision->tecnico_id)->nombre}}</td> --}}
             </tr>        
         @empty
             <p>No se agregó ninguna revisión</p>
         @endforelse
         
-    </table> 
-    {{-- {{dd($recepcion)}} --}} 
+
+        
+        
+            </table> 
+            
+            
+            {{-- <div class="card caht-app">
+                <div class="chat">
+                    <div class="chat-history">
+                        <ul class="m-b-0">
+                            <li class="clearfix">
+                                <div class="message-data text-right"> <span class="message-data-time">10:10 AM, Today</span>
+                                    <div class="message other-message float-right"> Hi Aiden, how are you? How is the project coming
+                                        along?</div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="message-data"> <span class="message-data-time">10:12 AM, Today</span></div>
+                                        <div class="message my-message">Are we meeting today?</div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="message-data"> <span class="message-data-time">10:15 AM, Today</span></div>
+                                <div class="message my-message">Project has been already finished and I have results to show
+                                    you.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> --}}
+            @forelse ($recepcion->revisiones as $revision)
+            <div class="container">
+              <div class="mx-auto card text-dark {{($revision->tecnico_id==auth()->user()->id)?'border-info':'border-warning'}} mb-3" {{-- style="max-width: 70%;" --}}>
+                <div class="container">
+                <div class="card-header row">
+                    <div class="col-9">{{$revision->user->apellido.', '.$revision->user->nombre}}</div>
+                    <div class="col-3">{{$revision->fecha}}</div>
+                </div>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">{{$revision->nota}}</p>
+                </div>
+              </div>
+            </div>  
+            @empty
+                <p>No se agregó ninguna revisión</p>
+            @endforelse
+            
+
+                {{-- <tr  class="{{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
+                    <td>{{$revision->nota}}</td>
+                    <td>{{$revision->fecha}}</td>
+                    <td>{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
+                </tr> --}}
+
+
+
+
+
+    
 @endsection
