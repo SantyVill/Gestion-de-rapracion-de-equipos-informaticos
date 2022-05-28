@@ -17,7 +17,7 @@ class CreateEquiposTable extends Migration
             $table->id();
             $table->unsignedBigInteger('caracteristica_id');
             $table->foreign('caracteristica_id')->references('id')->on('caracteristicas');
-            $table->string('numero_serie');
+            $table->string('numero_serie',50);
             $table->text('observacion')->nullable();
             $table->timestamps();
         });

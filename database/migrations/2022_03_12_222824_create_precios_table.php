@@ -19,10 +19,10 @@ class CreatePreciosTable extends Migration
             $table->unsignedBigInteger('caracteristica_id');
             $table->foreign('caracteristica_id')->references('id')->on('caracteristicas')->onDelete('cascade');
 
-            $table->string('reparacion')->not_null();
+            $table->text('reparacion')->not_null();
             $table->double('precio',9,2)->not_null();
             $table->date('plazo')->not_null();
-            $table->string('riesgo')->nullable();
+            $table->string('riesgo',30)->nullable();
 
             $table->timestamps();
         });

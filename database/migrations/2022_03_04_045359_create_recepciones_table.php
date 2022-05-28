@@ -27,11 +27,11 @@ class CreateRecepcionesTable extends Migration
             $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             
-            $table->string('falla')->not_null();
-            $table->string('accesorio')->nullable();
+            $table->string('falla',100)->not_null();
+            $table->string('accesorio',100)->nullable();
             $table->timestamp('fecha_recepcion')->not_null();
             $table->timestamp('fecha_entrega')->nullable();
-            $table->string('informe_final')->nullable();
+            $table->text('informe_final')->nullable();
             $table->text('observacion')->nullable();
             $table->double('precio',9,2)->nullable();
             $table->date('garantia')->nullable();

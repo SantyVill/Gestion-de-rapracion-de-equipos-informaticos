@@ -22,7 +22,7 @@ class CreateCaracteristicasTable extends Migration
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
             $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('cascade');
 
-            $table->string('modelo');
+            $table->string('modelo',40);
 
             $table->timestamps();
         });
