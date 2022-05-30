@@ -84,6 +84,10 @@ class UsuariosController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        /* foreach ($user->revisiones as $revision) {
+            return $revision;
+        }*/
+        /* return $user->recepciones; */
         return view('usuarios.show',compact('user'));
     }
 
