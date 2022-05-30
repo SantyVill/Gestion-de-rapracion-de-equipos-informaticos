@@ -15,7 +15,7 @@
                 <form class="form-inlinefloat-right">
                     <div class="row">
                         <div class="col-7">
-                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Equipo" aria-label="Search" value="">
+                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Usuario" aria-label="Search" value="">
                         </div>
                         <div class="col">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>

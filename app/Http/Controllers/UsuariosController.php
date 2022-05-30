@@ -17,9 +17,23 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::get();
+        if (isset($request['buscar']) && $request['buscar']!='') {
+            $users=User::where('nombre','like','%'.$request['buscar'].'%')
+            ->orwhere(
+                'apellido','like','%'.$request['buscar'].'%'
+            )
+            ->orwhere(
+                'email','like','%'.$request['buscar'].'%'
+            )
+            ->orwhereRelation(
+                'roles', 'rol', 'like' ,'%'.$request['buscar'].'%'
+            )
+            ->get();
+        } else {
+            $users = User::get();
+        }
         return view('usuarios.index',compact('users'));
     }
 
