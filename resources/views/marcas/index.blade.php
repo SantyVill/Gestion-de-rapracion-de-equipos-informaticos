@@ -17,19 +17,23 @@
             @forelse ($marcas as $marca) {{-- Muestro todas las marcas --}}
             <tr>
                 <td>{{$marca->marca}}</td>
+                @if (auth()->check() && auth()->user()->esAdmin())
                 <td><button type="button" class="btn btn-warning">
                     <a class="link-dark" href="{{-- {{route('recepciones.edit',$recepcion)}} --}}">Editar</a>
                 </button></td>
+                @endif
                 <td><button type="button" class="btn btn-primary">
                         <a class="link-light" href="{{route('marcas.show',$marca)}}">Ver Modelos</a>
                 </button></td>
             
+                @if (auth()->check() && auth()->user()->esAdmin())
                 <td>
                     <form method="POST" action="{{-- {{route('recepciones.destroy',$recepcion)}} --}}"onclick="return confirm('¿Está seguro que desea borrar?')">
                         <button class="btn btn-danger">Eliminar</button>
                         @csrf @method('DELETE')
                     </form>
                 </td>
+                @endif
             </tr>
             @empty
             @endforelse

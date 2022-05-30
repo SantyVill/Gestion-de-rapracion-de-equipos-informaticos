@@ -88,11 +88,9 @@
 
                 
                 {{-- =============LINKS DE LISTA DE PRECIOS============= --}}
-                @if (auth()->check() && auth()->user()->esAdmin())
                 <li class="nav-item">
                     <a href="{{route('marcas.index')}}" class="nav-link {{ setActiva('marcas.*') }}">Lista de precios</a>
                 </li>
-                @endif
                 
               </ul>
               @if (auth()->check())

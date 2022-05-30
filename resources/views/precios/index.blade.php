@@ -49,7 +49,9 @@
                         <td>{{$precio->precio}}</td>
                         <td>{{$precio->plazo}}</td>
                         <td>{{$precio->riesgo}}</td>
+                        @if (auth()->check() && auth()->user()->esAdmin())
                         <td><a href="{{route('precios.edit',$precio)}}" class="btn btn-primary">Editar</a></td>
+                        @endif
                         <td>
                             <form method="POST" action="{{route('precios.destroy',$precio)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
                                 @csrf @method('DELETE')
