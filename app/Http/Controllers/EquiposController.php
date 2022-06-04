@@ -23,24 +23,25 @@ class EquiposController extends Controller
      */
     public function index(Request $request)
     {
-        if (isset($request['buscar']) && $request['buscar']!='') {
-            $equipos=Equipo::where('numero_serie','like','%'.$request['buscar'].'%')
+        $buscar=$request['buscar'];
+        /* if (isset($request['buscar']) && $request['buscar']!='') { */
+            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
             ->orwhereRelation(
-                'caracteristica', 'modelo', 'like' ,'%'.$request['buscar'].'%'
+                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
             )
             ->orwhereRelation(
-                'caracteristica.marca', 'marca', 'like' ,'%'.$request['buscar'].'%'
+                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
             )
             ->orwhereRelation(
-                'caracteristica.tipo', 'tipo', 'like' ,'%'.$request['buscar'].'%'
+                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
             )
-            ->get();
-            return view('equipos.index',compact('equipos'));
-        } else {
-            $equipos=Equipo::get();
-        }
+            ->paginate(10);
+            return view('equipos.index',compact('equipos','buscar'));
+        /* } else {
+            $equipos=Equipo::paginate(10);
+        } */
         
-        return view('equipos.index',compact('equipos'));
+        return view('equipos.index',compact('equipos','buscar'));
     }
 
     /**
