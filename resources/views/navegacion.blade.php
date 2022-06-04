@@ -118,5 +118,6 @@
             {{ session()->get('message') }}
         </div>
     @endif
+@extends('footer')
 </body>
 </html>
