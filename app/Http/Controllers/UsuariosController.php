@@ -19,22 +19,19 @@ class UsuariosController extends Controller
      */
     public function index(Request $request)
     {
-        if (isset($request['buscar']) && $request['buscar']!='') {
-            $users=User::where('nombre','like','%'.$request['buscar'].'%')
-            ->orwhere(
-                'apellido','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'email','like','%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'roles', 'rol', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->get();
-        } else {
-            $users = User::get();
-        }
-        return view('usuarios.index',compact('users'));
+        $buscar=$request['buscar'];
+        $users=User::where('nombre','like','%'.$buscar.'%')
+        ->orwhere(
+            'apellido','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'email','like','%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'roles', 'rol', 'like' ,'%'.$buscar.'%'
+        )
+        ->paginate(10);
+        return view('usuarios.index',compact('users','buscar'));
     }
 
     /**

@@ -38,5 +38,8 @@
             @empty
             @endforelse
         </table>
+        <div class="d-flex justify-content-center">
+            {{ $marcas/* ->appends($_GET) */->links() }}
+        </div>
         @endif
 @endsection

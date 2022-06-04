@@ -15,7 +15,7 @@
                 <form class="form-inlinefloat-right">
                     <div class="row">
                         <div class="col-7">
-                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Usuario" aria-label="Search" value="">
+                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Usuario" aria-label="Search" value="{{$buscar}}">
                         </div>
                         <div class="col">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -48,7 +48,12 @@
             <td><a href="{{route('usuarios.show',$usuario)}}">Ver</a></td>
         </tr>
         @empty
-            <p>No se registro ningun equipo.</p>
+        <tr>
+            <td colspan="4">No se encontró ningún usuario.</td>
+        </tr>
         @endforelse
     </table>
+    <div class="d-flex justify-content-center">
+        {{ $users->appends($_GET)->links() }}
+    </div>
 @endsection

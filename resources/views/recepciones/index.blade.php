@@ -16,7 +16,7 @@
                 <form class="form-inlinefloat-right">
                     <div class="row">
                         <div class="col-7">
-                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Recepcion" aria-label="Search" value="">
+                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Recepcion" aria-label="Search" value="{{$buscar}}">
                         </div>
                         <div class="col">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -44,11 +44,12 @@
 
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
             <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
-        
-            {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
         </tr>
         @empty
             <p>No se registró ninguna recepción</p>
         @endforelse
-    </table>       
+    </table>
+    <div class="d-flex justify-content-center">
+        {{ $recepciones->appends($_GET)->links() }}
+    </div>
 @endsection

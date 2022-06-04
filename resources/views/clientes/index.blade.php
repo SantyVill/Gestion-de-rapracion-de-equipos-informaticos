@@ -16,7 +16,7 @@
                 <form class="form-inlinefloat-right">
                     <div class="row">
                         <div class="col-8">
-                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Cliente" aria-label="Search" value="">
+                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Cliente" aria-label="Search" value="{{$buscar}}">
                         </div>
                         <div class="col">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -60,7 +60,12 @@
             {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
         </tr>
         @empty
-            <p>No se registró ningún cliente</p>
+        <tr>
+            <td colspan="9">No se encontró ningún cliente</td>
+        </tr>
         @endforelse
-    </table>       
+    </table>  
+    <div class="d-flex justify-content-center">
+        {{ $clientes->appends($_GET)->links() }}
+    </div>     
 @endsection

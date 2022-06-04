@@ -22,34 +22,31 @@ class RecepcionesController extends Controller
      */
     public function index(Request $request)
     {
-        if (isset($request['buscar']) && $request['buscar']!='') {
-            $recepciones=Recepcion::where('falla','like','%'.$request['buscar'].'%')
-            ->orwhere(
-                'accesorio', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'fecha_recepcion', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'equipo', 'numero_serie', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'equipo.caracteristica', 'modelo', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'cliente', 'apellido', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->orwhereRelation(
-                'cliente', 'nombre', 'like' ,'%'.$request['buscar'].'%'
-            )
-            ->get();
-        } else {
-            $recepciones=Recepcion::get();
-        }
-        return view('recepciones.index',compact('recepciones'));
+        $buscar=$request['buscar'];
+        $recepciones=Recepcion::where('falla','like','%'.$buscar.'%')
+        ->orwhere(
+            'accesorio', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            'fecha_recepcion', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'equipo', 'numero_serie', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'cliente', 'apellido', 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'cliente', 'nombre', 'like' ,'%'.$buscar.'%'
+        )
+        ->paginate(10);
+        return view('recepciones.index',compact('recepciones','buscar'));
     }
 
     /**

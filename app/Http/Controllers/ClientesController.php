@@ -15,33 +15,30 @@ class ClientesController extends Controller
 
     public function index(Request $request)
     {   
-        if (isset($request['buscar']) && $request['buscar']!='') {
-            $clientes=Cliente::where('nombre','like','%'.$request['buscar'].'%')
-            ->orwhere(
-                'apellido','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'dni','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'telefono1','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'telefono2','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'direccion','like','%'.$request['buscar'].'%'
-            )
-            ->orwhere(
-                'mail','like','%'.$request['buscar'].'%'
-            )
-            ->get();
-        } else {
-            $clientes=Cliente::get();
-        }
+        $buscar = $request['buscar'];
+        $clientes=Cliente::where('nombre','like','%'.$buscar.'%')
+        ->orwhere(
+            'apellido','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'dni','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono1','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono2','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'direccion','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'mail','like','%'.$buscar.'%'
+        )
+        ->paginate(10);
         
         /*return $clientes;*/
-         return view('clientes.index',compact('clientes'));
+         return view('clientes.index',compact('clientes','buscar'));
 
          /* return auth()->user()->roles;
         if (in_array('recepcionista',auth()->user()->roles)) { */
