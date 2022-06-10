@@ -137,9 +137,6 @@ class RecepcionesController extends Controller
     public function show($id)
     {
         $recepcion=Recepcion::find($id);
-        /* foreach ($recepcion->revisiones as $revision) {
-            return $revision->user;
-        } */
 
         return view('recepciones.show',compact('recepcion'));
     }
@@ -156,6 +153,12 @@ class RecepcionesController extends Controller
         return view('recepciones.edit',compact('recepcion'));
     }
 
+    public function add_informe_final($id)
+    {
+        $recepcion = Recepcion::find($id);
+        return view('recepciones.informe_final',compact('recepcion'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -166,11 +169,17 @@ class RecepcionesController extends Controller
     public function update(Request $request, $id)
     {
         $recepcion = Recepcion::find($id);
+        if ($request['informe_final']) {
+            $recepcion['informe_final'] = $request['informe_final'];
+            $recepcion->save();
+            return redirect()->route('recepciones.show',$recepcion);
+        }
+
         $recepcion['falla'] = $request['falla'];
         $recepcion['accesorio'] = $request['accesorio'];
         $recepcion['observacion'] = $request['observacion'];
         $recepcion -> save();
-        return redirect()->route('recepciones.index');
+        return redirect()->route('recepciones.show',$recepcion);
     }
 
     /**

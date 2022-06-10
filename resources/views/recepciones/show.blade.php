@@ -3,7 +3,6 @@
 @section('titulo','Ver Recepcion')
 
 @section('contenido')
-    <h1>Aqui se mostrara la lista de las recepciones</h1>
     <table class="table table-striped table-bordered">
     
       {{--  @if (!$clientes)--}}
@@ -13,7 +12,7 @@
                 <th>Observacíon</th>
                 <th>Falla:</th>
                 <th>Cliente</th>
-                <th colspan="3" class="text-center">Accion</th>
+                <th colspan="4" class="text-center">Acciones</th>
             </tr>
        {{-- @endif--}}
         <tr>
@@ -29,6 +28,11 @@
             <td>
                 <button type="button" class="btn btn-primary">
                     <a class="link-light" href="{{route('revisiones.create',$recepcion)}}">Agregar Revision</a>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary">
+                    <a class="link-light" href="{{route('recepciones.informe_final',$recepcion)}}">{{$recepcion->informe_final?'Editar informe final':'Agregar informe final'}}</a>
                 </button>
             </td>
         
@@ -60,6 +64,14 @@
                         <td><a href="{{route('equipos.show',$recepcion->equipo)}}">{{$recepcion->equipo->numero_serie}}</a></td>
                     </tr>
                 </table>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Informe Final</h5>
+                      <p class="card-text">{{$recepcion->informe_final}}</p>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

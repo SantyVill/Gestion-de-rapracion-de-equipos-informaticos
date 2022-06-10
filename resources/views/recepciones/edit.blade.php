@@ -35,21 +35,32 @@
     @endif --}}
     
     {{-- @if (isset($equipo->id) && isset($cliente->id)) --}}
-    <form method="POST" action="{{route('recepciones.update',$recepcion)}}">
+    <form class="row g-3" method="POST" action="{{route('recepciones.update',$recepcion)}}">
         @csrf @method('PATCH')
 
+        <div class="col-md-6">
+            <label for="falla" class="form-label">Falla</label>
+            <input type="text" name="falla" placeholder="Falla" value="{{$recepcion->falla}}" required><br>
+            {!!$errors->first('falla','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
+        </div>
+        <div class="col-md-6">
+            <label for="accesorio" class="form-label">Accesorio</label>
+            <input type="text" name="accesorio" placeholder="Accesorio" value="{{$recepcion->accesorio}}" required><br>
+            {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+        </div>
+        <div class="col-12">
+            <label for="observacion" class="form-label">Observacion</label><br>
+            <textarea name="observacion" placeholder="Observacion" cols="30" rows="10">{{ $recepcion->observacion}}</textarea><br>
+            {!!$errors->first('observacion','<small>:message</small><br>')!!}
+        </div>
 
-        <input type="text" name="falla" placeholder="Falla" value="{{$recepcion->falla}}" required><br>
-        {!!$errors->first('falla','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
-        
-        <input type="text" name="accesorio" placeholder="Accesorio" value="{{$recepcion->accesorio}}" required><br>
-        {!!$errors->first('accesorio','<small>:message</small><br>')!!}
 
         {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br> --}}
         
-        <textarea name="observacion" placeholder="Observacion" cols="30" rows="10">{{ $recepcion->observacion}}</textarea><br>
-        {!!$errors->first('observacion','<small>:message</small><br>')!!}
     
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
         <input type="submit" value="Enviar"><br>
     </form>
     {{-- @endif --}}

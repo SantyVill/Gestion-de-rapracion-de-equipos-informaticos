@@ -37,10 +37,16 @@ Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::
 Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
 
 /*=============== Rutas de recepciones ===============*/
+Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','recepcionista']);
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
-Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
-
+Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index');
+Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update');
+Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit');
+Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show');
+Route::delete('/recepciones/destroy/',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
+/* Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
+ */
 /*=============== Rutas de logueo ===============*/
 Route::get('/login',[SesionesController::class,'create'])->name('login.index');
 Route::post('/login',[SesionesController::class,'store'])->name('login.store');
