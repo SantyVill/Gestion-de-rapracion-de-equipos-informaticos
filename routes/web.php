@@ -54,9 +54,9 @@ Route::get('/login/destroy',[SesionesController::class,'destroy'])->name('login.
 
 /*=============== Rutas de registro de usuarios ===============*/
 Route::resource('usuarios', UsuariosController::class)->middleware(['logueo','admin']);
-/* Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index');
-Route::get('/registro/show/{user?}',[RegistrosController::class,'show'])->name('registros.show');
-Route::get('/registro/edit/{user}',[RegistrosController::class,'edit'])->name('registros.edit');
+/* Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index'); */
+Route::get('/usuarios/{usuario}',[App\Http\Controllers\UsuariosController::class,'show'])->name('usuarios.show')->middleware(['logueo','mi_perfil'])->withoutMiddleware('admin');
+/* Route::get('/registro/edit/{user}',[RegistrosController::class,'edit'])->name('registros.edit');
 Route::get('/registro',[RegistrosController::class,'create'])->name('registros.create');
 Route::post('/registro',[RegistrosController::class,'store'])->name('registros.store');
 Route::patch('/registro/update',[RegistrosController::class,'update'])->name('registros.update');

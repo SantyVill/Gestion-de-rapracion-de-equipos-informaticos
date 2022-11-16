@@ -95,7 +95,7 @@
               </ul>
               @if (auth()->check())
               <div class="me-5">
-                  <a class="nav-link link-light">
+                  <a href="{{route('usuarios.show',auth()->user())}}" class="nav-link link-light">
                     {{auth()->user()->apellido.", ".auth()->user()->nombre/* ." Roles: " */}} {{-- figura quien estaría logueado con su rol/es --}}
                   </a> 
               </div>
