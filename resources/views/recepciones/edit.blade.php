@@ -62,6 +62,7 @@
             <button type="submit" class="btn btn-primary">Enviar</button>
         </div>
         <input type="submit" value="Enviar"><br>
+        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
     </form>
     {{-- @endif --}}
 @endsection

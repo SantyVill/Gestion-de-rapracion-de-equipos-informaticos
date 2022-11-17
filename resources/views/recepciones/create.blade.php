@@ -83,5 +83,7 @@
         @else
             <input type="submit" value="Confirmar"><br>
         @endif
+        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
+        
     </form>
 @endsection

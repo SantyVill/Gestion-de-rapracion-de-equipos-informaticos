@@ -18,5 +18,6 @@
     {!!$errors->first('riesgo','<small>:message</small><br>')!!}
 
     <input type="submit" value="Enviar"><br>
+    <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
 </form>
 @endsection
