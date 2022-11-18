@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cookie;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Equipo;
 use App\Models\Cliente;
 use App\Models\Recepcion;
@@ -40,10 +42,22 @@ class RecepcionesController extends Controller
             'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
         )
         ->orwhereRelation(
+            'estado', 'estado', 'like' ,'%'.$buscar.'%'
+        )
+        /* ->orwhereRelation(
             'cliente', 'apellido', 'like' ,'%'.$buscar.'%'
         )
         ->orwhereRelation(
             'cliente', 'nombre', 'like' ,'%'.$buscar.'%'
+        ) */
+        ->orwhereRelation(
+            'cliente', DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'cliente', DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
         )
         ->paginate(10);
         return view('recepciones.index',compact('recepciones','buscar'));

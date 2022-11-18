@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Equipo;
+use Illuminate\Support\Facades\DB;
 class ClientesController extends Controller
 {
     /**
@@ -16,12 +17,21 @@ class ClientesController extends Controller
     public function index(Request $request)
     {   
         $buscar = $request['buscar'];
-        $clientes=Cliente::where('nombre','like','%'.$buscar.'%')
-        ->orwhere(
+        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
+        /* ->orwhere(
             'apellido','like','%'.$buscar.'%'
+        ) */
+        /* ->orwhere(
+            'nombre','like','%'.$buscar.'%'
+        ) */
+        ->orwhere(
+             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
         )
         ->orwhere(
-            'dni','like','%'.$buscar.'%'
+            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
         )
         ->orwhere(
             'telefono1','like','%'.$buscar.'%'
