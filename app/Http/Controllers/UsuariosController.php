@@ -30,6 +30,7 @@ class UsuariosController extends Controller
         ->orwhereRelation(
             'roles', 'rol', 'like' ,'%'.$buscar.'%'
         )
+        ->orderBy('created_at', 'desc')
         ->paginate(10);
         return view('usuarios.index',compact('users','buscar'));
     }

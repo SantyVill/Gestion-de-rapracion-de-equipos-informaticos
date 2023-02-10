@@ -45,6 +45,7 @@ class ClientesController extends Controller
         ->orwhere(
             'mail','like','%'.$buscar.'%'
         )
+        ->orderBy('created_at', 'desc')
         ->paginate(10);
         
         /*return $clientes;*/

@@ -35,6 +35,7 @@ class EquiposController extends Controller
             ->orwhereRelation(
                 'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
             )
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
             return view('equipos.index',compact('equipos','buscar'));
         /* } else {

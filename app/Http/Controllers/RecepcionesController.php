@@ -59,6 +59,7 @@ class RecepcionesController extends Controller
         ->orwhereRelation(
             'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
         )
+        ->orderBy('created_at', 'desc')
         ->paginate(10);
         return view('recepciones.index',compact('recepciones','buscar'));
     }
