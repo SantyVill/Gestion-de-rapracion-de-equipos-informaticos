@@ -203,9 +203,10 @@ class RecepcionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recepcion $recepcion)
     {
-        $recepcion= Recepcion::find($id);
+        /* $recepcion= Recepcion::find($id); */
+        /* return $recepcion; */
         $recepcion->delete();
         return redirect()->route('recepciones.index');
     }

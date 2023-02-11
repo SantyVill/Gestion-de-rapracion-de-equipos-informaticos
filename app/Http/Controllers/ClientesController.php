@@ -159,7 +159,7 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        return $cliente;
+        /* return $cliente; */
         $cliente->delete();
         return redirect()->route('clientes.index');
     }

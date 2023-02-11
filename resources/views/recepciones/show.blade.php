@@ -22,8 +22,8 @@
             <td>{{$recepcion->falla}}</td>
 
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
-            <td><button type="button" class="btn btn-warning">
-                <a class="link-dark" href="{{route('recepciones.edit',$recepcion)}}">Editar</a>
+            <td><button type="button" class="p-0 btn btn-warning">
+                <a class=" btn btn-primary" href="{{route('recepciones.edit',$recepcion)}}">Editar</a>
             </button></td>
             <td>
                 <button type="button" class="btn btn-primary">
@@ -44,6 +44,14 @@
                 {{-- </script> --}}
                 </form>
             </td>
+            {{-- <td><a href="{{route('equipos.edit',$equipo)}}" class="btn btn-primary">Editar</a></td>
+            
+            <td>
+                <form method="POST" action="{{route('equipos.destroy',$equipo)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-danger">Eliminar</button>
+                </form>
+            </td> --}}
         </tr>
     </table>       
     <div class="container">

@@ -44,7 +44,7 @@ Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::cl
 Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update');
 Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit');
 Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show');
-Route::delete('/recepciones/destroy/',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
+Route::delete('/recepciones/destroy/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
 /* Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
  */
 /*=============== Rutas de logueo ===============*/
