@@ -3,12 +3,11 @@
 @section('titulo','Lista de equipos')
 
 @section('contenido')
-
-    <div class="container">
+    <div class="container mb-2">
         <div class="row">
             <div class="col-7">
-                <a href="{{route('equipos.create')}}" class="nav-link {{ setActiva('equipos/create') }}">
-                    <button type="button" class="btn btn-success">Registrar Equipo</button>
+                <a href="{{route('equipos.create')}}" class="btn btn-success {{ setActiva('equipos/create') }}">
+                    Registrar Equipo
                 </a>
             </div>
             <div class="col-5">
@@ -17,16 +16,18 @@
                         <div class="col-7">
                             <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Equipo" aria-label="Search" value="{{$buscar}}">
                         </div>
-                        <div class="col">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        <div class="col-2 w-auto m-0 p-0 bg-white rounded">
+                            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <table class="table table-striped table-bordered">
+    <h3 class="text-center">Lista de Equipos</h3>
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
         <thead>
+            {{-- <tr><th colspan="5" class="text-center"><h4>Lista de Equipos</h4></th></tr> --}}
             <tr>
                 <th scope="col">Numero de Serie</th>
                 <th scope="col">Tipo</th>

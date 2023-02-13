@@ -3,13 +3,11 @@
 @section('titulo','Lista de clientes')
 
 @section('contenido')
-    <h1>Aqui se mostrara la lista de clientes registrados</h1> 
-    
-    <div class="container">
+    <div class="container  mb-2">
         <div class="row">
-            <div class="col-8">
-                <a href="{{route('clientes.create')}}" class="nav-link {{ setActiva('clientes/create') }}">
-                    <button type="button" class="btn btn-success">Registrar Cliente</button>
+            <div class="col-7">
+                <a href="{{route('clientes.create')}}" class="btn btn-success {{ setActiva('clientes/create') }}">
+                    Registrar Cliente
                 </a>
             </div>
             <div class="col-4">
@@ -27,7 +25,8 @@
         </div>
     </div>
 
-    <table class="table table-striped table-bordered">
+    <h3 class="text-center">Lista de clientes</h3> 
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
     
       {{--  @if (!$clientes)--}}
             <tr>

@@ -3,13 +3,11 @@
 @section('titulo','Lista de recepciones')
 
 @section('contenido')
-    <h1>Aqui se mostrara la lista de las recepciones</h1>
-    
-    <div class="container">
+    <div class="container mb-2">
         <div class="row">
             <div class="col-7">
-                <a href="{{route('recepciones.create')}}" class="nav-link {{ setActiva('recepciones/create') }}">
-                    <button type="button" class="btn btn-success">Registrar Recepcion</button>
+                <a href="{{route('recepciones.create')}}" class="btn btn-success {{ setActiva('recepciones/create') }}">
+                    Registrar Recepcion
                 </a>
             </div>
             <div class="col-5">
@@ -26,7 +24,8 @@
             </div>
         </div>
     </div>
-    <table class="table table-striped table-bordered">
+    <h3 class="text-center">Lista de las Recepciones</h3>
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
     
       {{--  @if (!$clientes)--}}
             <tr>

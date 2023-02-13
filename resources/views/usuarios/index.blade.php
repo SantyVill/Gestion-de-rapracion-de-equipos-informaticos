@@ -25,7 +25,8 @@
             </div>
         </div>
     </div>
-    <table class="table table-striped table-bordered">
+    <h3 class="text-center">Lista de Usuarios</h3>
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
         <thead>
             <tr>
                 <th scope="col">Apellido y Nombre</th>

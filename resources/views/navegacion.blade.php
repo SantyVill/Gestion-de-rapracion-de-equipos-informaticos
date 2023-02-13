@@ -8,9 +8,9 @@
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
     <title>@yield('titulo')</title>
 </head>
-<body>
+<body style="background-color: rgb(244, 255, 255)">
     <header>
-        <h1 class="text-center">Gestion de reparaciones</h1>
+        <h1 class="text-center">Gestión de reparaciones</h1>
 
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark mb-3">
           <div class="container-fluid">
