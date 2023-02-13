@@ -164,6 +164,9 @@ class RecepcionesController extends Controller
      */
     public function edit($id)
     {
+        Cookie::queue(Cookie::forget('recepcion'));
+        Cookie::queue(Cookie::forget('equipo'));
+        Cookie::queue(Cookie::forget('cliente'));
         $recepcion = Recepcion::find($id);
         return view('recepciones.edit',compact('recepcion'));
     }
@@ -184,6 +187,16 @@ class RecepcionesController extends Controller
     public function update(Request $request, $id)
     {
         $recepcion = Recepcion::find($id);
+        if (isset($request['equipo_id'])) {
+            $recepcion->equipo_id=$request['equipo_id'];
+            $recepcion->save();
+            return redirect()->route('recepciones.show',$recepcion);
+        }
+        if (isset($request['cliente_id'])) {
+            $recepcion->cliente_id=$request['cliente_id'];
+            $recepcion->save();
+            return redirect()->route('recepciones.show',$recepcion);
+        }
         if ($request['informe_final']) {
             $recepcion['informe_final'] = $request['informe_final'];
             $recepcion->save();

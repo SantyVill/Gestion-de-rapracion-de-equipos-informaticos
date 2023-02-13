@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Equipo;
 use Illuminate\Support\Facades\DB;
+use App\Models\Recepcion;
 class ClientesController extends Controller
 {
     /**
@@ -48,19 +49,7 @@ class ClientesController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(10);
         
-        /*return $clientes;*/
          return view('clientes.index',compact('clientes','buscar'));
-
-         /* return auth()->user()->roles;
-        if (in_array('recepcionista',auth()->user()->roles)) { */
-        /* if(auth()->check()){
-            $clientes=Cliente::get();
-             return view('clientes.index',compact('clientes'),compact('equipo'));
-        } else {
-            return back()->withErrors([
-                'message' => 'Para acceder a esta ruta debes iniciar sesion',
-            ]);
-        } */
     }
 
     /**
@@ -159,7 +148,6 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        /* return $cliente; */
         $cliente->delete();
         return redirect()->route('clientes.index');
     }
@@ -169,4 +157,37 @@ class ClientesController extends Controller
         $clientes=Cliente::get();
         return view('clientes.select_cliente_recepcion',compact('clientes'));
     }
+
+    public function update_cliente_recepcion(Request $request,Recepcion $recepcion)
+    {
+        $buscar = $request['buscar'];
+        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
+        ->orwhere(
+             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono1','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono2','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'direccion','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'mail','like','%'.$buscar.'%'
+        )
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        
+        return view('clientes.update_cliente_recepcion',compact('clientes','buscar','recepcion'));
+        
+    }
+
 }

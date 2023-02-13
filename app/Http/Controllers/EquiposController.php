@@ -14,6 +14,8 @@ use App\Models\Tipo;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Recepcion;
+
 class EquiposController extends Controller
 {
     /**
@@ -183,9 +185,21 @@ class EquiposController extends Controller
         return view('equipos.select_equipo_recepcion',compact('equipos'));
     }
 
-    public function update_equipo_recepcion()
+    public function update_equipo_recepcion(Request $request,Recepcion $recepcion)
     {
-        $equipos=Equipo::get();
-        return view('equipos.update_equipo_recepcion',compact('equipos'));
+        $buscar=$request['buscar'];
+        $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
+            ->orwhereRelation(
+                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('equipos.update_equipo_recepcion',compact('equipos','buscar','recepcion'));
     }
 }
