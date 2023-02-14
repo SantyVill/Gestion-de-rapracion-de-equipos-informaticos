@@ -3,19 +3,32 @@
 @section('titulo','Registrar revision')
 
 @section('contenido')
-<h1>Aqui registra los revisiones</h1>
-<form method="POST" action="{{route('revisiones.store',$recepcion)}}">
-    @csrf 
-    <label for="estado">
-        Nuevo estado: <input type="text" name="estado" placeholder="Estado" value="{{ old('estado' /* ,$recepcion->estado->estado  */)}}" required>
-        {!!$errors->first('estado','<small>:message</small><br>')!!}
-    </label><br>
-    <label for="nota">Nota:<br>
-        <textarea name="nota" placeholder="Nota" cols="30" rows="10">{{ old('nota')}}</textarea>
-        {!!$errors->first('nota','<small>:message</small><br>')!!}
-    </label>
 
-    <input type="submit" value="Enviar"><br>
-    <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
-</form>
+
+<section class="pb-4 row justify-content-center">
+    <div class="bg-white row border border-secondary border-2 rounded-3 col-8 justify-content-center">
+    
+        <section class="w-100 p-4 text-center pb-4">
+            <form method="POST" action="{{route('revisiones.store',$recepcion)}}" class="align-items-center">
+                @csrf
+                <legend>Agregar revisión</legend>
+                <div class="row mb-0 justify-content-center">
+                    <div class="col-4">
+                        <label for="estado" class="form-label">Nuevo Estado: </label>
+                        <input type="text" name="estado" class="form-control" value="{{ old('estado',$recepcion->estado->estado )}}" required>
+                        {!!$errors->first('estado','<small>:message</small><br>')!!}
+                    </div>
+                    <div class="col-8">
+                        <label for="nota" class="form-label">Nota: </label><br>
+                        <textarea  class="form-control" name="nota" placeholder="" cols="30" rows="3" required>{{ old('nota')}}</textarea><br>
+                        {!!$errors->first('nota','<small>:message</small><br>')!!}
+                    </div>
+                </div>
+                <input type="submit" value="Enviar" class="btn btn-success">
+                <a class="btn btn-danger" href="{{ route('recepciones.show',$recepcion) }}" role="button">Volver</a>
+            </form>
+        </section>
+    </div>
+</section>
+
 @endsection
