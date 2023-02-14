@@ -38,6 +38,10 @@ class RevisionesController extends Controller
      */
     public function store(Request $request, Recepcion $recepcion)
     {
+        $fields = request()->validate([
+            'nota'=>'required'
+        ]);
+
         $revision = Revision::create([
             'tecnico_id'=>auth()->user()->id,
             'recepcion_id'=>$recepcion['id'],

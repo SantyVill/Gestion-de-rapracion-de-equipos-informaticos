@@ -58,6 +58,17 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     } 
 
+    public function tieneRol($roles){
+        foreach ($this->roles as $rol) {
+            foreach ($roles as $rol_) {
+                if ($rol->rol == $rol_) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public function esAdmin(){
         foreach ($this->roles as $rol) {
             if ($rol->rol == "admin") {

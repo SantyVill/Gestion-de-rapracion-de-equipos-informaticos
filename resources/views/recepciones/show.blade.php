@@ -11,7 +11,9 @@
                 <th>Estado</th>
                 <th>Observacíon</th>
                 <th>Falla:</th>
+                @if (auth()->user()->tieneRol(['admin','recepcionista']))
                 <th>Cliente</th>
+                @endif
                 <th colspan="4" class="text-center">Acciones</th>
             </tr>
        {{-- @endif--}}
@@ -20,8 +22,9 @@
             <td>{{$recepcion->estado->estado}}</td>
             <td>{{$recepcion->observacion}}</td>
             <td>{{$recepcion->falla}}</td>
-
+            @if (auth()->user()->tieneRol(['admin','recepcionista']))
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            @endif
             <td><button type="button" class="p-0 btn btn-warning">
                 <a class=" btn btn-primary" href="{{route('recepciones.edit',$recepcion)}}">Editar</a>
             </button></td>
@@ -64,7 +67,7 @@
                     <tr>
                         <th>Modelo</th>
                         <th>Marca</th>
-                        <th>Serie</th>
+                        <th>Número de Serie</th>
                     </tr>
                     <tr>
                         <td>{{$recepcion->equipo->caracteristica->modelo}}</td>

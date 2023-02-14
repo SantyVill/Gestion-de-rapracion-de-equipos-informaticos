@@ -69,14 +69,14 @@ Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesCont
 Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
 
 /*=============== Rutas de Lista de precios ===============*/
-Route::resource('precios', PreciosController::class);
-Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','admin']);
-Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','admin']);
+Route::resource('precios', PreciosController::class)->middleware('rol:admin,recepcionista');
+Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','rol:admin']);
+Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
 
 /*=============== Rutas de Marcas ===============*/
 Route::resource('marcas', MarcasController::class);
 
 /*=============== Rutas de Modelos ===============*/
-Route::resource('modelos', ModelosController::class);
-Route::get('/modelos/create/{marca}',[App\Http\Controllers\ModelosController::class,'create'])->name('modelos.create')->middleware(['logueo','rol:recepcionista']);
-Route::post('/modelos/store/{marca}',[App\Http\Controllers\ModelosController::class,'store'])->name('modelos.store')->middleware(['logueo','admin']);
+Route::resource('modelos', ModelosController::class)->middleware(['logueo','rol:admin,recepcionista']);
+Route::get('/modelos/create/{marca}',[App\Http\Controllers\ModelosController::class,'create'])->name('modelos.create');
+Route::post('/modelos/store/{marca}',[App\Http\Controllers\ModelosController::class,'store'])->name('modelos.store');

@@ -29,8 +29,12 @@
     
       {{--  @if (!$clientes)--}}
             <tr>
-                <th>Modelo</th><th>Marca</th><th>Serie</th><th>Fecha Recepción</th>
-                <th>Falla:</th> <th>Cliente</th> <th colspan="2">Accion</th>
+                <th>Modelo</th><th>Marca</th><th>Número de Serie</th><th>Fecha Recepción</th>
+                <th>Falla:</th>
+                @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                <th>Cliente</th> 
+                @endif 
+                <th colspan="2">Accion</th>
             </tr>
        {{-- @endif--}}
         @forelse ($recepciones as $recepcion)
@@ -41,7 +45,9 @@
             <td>{{$recepcion->fecha_recepcion}}</td>
             <td>{{$recepcion->falla}}</td>
 
+            @if (auth()->user()->tieneRol(['admin','recepcionista']))
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            @endif
             <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
         </tr>
         @empty

@@ -115,13 +115,17 @@
                 </div>
             </div>
         </td>
-        @if (auth()->user()->tieneRol(['admin','recepcionista']))
+        @if (auth()->user()->tieneRol(['admin']))
         <td>
             <a class="btn btn-success" href="{{route('precios.create',$caracteristica)}}">Agregar nueva reparacion</a>
         </td>
+        @endif
+        @if (auth()->user()->tieneRol(['admin','recepcionista']))
         <td>
             <a class="btn btn-primary" href="{{route('modelos.edit',$caracteristica)}}">Editar Modelo</a>
         </td>
+        @endif
+        @if (auth()->user()->tieneRol(['admin']))
         <td>
             <form method="POST" action="{{route('modelos.destroy',$caracteristica)}}"onclick="return confirm('¿Está seguro que desea borrar el Modelo: {{$caracteristica->modelo}}?')">
                 @csrf @method('DELETE')

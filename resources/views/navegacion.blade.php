@@ -27,6 +27,7 @@
                 
                 
                 {{-- =============LINKS DE EQUIPOS============= --}}
+                @if (auth()->user()->tieneRol(['admin','recepcionista']))
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle {{ setActiva('equipos.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Equipos
@@ -40,8 +41,10 @@
                     </li>
                   </ul>
                 </li>
+                @endif
                     
                 {{-- =============LINKS DE CLIENTES============= --}}
+                @if (auth()->user()->tieneRol(['admin','recepcionista']))
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle {{ setActiva('clientes.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Clientes
@@ -55,6 +58,7 @@
                     </li>
                   </ul>
                 </li>
+                @endif
                     
                 {{-- =============LINKS DE RECEPCIONES============= --}}
                 <li class="nav-item dropdown">
@@ -72,6 +76,7 @@
                 </li>
 
                 {{-- =============LINKS DE USUARIOS============= --}}
+                @if (auth()->user()->tieneRol(['admin']))
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle {{ setActiva('usuarios.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Usuarios
@@ -85,6 +90,7 @@
                     </li>
                   </ul>
                 </li>
+                @endif
 
                 
                 {{-- =============LINKS DE LISTA DE PRECIOS============= --}}
