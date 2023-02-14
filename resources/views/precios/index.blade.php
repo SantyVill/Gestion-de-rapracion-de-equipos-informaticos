@@ -4,6 +4,8 @@
 
 @section('contenido')
 
+
+
         @if (count($marcas)==0)
             <p>No se registro ninguna marca.</p>
         @else

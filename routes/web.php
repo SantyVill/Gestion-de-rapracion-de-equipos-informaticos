@@ -26,23 +26,23 @@ Route::get('/', function () {
 /*Route::get('/clientes',[App\Http\Controllers\ClientesController::class, 'index'])-> name('clientes.index');*/
 
 /*=============== Rutas de equipos ===============*/
-Route::get('equipos/select_recepcion',[App\Http\Controllers\EquiposController::class,'select_equipo_recepcion'])->name('equipos.select_recepcion')->middleware(['logueo','recepcionista']);
-Route::get('equipos/update_recepcion/{recepcion}',[App\Http\Controllers\EquiposController::class,'update_equipo_recepcion'])->name('equipos.update_recepcion')->middleware(['logueo','recepcionista']);
+Route::get('equipos/select_recepcion',[App\Http\Controllers\EquiposController::class,'select_equipo_recepcion'])->name('equipos.select_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('equipos/update_recepcion/{recepcion}',[App\Http\Controllers\EquiposController::class,'update_equipo_recepcion'])->name('equipos.update_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
 Route::resource('equipos', EquiposController::class)->middleware(['logueo','recepcionista']);/* Crea todas las rutas del controlador de equipos. Para que funcione descomentar la linea 29 de app\Providers\RouteServiceProvider.php   https://www.youtube.com/watch?v=fb4GfNvEf8M&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=16*/
 
 /*=============== Rutas de clientes ===============*/
-Route::get('clientes/select_recepcion',[App\Http\Controllers\ClientesController::class,'select_cliente_recepcion'])->name('clientes.select_recepcion')->middleware(['logueo','recepcionista']);
-Route::get('clientes/update_recepcion/{recepcion}',[App\Http\Controllers\ClientesController::class,'update_cliente_recepcion'])->name('clientes.update_recepcion')->middleware(['logueo','recepcionista']);
-Route::resource('clientes', ClientesController::class)->middleware(['auth'])->middleware(['auth','recepcionista']);
-Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
-Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','recepcionista']); //la ruta tambien recibe un equipo
+Route::get('clientes/select_recepcion',[App\Http\Controllers\ClientesController::class,'select_cliente_recepcion'])->name('clientes.select_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('clientes/update_recepcion/{recepcion}',[App\Http\Controllers\ClientesController::class,'update_cliente_recepcion'])->name('clientes.update_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
+Route::resource('clientes', ClientesController::class)->middleware(['auth'])->middleware(['auth','rol:recepcionista,admin']);
+Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create')->middleware(['logueo','rol:recepcionista,admin']); //la ruta tambien recibe un equipo
+Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','rol:recepcionista,admin']); //la ruta tambien recibe un equipo
 
 /*=============== Rutas de recepciones ===============*/
-Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','recepcionista']);
-Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','recepcionista']);
-Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','recepcionista']);
+Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','rol:recepcionista,admin']);
+Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index');
-Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update');
+Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit');
 Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show');
 Route::delete('/recepciones/destroy/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
@@ -63,15 +63,20 @@ Route::post('/registro',[RegistrosController::class,'store'])->name('registros.s
 Route::patch('/registro/update',[RegistrosController::class,'update'])->name('registros.update');
 Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('registros.destroy'); */
 
-/*=============== Rutas de Lista de precios ===============*/
-Route::resource('precios', PreciosController::class);
-Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create');
-Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store');
-
 /*=============== Rutas de Revisiones ===============*/
 Route::resource('revisiones', RevisionesController::class);
 Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
 Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
 
 /*=============== Rutas de Lista de precios ===============*/
+Route::resource('precios', PreciosController::class);
+Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','admin']);
+Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','admin']);
+
+/*=============== Rutas de Marcas ===============*/
 Route::resource('marcas', MarcasController::class);
+
+/*=============== Rutas de Modelos ===============*/
+Route::resource('modelos', ModelosController::class);
+Route::get('/modelos/create/{marca}',[App\Http\Controllers\ModelosController::class,'create'])->name('modelos.create')->middleware(['logueo','rol:recepcionista']);
+Route::post('/modelos/store/{marca}',[App\Http\Controllers\ModelosController::class,'store'])->name('modelos.store')->middleware(['logueo','admin']);

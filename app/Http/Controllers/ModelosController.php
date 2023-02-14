@@ -3,29 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Marca;
-use App\Models\Tipo;
 use App\Models\Caracteristica;
-class MarcasController extends Controller
+use App\Models\Tipo;
+
+class ModelosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        /* $marcas = Marca::paginate(10); */
-        $buscar=$request['buscar'];
-        $marcas=Marca::where('marca','like','%'.$buscar.'%')
-        
-        ->orderBy('marca', 'asc')
-        ->paginate(10);
-
-        return view('marcas.index',compact('marcas','buscar'));
-
-        
+        //
     }
 
     /**
@@ -33,9 +24,9 @@ class MarcasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Marca $marca)
     {
-        return view('marcas.create');
+        return view('modelos.create',compact('marca'));
     }
 
     /**
@@ -44,14 +35,12 @@ class MarcasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Marca $marca)
     {
         $field=request()->validate([
-            'marca'=>'required'
+            'modelo'=>'required'
         ]);
-        $marca=Marca::firstOrCreate(['marca'=> request('marca')]);
-        if (isset($request['modelo']) && $request['modelo']!=[]) {
-            return "ENTRA";
+        if (isset($request['modelo'])) {
             $caracteristica= new Caracteristica([
                 'marca_id'=> $marca['id'],
                 'modelo'=> $request['modelo']
@@ -66,7 +55,7 @@ class MarcasController extends Controller
                 'tipo_id'=>$caracteristica['tipo_id']
             ]);
         }
-        return redirect()->route('marcas.index');
+        return redirect()->route('marcas.show',$marca);
     }
 
     /**
@@ -77,8 +66,7 @@ class MarcasController extends Controller
      */
     public function show($id)
     {
-        $marca = Marca::find($id);
-        return view('marcas.show',compact('marca'));
+        //
     }
 
     /**
@@ -89,8 +77,8 @@ class MarcasController extends Controller
      */
     public function edit($id)
     {
-        $marca=Marca::find($id);
-        return view('marcas.edit',compact('marca'));
+        $caracteristica = Caracteristica::find($id);
+        return view('modelos.edit',compact('caracteristica'));
     }
 
     /**
@@ -102,12 +90,14 @@ class MarcasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $nuevaMarca = Marca::firstOrCreate(['marca'=> request('marca')]);
-        $marca = Marca::find($id);
-        Caracteristica::where('marca_id', '=', $marca['id'])
-        ->update(['marca_id' => $nuevaMarca['id']]);
-        $marca -> delete();
-        return redirect()->route('marcas.index',$nuevaMarca);
+        $caracteristica = Caracteristica::find($id);
+        $caracteristica['modelo']=$request['modelo'];
+        if ($caracteristica->tipo->tipo!=$request['tipo']) {
+            $tipo = Tipo::firstOrCreate(['tipo'=>$request['tipo']]);
+            $caracteristica['tipo_id']=$tipo['id'];
+        }
+        $caracteristica->save();
+        return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
     }
 
     /**
@@ -118,8 +108,9 @@ class MarcasController extends Controller
      */
     public function destroy($id)
     {
-        $marca = Marca::find($id);
-        $marca -> delete();
-        return redirect()->route('marcas.index');
+        $caracteristica = Caracteristica::find($id);
+        $marca = Marca::find($caracteristica['marca_id']);
+        $caracteristica -> delete();
+        return redirect()->route('marcas.show',$marca);
     }
 }

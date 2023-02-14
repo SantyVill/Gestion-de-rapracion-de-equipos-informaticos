@@ -90,7 +90,7 @@ class PreciosController extends Controller
         $precio['plazo']=$request['plazo'];
         $precio['riesgo']=$request['riesgo'];
         $precio->save();
-        return redirect()->route('precios.index');
+        return redirect()->route('marcas.show',$precio->caracteristica->marca);
     }
 
     /**
