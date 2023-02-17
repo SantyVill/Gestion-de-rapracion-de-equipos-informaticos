@@ -110,7 +110,7 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($request->id);
+        $user = User::find($id);
         $user['nombre']=request('nombre');
         $user['apellido']=$request['apellido'];
         $user['email']=$request['email'];
@@ -146,8 +146,10 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        if ($id!=1) {   
+            $user = User::find($id);
+            $user->delete();
+        }
         return redirect()->route('usuarios.index');
     }
 }
