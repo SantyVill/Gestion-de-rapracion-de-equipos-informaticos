@@ -41,22 +41,22 @@ Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::c
 Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','rol:recepcionista,admin']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','rol:recepcionista,admin']);
-Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index');
+Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo']);
 Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update')->middleware(['logueo','rol:recepcionista,admin']);
-Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit');
-Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show');
+Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show')->middleware(['logueo']);
 Route::delete('/recepciones/destroy/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
 /* Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
  */
 /*=============== Rutas de logueo ===============*/
-Route::get('/login',[SesionesController::class,'create'])->name('login.index');
+Route::get('/login',[SesionesController::class,'create'])->name('login.index')->middleware('logueado');
 Route::post('/login',[SesionesController::class,'store'])->name('login.store');
 Route::get('/login/destroy',[SesionesController::class,'destroy'])->name('login.destroy');
 
 /*=============== Rutas de registro de usuarios ===============*/
-Route::resource('usuarios', UsuariosController::class)->middleware(['logueo','admin']);
+Route::resource('usuarios', UsuariosController::class)->middleware(['logueo','rol:admin']);
 /* Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index'); */
-Route::get('/usuarios/{usuario}',[App\Http\Controllers\UsuariosController::class,'show'])->name('usuarios.show')->middleware(['logueo','mi_perfil'])->withoutMiddleware('admin');
+Route::get('/usuarios/{usuario}',[App\Http\Controllers\UsuariosController::class,'show'])->name('usuarios.show')->middleware(['logueo','mi_perfil'])->withoutMiddleware(['logueo','rol:admin']);
 /* Route::get('/registro/edit/{user}',[RegistrosController::class,'edit'])->name('registros.edit');
 Route::get('/registro',[RegistrosController::class,'create'])->name('registros.create');
 Route::post('/registro',[RegistrosController::class,'store'])->name('registros.store');
@@ -64,7 +64,7 @@ Route::patch('/registro/update',[RegistrosController::class,'update'])->name('re
 Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('registros.destroy'); */
 
 /*=============== Rutas de Revisiones ===============*/
-Route::resource('revisiones', RevisionesController::class);
+Route::resource('revisiones', RevisionesController::class)->middleware(['logueo']);
 Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
 Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
 
@@ -74,7 +74,7 @@ Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosCont
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
 
 /*=============== Rutas de Marcas ===============*/
-Route::resource('marcas', MarcasController::class);
+Route::resource('marcas', MarcasController::class)->middleware(['logueo','rol:recepcionista,admin']);
 
 /*=============== Rutas de Modelos ===============*/
 Route::resource('modelos', ModelosController::class)->middleware(['logueo','rol:admin,recepcionista']);

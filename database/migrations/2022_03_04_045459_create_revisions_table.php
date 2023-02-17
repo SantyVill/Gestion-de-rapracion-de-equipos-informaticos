@@ -16,9 +16,9 @@ class CreateRevisionsTable extends Migration
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tecnico_id')->nullable();
+            $table->unsignedBigInteger('recepcion_id');
             $table->foreign('tecnico_id')->references('id')->on('users');
-            $table->unsignedBigInteger('recepcion_id')->nullable();
-            $table->foreign('recepcion_id')->references('id')->on('recepciones');
+            $table->foreign('recepcion_id')->references('id')->on('recepciones')->onDelete('cascade');
             $table->text('nota')->nullable();
             $table->timestamp('fecha')->nullable();
  //           $table->text('Observación');

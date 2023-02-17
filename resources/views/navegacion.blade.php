@@ -119,11 +119,11 @@
     <div class="container-fluid">
         @yield('contenido')
     </div>
-    @if(session()->has('message'))
-        <div>
-            {{ session()->get('message') }}
-        </div>
-    @endif
+    @if (session()->has('message'))
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
+    </div>
+  @endif
 @extends('footer')
 </body>
 </html>

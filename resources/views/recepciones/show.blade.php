@@ -23,7 +23,11 @@
             <td>{{$recepcion->observacion}}</td>
             <td>{{$recepcion->falla}}</td>
             @if (auth()->user()->tieneRol(['admin','recepcionista']))
+            @if (isset($recepcion->cliente))
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            @else
+            <td>Cliente Eliminado.</td>
+            @endif
             @endif
             <td><button type="button" class="p-0 btn btn-warning">
                 <a class=" btn btn-primary" href="{{route('recepciones.edit',$recepcion)}}">Editar</a>
@@ -41,20 +45,10 @@
         
             <td>
                 <form method="POST" action="{{route('recepciones.destroy',$recepcion)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
-                {{-- <script>window.confirm("¿Está seguro que quiere borrar?")     --}}
                     <button class="btn btn-danger">Eliminar</button>
                     @csrf @method('DELETE')
-                {{-- </script> --}}
                 </form>
             </td>
-            {{-- <td><a href="{{route('equipos.edit',$equipo)}}" class="btn btn-primary">Editar</a></td>
-            
-            <td>
-                <form method="POST" action="{{route('equipos.destroy',$equipo)}}"onclick="return confirm('¿Está seguro que desea borrar?')">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-danger">Eliminar</button>
-                </form>
-            </td> --}}
         </tr>
     </table>       
     <div class="container">
@@ -70,9 +64,13 @@
                         <th>Número de Serie</th>
                     </tr>
                     <tr>
+                        @if (isset($recepcion->equipo))
                         <td>{{$recepcion->equipo->caracteristica->modelo}}</td>
                         <td>{{$recepcion->equipo->caracteristica->marca->marca}}</td>
                         <td><a href="{{route('equipos.show',$recepcion->equipo)}}">{{$recepcion->equipo->numero_serie}}</a></td>
+                        @else
+                            <td colspan="3" class="text-center">Equipo Eliminado.</td>
+                        @endif
                     </tr>
                 </table>
             </div>
@@ -98,7 +96,11 @@
             <tr class="d-flex {{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
                 <td class="col-8">{{$revision->nota}}</td>
                 <td class="col-2 text-center">{{$revision->fecha}}</td>
-                <td class="col-2 text-center">{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
+                @if (isset($revision->user))
+                    <td class="col-2 text-center">{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
+                @else
+                    <td class="col-2 text-center">Usuario Eliminado.</td> 
+                @endif
                 {{-- <td>{{User::find($revision->tecnico_id)->apellido.', '.User::find($revision->tecnico_id)->nombre}}</td> --}}
             </tr>        
         @empty
@@ -138,7 +140,11 @@
               <div class="mx-auto card text-dark {{($revision->tecnico_id==auth()->user()->id)?'border-info':'border-warning'}} mb-3" {{-- style="max-width: 70%;" --}}>
                 <div class="container">
                 <div class="card-header row">
-                    <div class="col-9">{{$revision->user->apellido.', '.$revision->user->nombre}}</div>
+                    @if (isset($revision->user))
+                        <div class="col-9">{{$revision->user->apellido.', '.$revision->user->nombre}}</div>
+                    @else
+                        <div class="col-9">Usuario Eliminado.</div>
+                    @endif
                     <div class="col-3">{{$revision->fecha}}</div>
                 </div>
                 </div>

@@ -18,9 +18,9 @@ class CreateCaracteristicasTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('marca_id');
-            $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('tipo_id')->nullable();
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
-            $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('cascade');
+            $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('set null');
 
             $table->string('modelo',40);
 

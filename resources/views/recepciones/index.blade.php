@@ -39,14 +39,22 @@
        {{-- @endif--}}
         @forelse ($recepciones as $recepcion)
         <tr>
+            @if (isset($recepcion->equipo))
             <td>{{$recepcion->equipo->caracteristica->modelo}}</td>
             <td>{{$recepcion->equipo->caracteristica->marca->marca}}</td>
             <td>{{$recepcion->equipo->numero_serie}}</td>
+            @else
+                <td colspan="3" class="text-center">Equipo Eliminado.</td>
+            @endif
             <td>{{$recepcion->fecha_recepcion}}</td>
             <td>{{$recepcion->falla}}</td>
 
             @if (auth()->user()->tieneRol(['admin','recepcionista']))
-            <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            @if (isset($recepcion->cliente))
+                <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            @else
+                <td class="text-center">Cliente Eliminado.</td>
+            @endif
             @endif
             <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
         </tr>

@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'recepcionista' => \App\Http\Middleware\RecepcionistaMiddleware::class,
         'logueo' => \App\Http\Middleware\LogueoMiddleware::class,
+        'logueado' => \App\Http\Middleware\logueadoMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'tecnico' => \App\Http\Middleware\TecnicoMiddleware::class,
         'mi_perfil' => \App\Http\Middleware\MiPerfilMiddleware::class,
