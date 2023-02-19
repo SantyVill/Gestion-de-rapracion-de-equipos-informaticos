@@ -80,6 +80,10 @@ class ClientesController extends Controller
             'mail'=>'required',
             'observacion'=>''
         ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
+        $field['nombre']=ucfirst($field['nombre']);
+        $field['apellido']=ucfirst($field['apellido']);
+        $field['direccion']=ucfirst($field['direccion']);
+        $field['observacion']=ucfirst($field['observacion']);
         Cliente::create($field);
         return redirect()->route('clientes.index');
     }
@@ -128,14 +132,14 @@ class ClientesController extends Controller
         ]);
 
         $cliente->update([
-            'nombre'=>request('nombre'),
-            'apellido'=>request('apellido'),
+            'nombre'=>ucfirst(request('nombre')),
+            'apellido'=>ucfirst(request('apellido')),
             'dni'=>request('dni'),
             'telefono1'=>request('telefono1'),
             'telefono2'=>request('telefono2'),
-            'direccion'=>request('direccion'),
+            'direccion'=>ucfirst(request('direccion')),
             'mail'=>request('mail'),
-            'observacion'=>request('observacion')
+            'observacion'=>ucfirst(request('observacion'))
         ]);
         return redirect()->route('clientes.show',$cliente);
     }

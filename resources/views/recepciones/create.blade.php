@@ -5,9 +5,8 @@
 @section('contenido')
 <div class="row justify-content-center">
     <div class="col-8">
-        <section class="pb-4 row justify-content-center">
-            <div class="bg-white row border border-secondary border-2 rounded-3 col-11 justify-content-center">
-            
+        <div class="row justify-content-center">
+            <div class="col ms-2 border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #41aa42">
                 <section class="w-100 p-4 text-center pb-4">
                     <form method="POST" action="{{route('recepciones.store')}}">
                         @csrf
@@ -18,12 +17,12 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
                                 <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control"  value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
+                                <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
                                 {!!$errors->first('falla','<small>:message</small><br>')!!}
                             </div>
                             <div class="col-6">
                                 <label for="accesorio" class="form-label">Accesorio: </label>
-                                <input type="text" name="accesorio" class="form-control" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
+                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
@@ -31,7 +30,7 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
+                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
                                 {!!$errors->first('observacion','<small>:message</small><br>')!!}
         
                             </div>
@@ -44,12 +43,12 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
                                 <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control" value="{{ old('falla')}}" required><br>
+                                <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}" required><br>
                                 {!!$errors->first('falla','<small>:message</small><br>')!!}
                             </div>
                             <div class="col-6">
                                 <label for="accesorio" class="form-label">Accesorio: </label>
-                                <input type="text" name="accesorio" class="form-control" value="{{ old('accesorio')}}" required><br>
+                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}" required><br>
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
@@ -57,29 +56,31 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
+                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
                                 {!!$errors->first('observacion','<small>:message</small><br>')!!}
         
                             </div>
                         </div>
                         
                         @endif
-                    
-                        @if (!(null!==(Cookie::get('equipo'))))
-                            <input type="submit" value="Selecionar Equipo" class="btn btn-success">
-                        @elseif(!(null!==(Cookie::get('cliente'))))
-                            <input type="submit" value="Selecionar Cliente" class="btn btn-success">      
-                        @else
-                            <input type="submit" value="Confirmar" class="btn btn-success">
-                        @endif
-                        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
-                        
-                        {{-- <input type="submit" value="Enviar" class="btn btn-success">
-                        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a> --}}
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+                                @if (!(null!==(Cookie::get('equipo'))))
+                                    <input type="submit" value="Selecionar Equipo" class="btn btn-outline-success">
+                                @elseif(!(null!==(Cookie::get('cliente'))))
+                                    <input type="submit" value="Selecionar Cliente" class="btn btn-outline-success">      
+                                @else
+                                    <input type="submit" value="Confirmar" class="btn btn-outline-success">
+                                @endif
+                            </div>
+                            <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
+                                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                            </div>
+                        </div>
                     </form>
                 </section>
             </div>
-        </section>
+        </div>
     </div>
     @if (isset($equipo['id']) || isset($cliente->id))
     <div class="col-4">

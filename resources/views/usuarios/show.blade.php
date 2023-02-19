@@ -3,6 +3,7 @@
 @section('titulo','Ver Usuario')
 
 @section('contenido')
+<h4 class=" pt-1 text-center">Usuario</h4>
     <table class="table table-striped table-bordered">
         <tr>
             <th>Id</th><th>Apellido y Nombre</th><th>E-mail</th><th>Roles</th>
@@ -10,11 +11,11 @@
         </tr>
         <tr>
             <td>{{$user->id}}</td>
-            <td>{{$user->apellido.', '.$user->nombre}}</td>
+            <td>{{ucfirst($user->apellido).', '.ucfirst($user->nombre)}}</td>
             <td>{{$user->email}}</td>
             <td>
                 @forelse ($user->roles as $rol)
-                {{$rol->rol}}
+                {{ucfirst($rol->rol)}}
                 @empty
                     No tiene roles
                 @endforelse
@@ -31,7 +32,7 @@
         
     </table>
     
-    <h4>Recepciones: </h4>
+    <h4 class=" pt-4 text-center">Recepciones en las que participó </h4>
     <table class="table table-striped table-bordered">
         <tr>
             <th>Modelo</th><th>Marca</th><th>Serie</th><th>Fecha Recepción</th>
@@ -58,7 +59,11 @@
             <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
         </tr>
         @empty
-            <p>No se registró ninguna recepción</p>
+        <tr>
+            <td colspan="7" class="text-center">
+                <p>No participó en ninguna recepcion</p>
+            </td>
+        </tr>
         @endforelse
     </table>
 @endsection

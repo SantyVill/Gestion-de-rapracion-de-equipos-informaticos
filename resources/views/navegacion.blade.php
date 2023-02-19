@@ -8,7 +8,7 @@
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
     <title>@yield('titulo')</title>
 </head>
-<body style="background-color: rgb(244, 255, 255)">
+<body {{-- class="bd-green-500" --}} style="background-color: rgb(244, 255, 255)">
     <header>
         <h1 class="text-center">Gestión de reparaciones</h1>
 
@@ -116,14 +116,16 @@
 
 
     </header>
-    <div class="container-fluid">
-        @yield('contenido')
-    </div>
-    @if (session()->has('message'))
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
-    </div>
-  @endif
+    <main>
+      <div class="container-fluid">
+          @yield('contenido')
+      </div>
+      @if (session()->has('message'))
+      <div class="alert alert-warning alert-dismissible" role="alert">
+          <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
+      </div>
+    @endif
+    </main>
 @extends('footer')
 </body>
 </html>

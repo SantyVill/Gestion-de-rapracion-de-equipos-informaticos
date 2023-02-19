@@ -45,7 +45,7 @@ class RevisionesController extends Controller
         $revision = Revision::create([
             'tecnico_id'=>auth()->user()->id,
             'recepcion_id'=>$recepcion['id'],
-            'nota'=>$request['nota'],
+            'nota'=>ucfirst($request['nota']),
             'fecha'=>date('Y-m-d H:i:s'),
         ]);
         $recepcion = $revision->recepcion;

@@ -60,6 +60,8 @@ class UsuariosController extends Controller
             'password'=>['required',Rules\password::min(4)],
             'password_confirmar'=>'required|same:password',
         ]);
+        $field['nombre']=ucfirst($field['nombre']);
+        $field['apellido']=ucfirst($field['apellido']);
         $user = User::create($field);
         if ($request->tecnico=='on') {
             $rol = Rol::get()->where('rol','=','tecnico');
@@ -111,8 +113,8 @@ class UsuariosController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user['nombre']=request('nombre');
-        $user['apellido']=$request['apellido'];
+        $user['nombre']=ucfirst(request('nombre'));
+        $user['apellido']=ucfirst($request['apellido']);
         $user['email']=$request['email'];
         if ($request->tecnico=='on') {
             if (!($user->esTecnico())) {

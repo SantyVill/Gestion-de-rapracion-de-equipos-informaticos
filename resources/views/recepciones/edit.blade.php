@@ -5,8 +5,8 @@
 @section('contenido')
 <div class="row">
     <div class="col-8">
-        <section class="pb-4 row justify-content-center">
-            <div class="bg-white row border border-secondary border-2 rounded-3 col-11 justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #41aa42">
             
                 <section class="w-100 p-4 text-center pb-4">
                     <form class="row g-3" method="POST" action="{{route('recepciones.update',$recepcion)}}">
@@ -18,12 +18,12 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
                                 <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control"  value="{{$recepcion->falla}}" required><br>
+                                <input type="text" name="falla" class="form-control border-dark"  value="{{$recepcion->falla}}" required><br>
                                 {!!$errors->first('falla','<small>:message</small><br>')!!}
                             </div>
                             <div class="col-6">
                                 <label for="accesorio" class="form-label">Accesorio: </label>
-                                <input type="text" name="accesorio" class="form-control" value="{{ $recepcion->accesorio }}" required><br>
+                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ $recepcion->accesorio }}" required><br>
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
+                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
                                 {!!$errors->first('observacion','<small>:message</small><br>')!!}
         
                             </div>
@@ -44,12 +44,12 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
                                 <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control" value="{{ old('falla')}}" required><br>
+                                <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}" required><br>
                                 {!!$errors->first('falla','<small>:message</small><br>')!!}
                             </div>
                             <div class="col-6">
                                 <label for="accesorio" class="form-label">Accesorio: </label>
-                                <input type="text" name="accesorio" class="form-control" value="{{ old('accesorio')}}" required><br>
+                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}" required><br>
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
@@ -57,28 +57,25 @@
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
+                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
                                 {!!$errors->first('observacion','<small>:message</small><br>')!!}
         
                             </div>
                         </div>
                         
                         @endif
-                        <div class="row justify-content-center">
-                            <div class="col-2">
-                                <input type="submit" value="Confirmar" class="btn btn-success">
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+                                <input type="submit" value="Registrar" class="btn btn-outline-success">
                             </div>
-                            <div class="col-2">
-                                <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
+                            <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
+                                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
                             </div>
                         </div>
-                        
-                        {{-- <input type="submit" value="Enviar" class="btn btn-success">
-                        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a> --}}
                     </form>
                 </section>
             </div>
-        </section>
+        </div>
     </div>
     <div class="col-4">
         <div class="pb-4 justify-content-center">

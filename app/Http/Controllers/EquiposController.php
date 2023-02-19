@@ -75,13 +75,13 @@ class EquiposController extends Controller
             'accesorios'=>'',
         ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
 
-        $marca=Marca::firstOrCreate(['marca'=> request('marca')]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
+        $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
         //$id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
-        $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+        $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
         //$id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
 
         $caracteristica=Caracteristica::firstOrCreate([
-            'modelo'=>request('modelo'),
+            'modelo'=>ucfirst(request('modelo')),
             'marca_id'=> $marca['id'],
             'tipo_id'=>$tipo['id']
         ]);
@@ -92,7 +92,7 @@ class EquiposController extends Controller
         
         $equipo=Equipo::create([
             'numero_serie'=>request('numero_serie'),
-            'observacion'=>request('observacion'),
+            'observacion'=>ucfirst(request('observacion')),
             'caracteristica_id'=>$caracteristica['id']
         ]);
         return redirect()->route('equipos.index');
@@ -135,20 +135,18 @@ class EquiposController extends Controller
             'tipo'=>'required',
             'marca'=>'required',
             'modelo'=>'required',
-            'fallas'=>'',
-            'accesorios'=>'',
             'observacion'=>''
         ]);
 
 
 
-        $marca=Marca::firstOrCreate(['marca'=> request('marca')]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
+        $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
         #$id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
-        $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+        $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
         #$id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
 
         $caracteristica=Caracteristica::firstOrCreate([
-            'modelo'=>request('modelo'),
+            'modelo'=>ucfirst(request('modelo')),
             'marca_id'=> $marca['id'],
             'tipo_id'=>$tipo['id']
         ]);
@@ -160,7 +158,7 @@ class EquiposController extends Controller
         ]); */
         
         //2 forma
-        $equipo->observacion=request('observacion');
+        $equipo->observacion=ucfirst(request('observacion'));
         $equipo->numero_serie=request('numero_serie');
         $equipo->caracteristica()->associate($caracteristica);
         $equipo->save();

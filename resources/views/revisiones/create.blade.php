@@ -24,8 +24,14 @@
                         {!!$errors->first('nota','<small>:message</small><br>')!!}
                     </div>
                 </div>
-                <input type="submit" value="Enviar" class="btn btn-success">
-                <a class="btn btn-danger" href="{{ route('recepciones.show',$recepcion) }}" role="button">Volver</a>
+                <div class="row mb-0 justify-content-center">
+                    <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+                        <input type="submit" value="Registrar" class="btn btn-outline-success">
+                    </div>
+                    <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
+                        <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                    </div>
+                </div>
             </form>
         </section>
     </div>

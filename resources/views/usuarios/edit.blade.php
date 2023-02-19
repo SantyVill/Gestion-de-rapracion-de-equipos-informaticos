@@ -3,9 +3,8 @@
 @section('titulo','Editar usuario')
 
 @section('contenido')
-<section class="pb-4 row justify-content-center">
-    <div class="bg-white row border border-secondary border-2 rounded-3 col-8 justify-content-center">
-    
+<div class="row justify-content-center">
+    <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #41aa42">
         <section class="w-100 p-4 text-center pb-4">
                 
             <form method="POST" action="{{route('usuarios.update',$user)}}" class="align-items-center">
@@ -14,23 +13,23 @@
                 <div class="row mb-0 justify-content-center">
                     <div class="col-6">
                         <label for="nombre" class="form-label">Nombre </label>
-                        <input type="text" name="nombre" class="form-control" value="{{ old('nombre',$user->nombre)}}" required><br>
+                        <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre',$user->nombre)}}" required><br>
                         {!!$errors->first('nombre','<small>:message</small><br>')!!}
                     </div>
                     <div class="col-6">
                         <label for="apellido" class="form-label">Apellido </label>
-                        <input type="text" name="apellido" class="form-control" value="{{ old('apellido',$user->apellido)}}" required><br>
+                        <input type="text" name="apellido" class="form-control border-dark" value="{{ old('apellido',$user->apellido)}}" required><br>
                         {!!$errors->first('apellido','<small>:message</small><br>')!!}
                 </div>
                 <div class="row mb-0 justify-content-center">
                     <div class="col-6">
                         <label for="email" class="form-label">Correo Electrónico </label>
-                        <input type="text" name="email" class="form-control" value="{{ old('email',$user->email)}}" required><br>
+                        <input type="text" name="email" class="form-control border-dark" value="{{ old('email',$user->email)}}" required><br>
                         {!!$errors->first('email','<small>:message</small><br>')!!}
                     </div>
                     <div class="col-6">
                         <label for="password" class="form-label">Nueva Contraseña </label>
-                        <input type="password" name="password" class="form-control" ><br>
+                        <input type="password" name="password" class="form-control border-dark" ><br>
                         {!!$errors->first('password','<small>:message</small><br>')!!}
                         
                     </div>
@@ -51,44 +50,16 @@
                     </div>
                 </div>
                 
-                <div class="row mb-0 justify-content-center">
-                    <div class="col-2">
-                        <input type="submit" value="Enviar" class="btn btn-success">
+                <<div class="row mb-0 justify-content-center">
+                    <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+                        <input type="submit" value="Registrar" class="btn btn-outline-success">
                     </div>
-                    <div class="col-2">
-                        <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
+                    <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
+                        <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
                     </div>
                 </div>
             </form>
         </section>
     </div>
-</section>
-
-
-
-
-<form method="POST" action="{{route('usuarios.update',$user)}}">
-    @csrf @method('PATCH')
-    <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre',$user->nombre)}}" required><br>
-    {!!$errors->first('nombre','<small>:message</small><br>')!!}
-
-    <input type="text" name="apellido" placeholder="Apellido" value="{{ old('apellido',$user->apellido)}}" required><br>
-    {!!$errors->first('apellido','<small>:message</small><br>')!!}
-
-    <input type="email" name="email" placeholder="Email" value="{{ old('email',$user->email)}}" required><br>
-    {!!$errors->first('email','<small>:message</small><br>')!!} 
-    
-    <input type="password" name="password" placeholder="Contraseña"><br>
-    {!!$errors->first('password','<small>:message</small><br>')!!}
-    
-
-    <input type="numbre" name="id" value="{{$user->id}}" hidden>
-
-    <label for=""><input type="checkbox" name="tecnico" {{($user->esTecnico())?'checked':''}}>Técnico</label><br>
-    
-    <label for=""><input type="checkbox" name="recepcionista" {{($user->esRecepcionista())?'checked':''}}>Recepcionista</label><br>
-
-    <input type="submit" value="Enviar"><br>
-    <a class="btn btn-danger" href="{{ url()->previous() }}" role="button">Volver</a>
-</form>
+</div>
 @endsection

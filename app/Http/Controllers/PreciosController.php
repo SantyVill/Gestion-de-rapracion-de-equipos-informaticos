@@ -44,10 +44,10 @@ class PreciosController extends Controller
     {
         $precio = Precio::create([
             'caracteristica_id'=>$id,
-            'reparacion'=>$request['reparacion'],
+            'reparacion'=>ucfirst($request['reparacion']),
             'precio'=>$request['precio'],
             'plazo'=>$request['plazo'],
-            'riesgo'=>$request['riesgo'],
+            'riesgo'=>ucfirst($request['riesgo']),
         ]);
         return redirect()->route('marcas.show',$precio->caracteristica->marca);
     }

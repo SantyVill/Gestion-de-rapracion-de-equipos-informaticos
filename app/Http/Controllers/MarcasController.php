@@ -49,19 +49,18 @@ class MarcasController extends Controller
         $field=request()->validate([
             'marca'=>'required'
         ]);
-        $marca=Marca::firstOrCreate(['marca'=> request('marca')]);
+        $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
         if (isset($request['modelo']) && $request['modelo']!=[]) {
-            return "ENTRA";
             $caracteristica= new Caracteristica([
                 'marca_id'=> $marca['id'],
-                'modelo'=> $request['modelo']
+                'modelo'=> ucfirst($request['modelo'])
             ]);
             if (isset($request['tipo'])) {
-                $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+                $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
                 $caracteristica['tipo_id']=$tipo['id'];
             }
             Caracteristica::firstOrCreate([
-                'modelo'=>$caracteristica['modelo'],
+                'modelo'=>ucfirst($caracteristica['modelo']),
                 'marca_id'=> $caracteristica['marca_id'],
                 'tipo_id'=>$caracteristica['tipo_id']
             ]);
@@ -102,7 +101,7 @@ class MarcasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $nuevaMarca = Marca::firstOrCreate(['marca'=> request('marca')]);
+        $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
         $marca = Marca::find($id);
         Caracteristica::where('marca_id', '=', $marca['id'])
         ->update(['marca_id' => $nuevaMarca['id']]);

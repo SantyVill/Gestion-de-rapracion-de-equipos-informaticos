@@ -43,14 +43,14 @@ class ModelosController extends Controller
         if (isset($request['modelo'])) {
             $caracteristica= new Caracteristica([
                 'marca_id'=> $marca['id'],
-                'modelo'=> $request['modelo']
+                'modelo'=>ucfirst($request['modelo'])
             ]);
             if (isset($request['tipo'])) {
                 $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
                 $caracteristica['tipo_id']=$tipo['id'];
             }
             Caracteristica::firstOrCreate([
-                'modelo'=>$caracteristica['modelo'],
+                'modelo'=>ucfirst($caracteristica['modelo']),
                 'marca_id'=> $caracteristica['marca_id'],
                 'tipo_id'=>$caracteristica['tipo_id']
             ]);
@@ -91,7 +91,7 @@ class ModelosController extends Controller
     public function update(Request $request, $id)
     {
         $caracteristica = Caracteristica::find($id);
-        $caracteristica['modelo']=$request['modelo'];
+        $caracteristica['modelo']=ucfirst($request['modelo']);
         if ($caracteristica->tipo->tipo!=$request['tipo']) {
             $tipo = Tipo::firstOrCreate(['tipo'=>$request['tipo']]);
             $caracteristica['tipo_id']=$tipo['id'];

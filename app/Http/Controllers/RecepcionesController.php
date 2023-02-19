@@ -98,10 +98,10 @@ class RecepcionesController extends Controller
             $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
             $recepcion = new Recepcion([
                 'estado_id'=>$estado['id'],
-                'recepcionista_id'=>auth()->user()->id,//Hay que llenar este campo con el id del usuario logueado
-                'falla'=>$request['falla'],
-                'accesorio'=>$request['accesorio'],
-                'observacion'=>$request['observacion'],
+                'recepcionista_id'=>auth()->user()->id,
+                'falla'=>ucfirst($request['falla']),
+                'accesorio'=>ucfirst($request['accesorio']),
+                'observacion'=>ucfirst($request['observacion']),
                 'fecha_recepcion'=>date('Y-m-d H:i:s'),
             ]);
             Cookie::queue('recepcion', $recepcion, 100);
@@ -198,14 +198,14 @@ class RecepcionesController extends Controller
             return redirect()->route('recepciones.show',$recepcion);
         }
         if ($request['informe_final']) {
-            $recepcion['informe_final'] = $request['informe_final'];
+            $recepcion['informe_final'] = ucfirst($request['informe_final']);
             $recepcion->save();
             return redirect()->route('recepciones.show',$recepcion);
         }
 
-        $recepcion['falla'] = $request['falla'];
-        $recepcion['accesorio'] = $request['accesorio'];
-        $recepcion['observacion'] = $request['observacion'];
+        $recepcion['falla'] = ucfirst($request['falla']);
+        $recepcion['accesorio'] = ucfirst($request['accesorio']);
+        $recepcion['observacion'] = ucfirst($request['observacion']);
         $recepcion -> save();
         return redirect()->route('recepciones.show',$recepcion);
     }
