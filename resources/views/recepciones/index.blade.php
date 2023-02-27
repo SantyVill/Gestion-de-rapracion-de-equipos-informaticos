@@ -5,19 +5,27 @@
 @section('contenido')
     <div class="container mb-2">
         <div class="row">
-            <div class="col-7">
+            <div class="col-6">
                 <a href="{{route('recepciones.create')}}" class="btn btn-success {{ setActiva('recepciones/create') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                    </svg>
                     Registrar Recepcion
                 </a>
             </div>
-            <div class="col-5">
-                <form class="form-inlinefloat-right">
-                    <div class="row">
-                        <div class="col-7">
-                            <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar Recepcion" aria-label="Search" value="{{$buscar}}">
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            <div class="ps-4 col-6">
+                <form class="ps-4 ms-4">
+                    <div class="row justify-content-center">
+                        <div class="input-group w-50">
+                            <input name="buscar" class="form-control" type="search" placeholder="Buscar Recepción" aria-label="Search" value="{{$buscar}}">
+                            <span class="input-group-text" id="basic-addon1">
+                                    <button style="border:none;" class="p-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                    </svg>
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -56,10 +64,14 @@
                 <td class="text-center">Cliente Eliminado.</td>
             @endif
             @endif
-            <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
+            <td class="p-1 text-center col-1"><a href="{{route('recepciones.show',$recepcion)}}" class="btn btn-primary">Ver</a></td>
         </tr>
         @empty
-            <p>No se registró ninguna recepción</p>
+        <tr>
+            <td colspan="7" class="text-center">
+                <p>No se registró ninguna recepción</p>
+            </td>
+        </tr>
         @endforelse
     </table>
     <div class="d-flex justify-content-center">

@@ -74,7 +74,7 @@ Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosCont
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
 
 /*=============== Rutas de Marcas ===============*/
-Route::resource('marcas', MarcasController::class)->middleware(['logueo','rol:recepcionista,admin']);
+Route::resource('marcas', MarcasController::class)->middleware(['logueo','rol:recepcionista,admin,tecnico']);
 
 /*=============== Rutas de Modelos ===============*/
 Route::resource('modelos', ModelosController::class)->middleware(['logueo','rol:admin,recepcionista']);
