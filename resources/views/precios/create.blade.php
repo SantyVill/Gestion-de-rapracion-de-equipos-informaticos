@@ -22,8 +22,8 @@
                 </div>
                 <div class="row mb-0 justify-content-center">
                     <div class="col-6">
-                        <label for="plazo" class="form-label">Plazo </label>
-                        <input type="date" name="plazo" class="form-control border-dark" value="{{ old('plazo')}}" required><br>
+                        <label for="plazo" class="form-label">Plazo de reparacón (dias)</label>
+                        <input type="number" name="plazo" class="form-control border-dark" value="{{ old('plazo')}}" required><br>
                         {!!$errors->first('plazo','<small>:message</small><br>')!!}
                     </div>
                     <div class="col-6">

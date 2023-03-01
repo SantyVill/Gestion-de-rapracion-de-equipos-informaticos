@@ -199,6 +199,8 @@ class RecepcionesController extends Controller
         }
         if ($request['informe_final']) {
             $recepcion['informe_final'] = ucfirst($request['informe_final']);
+            $recepcion['precio']= $request['precio'];
+            $recepcion['garantia'] = $request['garantia'];
             $recepcion->save();
             return redirect()->route('recepciones.show',$recepcion);
         }
