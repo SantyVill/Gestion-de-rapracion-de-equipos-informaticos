@@ -12,6 +12,7 @@
                 <th>Observacíon</th>
                 <th>Falla:</th>
                 @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                <th>Monto total</th>
                 <th>Cliente</th>
                 @endif
                 <th colspan="2" class="text-center">Acciones</th>
@@ -22,6 +23,7 @@
             <td>{{$recepcion->estado->estado}}</td>
             <td>{{$recepcion->observacion}}</td>
             <td>{{$recepcion->falla}}</td>
+            <td>${{$recepcion->precio}}</td>
             @if (auth()->user()->tieneRol(['admin','recepcionista']))
             @if (isset($recepcion->cliente))
             <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
@@ -88,7 +90,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-5"><h5 class="card-title pt-2">Informe Final</h5></div>
+                            <div class="col-5"><h5 class="card-title pt-2">Informe Final:</h5></div>
                             <div class="col-7 text-end">
                                 <a href="{{route('recepciones.informe_final',$recepcion)}}">
                                     <button class="btn btn-primary" >
@@ -109,6 +111,7 @@
                             </div>
                         </div>
                       <p class="card-text">{{$recepcion->informe_final}}</p>
+                      <p class="card-text"><b>Garantía:</b> {{$recepcion->garantia}}</p>
                     </div>
                   </div>
             </div>

@@ -46,7 +46,11 @@
                         <tr>
                             <td>{{$precio->reparacion}}</td>
                             <td>{{$precio->precio}}</td>
-                            <td>{{$precio->plazo}}</td>
+                            <td>
+                                @if ($precio->plazo)
+                                    {{$precio->plazo}} dias
+                                @endif
+                            </td>
                             <td>{{$precio->riesgo}}</td>
                             <td>
                                 <a href="{{route('precios.edit',$precio)}}" class="">
