@@ -14,6 +14,7 @@ use App\Models\Equipo;
 use App\Models\Cliente;
 use App\Models\Recepcion;
 use App\Models\Estado;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RecepcionesController extends Controller
 {
@@ -225,9 +226,16 @@ class RecepcionesController extends Controller
         $recepcion->delete();
         return redirect()->route('recepciones.index');
     }
-/*     public function destroy(Recepcion $recepcion)
-    {  //NO FUNCIONA
-        $recepcion->delete();
-        return redirect()->route('recepciones.index');
-    } */
+    public function generarPdfIngreso(Recepcion $recepcion)
+    { 
+        /* return view('recepciones.generarPdfIngreso',compact('recepcion')); */
+        $pdf = Pdf::loadView('recepciones.generarPdfIngreso', compact('recepcion'));
+        return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'.pdf');
+    }
+    public function generarPdfInforme(Recepcion $recepcion)
+    { 
+        /* return view('recepciones.generarPdfInforme',compact('recepcion')); */
+        $pdf = Pdf::loadView('recepciones.generarPdfInforme', compact('recepcion'));
+        return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'-Informe.pdf');
+    }
 }

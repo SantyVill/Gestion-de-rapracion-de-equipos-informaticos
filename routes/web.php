@@ -46,6 +46,9 @@ Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\Recepciones
 Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show')->middleware(['logueo']);
 Route::delete('/recepciones/destroy/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');
+
+Route::get('/recepciones/generar-pdf-ingreso/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'generarPdfIngreso'])->name('recepciones.generarPdfIngreso')->middleware(['logueo','rol:admin,recepcionista']);
+Route::get('/recepciones/generar-pdf-informe/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'generarPdfInforme'])->name('recepciones.generarPdfInforme')->middleware(['logueo','rol:admin,recepcionista']);
 /* Route::resource('recepciones', RecepcionesController::class)->middleware(['logueo']);
  */
 /*=============== Rutas de logueo ===============*/
