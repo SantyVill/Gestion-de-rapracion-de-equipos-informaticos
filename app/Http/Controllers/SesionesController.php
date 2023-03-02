@@ -36,10 +36,10 @@ class SesionesController extends Controller
 
             return redirect()->route('home');
         }
-
-        return back()->withErrors([
-            'message' => 'Email o la contraseña incorrecta',
-        ]);
+        return redirect()->back()->with('message','Email o la contraseña incorrecta')->with('emailA',$request['email']);
+        /* return back()->withErrors([
+            'message' => '',
+        ]); */
 
         /* $credentials = [
             'email' => request('email'),

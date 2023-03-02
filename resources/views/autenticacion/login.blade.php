@@ -27,9 +27,8 @@
                     <h2 class="h4 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Por favor correo electrónico y contraseña</font></font></h2>
                     
                     <div class="form-floating">
-                        <input  class="form-control" placeholder="nombre@ejemplo.com" type="email" name="email" placeholder="Email" value="{{ old('email')}}" required><br>
-                        {{-- <input type="email" class="form-control" id="floatingInput" placeholder="nombre@ejemplo.com"> --}}
-                        <label for="floatingInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dirección de correo electrónico</font></font></label>
+                        <input  class="form-control" placeholder="nombre@ejemplo.com" type="email" name="email" placeholder="Email" value="{{session()->has('emailA')?session()->get('emailA'):''}}" required><br>
+                        <label for="email"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dirección de correo electrónico</font></font></label>
                     </div>
                     <div class="form-floating">
                         <input class="form-control" type="password" name="password" placeholder="Contraseña" required placeholder="Clave"><br>
@@ -124,11 +123,10 @@
       </section> --}}
 
 
-
-    @if(session()->has('message'))
-        <div>
-            {{ session()->get('message') }}
-        </div>
+      @if (session()->has('message'))
+      <div class="alert alert-warning alert-dismissible" role="alert">
+          <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
+      </div>
     @endif
 </body>
 </html>
