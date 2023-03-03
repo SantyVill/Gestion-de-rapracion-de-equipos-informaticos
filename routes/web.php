@@ -42,6 +42,7 @@ Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\Recepc
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','rol:recepcionista,admin']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo']);
+/* Route::get('/recepciones/index/{buscar?}/{NumOrden?}',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo']); */
 Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show')->middleware(['logueo']);

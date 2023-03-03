@@ -12,8 +12,8 @@
                     <form class="row g-3" method="POST" action="{{route('recepciones.update',$recepcion)}}">
                         @csrf @method('PATCH')
                         <legend>Editar Recepción</legend>
-                
-                        @if (isset($recepcion))
+                {{-- 
+                        @if (isset($recepcion)) --}}
                         
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
@@ -27,7 +27,19 @@
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
-                        <input type="text" name="estado" value="A presupuestar" required hidden><br>
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col-5">
+                                <label for="estado" class="form-label">Estado: </label>
+                                <select class="form-select border-dark" name="estado" aria-label="Default select example">
+                                    <option value="A presupuestar" {{$recepcion->estado->opSelected("A presupuestar")}}>A presupuestar</option>
+                                    <option value="En Revisión" {{$recepcion->estado->opSelected("En Revisión")}}>En Revisión</option>
+                                    <option value="Presupuesto Aceptado" {{$recepcion->estado->opSelected("Presupuesto Aceptado")}}>Presupuesto Aceptado</option>
+                                    <option value="En Reparación" {{$recepcion->estado->opSelected("En Reparación")}}>En Reparación</option>
+                                    <option value="Reparación Terminada" {{$recepcion->estado->opSelected("Reparación Terminada")}}>Reparación Terminada</option>
+                                    <option value="Equipo Entregado" {{$recepcion->estado->opSelected("Equipo Entregado")}}>Equipo Entregado</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
@@ -39,7 +51,7 @@
                         
                         
                             
-                        @else
+                        {{-- @else
                         
                         <div class="row mb-0 justify-content-center">
                             <div class="col-6">
@@ -63,7 +75,7 @@
                             </div>
                         </div>
                         
-                        @endif
+                        @endif --}}
                         <div class="row mb-0 justify-content-center">
                             <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
                                 <input type="submit" value="Registrar" class="btn btn-outline-success">

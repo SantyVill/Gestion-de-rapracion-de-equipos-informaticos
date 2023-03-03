@@ -25,43 +25,51 @@ class RecepcionesController extends Controller
      */
     public function index(Request $request)
     {
-        $buscar=$request['buscar'];
-        $recepciones=Recepcion::where('falla','like','%'.$buscar.'%')
-        ->orwhere(
-            'accesorio', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            'fecha_recepcion', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'equipo', 'numero_serie', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'estado', 'estado', 'like' ,'%'.$buscar.'%'
-        )
-        /* ->orwhereRelation(
-            'cliente', 'apellido', 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'cliente', 'nombre', 'like' ,'%'.$buscar.'%'
-        ) */
-        ->orwhereRelation(
-            'cliente', DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'cliente', DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        /* return $request; */
+        $buscar='';
+        if ($request['NumOrden']=='1') {
+            $buscarId = $request['buscar'];
+            $recepciones=Recepcion::where('id','like','%'.$request['buscar'].'%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            return view('recepciones.index',compact('recepciones','buscar'));
+        } else {
+            $buscar=$request['buscar'];
+            $recepciones=Recepcion::where('falla','like','%'.$buscar.'%')
+            ->orwhere(
+                'accesorio', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhere(
+                'id', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhere(
+                'fecha_recepcion', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo', 'numero_serie', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'estado', 'estado', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        }
+        
         return view('recepciones.index',compact('recepciones','buscar'));
     }
 
@@ -206,9 +214,11 @@ class RecepcionesController extends Controller
             return redirect()->route('recepciones.show',$recepcion);
         }
 
+        $estado=Estado::firstOrCreate(['estado'=> ucfirst($request['estado'])]);
         $recepcion['falla'] = ucfirst($request['falla']);
         $recepcion['accesorio'] = ucfirst($request['accesorio']);
         $recepcion['observacion'] = ucfirst($request['observacion']);
+        $recepcion['estado_id'] = $estado->id;
         $recepcion -> save();
         return redirect()->route('recepciones.show',$recepcion);
     }
@@ -228,7 +238,7 @@ class RecepcionesController extends Controller
     }
     public function generarPdfIngreso(Recepcion $recepcion)
     { 
-        /* return view('recepciones.generarPdfIngreso',compact('recepcion')); */
+        return view('recepciones.generarPdfIngreso',compact('recepcion'));
         $pdf = Pdf::loadView('recepciones.generarPdfIngreso', compact('recepcion'));
         return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'.pdf');
     }

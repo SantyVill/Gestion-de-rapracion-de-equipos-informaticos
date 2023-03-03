@@ -21,7 +21,7 @@
                                 {!!$errors->first('falla','<small>:message</small><br>')!!}
                             </div>
                             <div class="col-6">
-                                <label for="accesorio" class="form-label">Accesorio: </label>
+                                <label for="accesorio" class="form-label">Accesorios: </label>
                                 <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
@@ -52,7 +52,20 @@
                                 {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                             </div>
                         </div>
-                        <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br>
+                        {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br> --}}
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col-4">
+                                <label for="estado" class="form-label">Estado: </label>
+                                <select class="form-select border-dark" name="estado" aria-label="Default select example">
+                                    <option value="A presupuestar" selected>A presupuestar</option>
+                                    <option value="En Revisión">En Revisión</option>
+                                    <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
+                                    <option value="En Reparación">En Reparación</option>
+                                    <option value="Reparación Terminada">Reparación Terminada</option>
+                                    <option value="Equipo Entregado">Equipo Entregado</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row mb-0 justify-content-center">
                             <div class="col-8">
                                 <label for="observacion" class="form-label">Observación: </label><br>                    
