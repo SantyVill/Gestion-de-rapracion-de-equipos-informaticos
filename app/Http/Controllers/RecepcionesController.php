@@ -238,7 +238,7 @@ class RecepcionesController extends Controller
     }
     public function generarPdfIngreso(Recepcion $recepcion)
     { 
-        return view('recepciones.generarPdfIngreso',compact('recepcion'));
+        /* return view('recepciones.generarPdfIngreso',compact('recepcion')); */
         $pdf = Pdf::loadView('recepciones.generarPdfIngreso', compact('recepcion'));
         return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'.pdf');
     }
