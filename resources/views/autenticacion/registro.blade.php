@@ -6,7 +6,7 @@
 <div class="row justify-content-center">
     <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #41aa42">
         <section class="w-100 p-4 text-center pb-4">
-            <form method="POST" action="{{route('equipos.store')}}" class="align-items-center">
+            <form method="POST" action="{{route('usuarios.store')}}" class="align-items-center">
                 <legend>Registrar Usuario</legend>
                 @csrf 
                 <div class="row mb-0 justify-content-center">
