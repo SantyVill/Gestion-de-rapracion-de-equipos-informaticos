@@ -121,10 +121,15 @@
           @yield('contenido')
       </div>
       @if (session()->has('message'))
-      <div class="alert alert-warning alert-dismissible" role="alert">
+      <div class="alert alert-warning alert-dismissible" role="alert" id="error">
           <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
       </div>
-    @endif
+      @if(session('error'))
+        <script>
+            document.getElementById('error').scrollIntoView();
+        </script>
+      @endif
+      @endif
     </main>
 @extends('footer')
 </body>

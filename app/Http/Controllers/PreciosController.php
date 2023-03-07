@@ -101,8 +101,13 @@ class PreciosController extends Controller
      */
     public function destroy($id)
     {
-        $precio=Precio::find($id);
-        $precio->delete();
-        return redirect()->route('marcas.show',$precio->caracteristica->marca);
+        try {
+            $precio=Precio::find($id);
+            $precio->delete();
+            return redirect()->route('marcas.show',$precio->caracteristica->marca);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error de integridad en la base de datos: Primero debe eliminar los equipos que tienen este modelo.'/*  . $e->getMessage() */;
+            return redirect()->back()->with('message', $mensaje)->with('error', true);
+        }
     }
 }
