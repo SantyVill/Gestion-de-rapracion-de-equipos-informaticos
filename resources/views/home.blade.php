@@ -15,7 +15,7 @@
             @endif
         @endif
     {{auth()->user()->nombre}} </h2>
-    <div class="card border-info mb-3 justify-content-center mx-auto" style="width: 40em">
+    <div class="card border-info mb-3 justify-content-center mx-auto" style="width: 60em">
         <div class="card-header text-center">
             <h4 class="card-title">
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -30,16 +30,9 @@
                     <div class="col-6"><p class="card-text"><b>Recaudación total:</b> {{$recepciones->sum('precio')}}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{$equipoMasRegistrado->caracteristica->modelo}}</p></div>
-                    <div class="col-6">
-                        <p class="card-text"><b>Marca del modelo:</b> {{$equipoMasRegistrado->caracteristica->marca->marca}}</p>
-                    </div>
-                </div>
-                <div class="row">
+                    <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{$equipoMasRegistrado->caracteristica->modelo}} ({{ $equipoMasRegistrado->caracteristica->marca->marca }})</p></div>
                     <div class="col-6"><p class="card-text"><b>Marca mas concurrente:</b> {{$marcaMasRepetida->marca}}</p></div>
-                    <div class="col-6"></div>
-                </div>
-                
+                </div>               
                 
             </div>
         </div>
