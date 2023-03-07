@@ -24,6 +24,38 @@
                 <li class="nav-item">
                   <a href="/" class="nav-link {{ setActiva('/') }}">Inicio</a>
                 </li>
+                    
+                {{-- =============LINKS DE RECEPCIONES============= --}}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle {{ setActiva('recepciones.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Recepciones
+                  </a>
+                  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    <li class="nav-item">
+                        <a href="{{route('recepciones.index')}}" class="dropdown-item nav-link">Lista de Recepciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('recepciones.create')}}" class="dropdown-item nav-link">Nueva Recepcion</a>
+                    </li>
+                  </ul>
+                </li>
+                    
+                {{-- =============LINKS DE CLIENTES============= --}}
+                @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle {{ setActiva('clientes.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Clientes
+                  </a>
+                  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    <li class="nav-item">
+                        <a href="{{route('clientes.index')}}" class="dropdown-item nav-link">Lista de Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('clientes.create')}}" class="dropdown-item nav-link">Registrar Cliente</a>
+                    </li>
+                  </ul>
+                </li>
+                @endif
                 
                 
                 {{-- =============LINKS DE EQUIPOS============= --}}
@@ -42,38 +74,6 @@
                   </ul>
                 </li>
                 @endif
-                    
-                {{-- =============LINKS DE CLIENTES============= --}}
-                @if (auth()->user()->tieneRol(['admin','recepcionista']))
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {{ setActiva('clientes.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Clientes
-                  </a>
-                  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                    <li class="nav-item">
-                        <a href="{{route('clientes.index')}}" class="dropdown-item nav-link">Lista de Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('clientes.create')}}" class="dropdown-item nav-link">Registrar Cliente</a>
-                    </li>
-                  </ul>
-                </li>
-                @endif
-                    
-                {{-- =============LINKS DE RECEPCIONES============= --}}
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {{ setActiva('recepciones.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Recepciones
-                  </a>
-                  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                    <li class="nav-item">
-                        <a href="{{route('recepciones.index')}}" class="dropdown-item nav-link">Lista de Recepciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('recepciones.create')}}" class="dropdown-item nav-link">Registrar Recepcion</a>
-                    </li>
-                  </ul>
-                </li>
 
                 {{-- =============LINKS DE USUARIOS============= --}}
                 @if (auth()->user()->tieneRol(['admin']))
