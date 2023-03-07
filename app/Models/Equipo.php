@@ -15,4 +15,8 @@ class Equipo extends Model
     public function caracteristica(){
         return $this->belongsTo('App\Models\Caracteristica');
     }
+    
+    public function recepciones(){
+        return $this->hasMany('App\Models\Recepcion','equipo_id');
+    }
 }

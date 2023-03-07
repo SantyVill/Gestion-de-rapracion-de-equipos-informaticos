@@ -6,6 +6,7 @@ use App\Http\Controllers\SesionesController;
 //use App\Http\Controllers\RecepcionesController;
 //use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $recepciones = App\Models\Recepcion::all();
+    $equipoMasRegistrado = App\Models\Equipo::withCount('recepciones')
+    ->orderBy('recepciones_count', 'desc')
+    ->first();
+
+    $marcaMasRepetida = App\Models\Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
+    ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
+    ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
+    ->groupBy('marcas.marca')
+    ->select('marcas.marca', DB::raw('COUNT(*) as cantidad'))
+    ->orderByDesc('cantidad')
+    ->first();
+
+    return view('home')->with('recepciones', $recepciones)->with('equipoMasRegistrado',$equipoMasRegistrado)->with('marcaMasRepetida',$marcaMasRepetida);
 })->middleware('auth')->name('home');
 
 /* Route::get('/equipos',[App\Http\Controllers\EquiposController::class, 'index'])-> name('equipos.index'); */

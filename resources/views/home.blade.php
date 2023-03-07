@@ -15,12 +15,34 @@
             @endif
         @endif
     {{auth()->user()->nombre}} </h2>
-    <div class="card text-center">
-      <img class="card-img-top" src="holder.js/100px180/" alt="Title">
-      <div class="card-body">
-        <h4 class="card-title">Title</h4>
-        <p class="card-text">Body</p>
-      </div>
+    <div class="card border-info mb-3 justify-content-center mx-auto" style="width: 40em">
+        <div class="card-header text-center">
+            <h4 class="card-title">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Ver estadísticas.
+                </button>
+            </h4>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6"><p class="card-text"><b>N° de recepciones:</b> {{$recepciones->count()}}</p></div>
+                    <div class="col-6"><p class="card-text"><b>Recaudación total:</b> {{$recepciones->sum('precio')}}</p></div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{$equipoMasRegistrado->caracteristica->modelo}}</p></div>
+                    <div class="col-6">
+                        <p class="card-text"><b>Marca del modelo:</b> {{$equipoMasRegistrado->caracteristica->marca->marca}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><p class="card-text"><b>Marca mas concurrente:</b> {{$marcaMasRepetida->marca}}</p></div>
+                    <div class="col-6"></div>
+                </div>
+                
+                
+            </div>
+        </div>
     </div>
     <br>
 @endsection
