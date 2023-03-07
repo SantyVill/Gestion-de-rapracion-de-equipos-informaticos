@@ -22,12 +22,10 @@ class CreateRecepcionesTable extends Migration
             $table->unsignedBigInteger('equipo_id');
             $table->unsignedBigInteger('estado_id');
             
-            $table->foreign('cliente_id')->references('id')->on('clientes')/* ->onDelete('set null') */;
-            $table->foreign('recepcionista_id')->references('id')->on('users')/* ->onDelete('set null') */;
-            $table->foreign('equipo_id')->references('id')->on('equipos')/* ->onDelete('set null') */;
-            $table->foreign('estado_id')->references('id')->on('estados')/* ->onDelete('set null') */;
-            
-
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('restrict');
+            $table->foreign('recepcionista_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('restrict');
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('restrict');
             
             $table->string('falla',100)->not_null();
             $table->string('accesorio',100)->nullable();
