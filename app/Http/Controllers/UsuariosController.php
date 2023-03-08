@@ -62,6 +62,7 @@ class UsuariosController extends Controller
         ]);
         $field['nombre']=ucfirst($field['nombre']);
         $field['apellido']=ucfirst($field['apellido']);
+        $field['password']=bcrypt($field['password']);
         $user = User::create($field);
         if ($request->tecnico=='on') {
             $rol = Rol::get()->where('rol','=','tecnico');
@@ -134,7 +135,7 @@ class UsuariosController extends Controller
         }
 
         if ($request->password!='') {
-            $user->password=$request->password;
+            $user->password=bcrypt($request->password);
         }
         $user->save();
         return redirect()->route('usuarios.show',$user);
