@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1 class="text-center"><a href="{{route('home')}}">Gestion de reparaciones</a></h1>
+        <h1 class="text-center "><a class="text-decoration-none text-dark" href="{{route('home')}}">Gestion de reparaciones</a></h1>
 
 
 
