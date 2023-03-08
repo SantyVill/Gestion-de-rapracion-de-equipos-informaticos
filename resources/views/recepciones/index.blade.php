@@ -59,7 +59,9 @@
                 <th>Cliente</th> 
                {{--  @endif  --}}
                 <th>Estado:</th>
+                {{-- @if (auth()->user()->tieneRol(['admin','recepcionista'])) --}}
                 <th colspan="2">Accion</th>
+                {{-- @endif --}}
             </tr>
        {{-- @endif--}}
         @forelse ($recepciones as $recepcion)
@@ -75,13 +77,13 @@
             <td>{{date('d-m-y',strtotime($recepcion->fecha_recepcion))}}</td>
             <td>{{$recepcion->falla}}</td>
 
-            @if (auth()->user()->tieneRol(['admin','recepcionista']))
-            @if (isset($recepcion->cliente))
+            {{-- @if (auth()->user()->tieneRol(['admin','recepcionista']))
+            @if (isset($recepcion->cliente)) --}}
                 <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
-            @else
+            {{-- @else
                 <td class="text-center">Cliente Eliminado.</td>
             @endif
-            @endif
+            @endif --}}
             <td>{{$recepcion->estado->estado}}</td>
             <td class="p-1 text-center col-1"><a href="{{route('recepciones.show',$recepcion)}}" class="btn btn-primary">Ver</a></td>
         </tr>

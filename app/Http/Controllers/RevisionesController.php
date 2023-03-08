@@ -49,8 +49,10 @@ class RevisionesController extends Controller
             'fecha'=>date('Y-m-d H:i:s'),
         ]);
         $recepcion = $revision->recepcion;
-        $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
-        $recepcion->estado_id= $nuevoEstado['id'];
+        if ($request['estado']!='') {
+            $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
+            $recepcion->estado_id= $nuevoEstado['id'];
+        }
         $recepcion->save();
         return redirect() -> route('recepciones.show',$recepcion);
     }
