@@ -38,7 +38,10 @@
                             <option value="Equipo Entregado" {{$recepcion->estado->opSelected("Equipo Entregado")}}>Equipo Entregado</option>
                             @endif
                         </select>
-                            
+                        <div class="mt-3 d-inline-flex p-0 bd-highlight form-check form-switch d-inline-flex bd-highlight">
+                            <input class="form-check-input" type="checkbox" name="interna">
+                            <label class="form-check-label" for="tecnico">Nota Interna</label>
+                        </div>
                     </div>
                     <div class="col-8">
                         <label for="nota" class="form-label">Nota: </label><br>

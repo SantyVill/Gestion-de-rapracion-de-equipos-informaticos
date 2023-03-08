@@ -142,16 +142,18 @@
         </tr>
         </thead>
         @forelse ($recepcion->revisiones as $revision)
-            <tr class="d-flex {{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
-                <td class="col-8">{{$revision->nota}}</td>
-                <td class="col-2 text-center">{{$revision->fecha}}</td>
-                @if (isset($revision->user))
-                    <td class="col-2 text-center">{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
-                @else
-                    <td class="col-2 text-center">Usuario Eliminado.</td> 
-                @endif
-                {{-- <td>{{User::find($revision->tecnico_id)->apellido.', '.User::find($revision->tecnico_id)->nombre}}</td> --}}
-            </tr>        
+            @if ($revision->ocultar())
+                <tr class="d-flex {{($revision->tecnico_id==auth()->user()->id)?'table-info':'table-success'}}">
+                    <td class="col-8">{{$revision->nota}}</td>
+                    <td class="col-2 text-center">{{$revision->fecha}}</td>
+                    @if (isset($revision->user))
+                        <td class="col-2 text-center">{{$revision->user->apellido.', '.$revision->user->nombre}}</td> 
+                    @else
+                        <td class="col-2 text-center">Usuario Eliminado.</td> 
+                    @endif
+                    {{-- <td>{{User::find($revision->tecnico_id)->apellido.', '.User::find($revision->tecnico_id)->nombre}}</td> --}}
+                </tr>        
+            @endif
         @empty
             <p>No se agregó ninguna revisión</p>
         @endforelse
