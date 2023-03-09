@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <p class="card-text">{{$recepcion->informe_final}}</p>
-                    <p class="card-text"><b>Garantía:</b> {{$recepcion->garantia}}</p>
+                    <p class="p-1 card-text d-inline-block border rounded-pill {{(now()->startOfDay()>\Carbon\Carbon::parse($recepcion->garantia)->startOfDay())?'bg-danger':'bg-info'}} bg-gradient"><b>Garantía:</b>{{$recepcion->garantia}}</p>
                 </div>
                 </div>
         </div>
