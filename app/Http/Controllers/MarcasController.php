@@ -100,12 +100,17 @@ class MarcasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
         $marca = Marca::find($id);
-        Caracteristica::where('marca_id', '=', $marca['id'])
-        ->update(['marca_id' => $nuevaMarca['id']]);
-        $marca -> delete();
+        if ($nuevaMarca != $marca) {    
+            Caracteristica::where('marca_id', '=', $marca['id'])
+            ->update(['marca_id' => $nuevaMarca['id']]);
+            $marca -> delete();
+        } else {
+            $marca->marca = $request['marca'];
+            $marca->save();
+        }
         return redirect()->route('marcas.index',$nuevaMarca);
     }
 
