@@ -47,7 +47,7 @@ Route::resource('equipos', EquiposController::class)->middleware(['logueo','rece
 /*=============== Rutas de clientes ===============*/
 Route::get('clientes/select_recepcion',[App\Http\Controllers\ClientesController::class,'select_cliente_recepcion'])->name('clientes.select_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('clientes/update_recepcion/{recepcion}',[App\Http\Controllers\ClientesController::class,'update_cliente_recepcion'])->name('clientes.update_recepcion')->middleware(['logueo','rol:recepcionista,admin']);
-Route::resource('clientes', ClientesController::class)->middleware(['auth'])->middleware(['auth','rol:recepcionista,admin']);
+Route::resource('clientes', ClientesController::class)->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('cliente/create/{equipo?}',[App\Http\Controllers\ClientesController::class,'create'])->name('clientes.create')->middleware(['logueo','rol:recepcionista,admin']); //la ruta tambien recibe un equipo
 Route::get('cliente/index/{equipo?}',[App\Http\Controllers\ClientesController::class,'index'])->name('clientes.index')->middleware(['logueo','rol:recepcionista,admin']); //la ruta tambien recibe un equipo
 
@@ -93,7 +93,7 @@ Route::get('/revisiones/show/{revision}',[App\Http\Controllers\RevisionesControl
 Route::delete('/revisiones/destroy/{revision}',[App\Http\Controllers\RevisionesController::class,'destroy'])->name('revisiones.destroy');
 
 /*=============== Rutas de Lista de precios ===============*/
-Route::resource('precios', PreciosController::class)->middleware('rol:admin,recepcionista');
+Route::resource('precios', PreciosController::class)->middleware(['logueo','rol:admin,recepcionista']);
 Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','rol:admin']);
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
 
