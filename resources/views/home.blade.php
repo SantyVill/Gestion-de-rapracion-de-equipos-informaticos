@@ -26,12 +26,12 @@
         <div class="collapse" id="collapseExample">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6"><p class="card-text"><b>N° de recepciones:</b> {{$recepciones->count()}}</p></div>
-                    <div class="col-6"><p class="card-text"><b>Recaudación total:</b> {{$recepciones->sum('precio')}}</p></div>
+                    <div class="col-6"><p class="card-text"><b>N° de recepciones:</b> {{($recepciones)?$recepciones->count():'No se registraron recepciones.'}}</p></div>
+                    <div class="col-6"><p class="card-text"><b>Recaudación total:</b> {{($recepciones)?$recepciones->sum('precio'):''}}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{$equipoMasRegistrado->caracteristica->modelo}} ({{ $equipoMasRegistrado->caracteristica->marca->marca }})</p></div>
-                    <div class="col-6"><p class="card-text"><b>Marca mas concurrente:</b> {{$marcaMasRepetida->marca}}</p></div>
+                    <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->modelo:'No se registraron equipos'}} ({{ ($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->marca->marca:'No se registraron equipos'}})</p></div>
+                    <div class="col-6"><p class="card-text"><b>Marca mas concurrente:</b> {{($marcaMasRepetida)?$marcaMasRepetida->marca:'No se registro ningun Equipo'}}</p></div>
                 </div>               
                 
             </div>
