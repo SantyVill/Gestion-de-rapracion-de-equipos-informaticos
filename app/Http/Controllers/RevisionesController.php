@@ -10,6 +10,8 @@ use App\Models\Estado;
 
 class RevisionesController extends Controller
 {
+    protected $singular = 'revision';
+    protected $resourceName = 'revision';
     /**
      * Display a listing of the resource.
      *
@@ -74,9 +76,9 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Revision $revision)
     {
-        //
+        return view('revisiones.edit',compact('revision'));
     }
 
     /**
@@ -86,9 +88,12 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Revision $revision)
     {
-        //
+        $revision->nota=$request['nota'];
+        $revision->interna=($request['interna'])?true:false;
+        $revision->save();
+        return redirect() -> route('recepciones.show',$revision->recepcion_id);
     }
 
     /**
@@ -97,8 +102,10 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Revision $revision)
     {
-        //
+        $recepcion_id=$revision->recepcion_id;
+        $revision->delete();
+        return redirect() -> route('recepciones.show',$revision->recepcion_id);
     }
 }

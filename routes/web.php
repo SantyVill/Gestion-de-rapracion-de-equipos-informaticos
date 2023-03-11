@@ -83,8 +83,14 @@ Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('
 
 /*=============== Rutas de Revisiones ===============*/
 Route::resource('revisiones', RevisionesController::class)->middleware(['logueo']);
-Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
-Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
+Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create')->middleware(['logueo','rol:recepcionista,admin']);
+Route::post('/revisiones/store/{recepcion}/',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/index/',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']);
+/* Route::get('/revisiones/index/{buscar?}/{NumOrden?}',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']); */
+Route::patch('/revisiones/update/{revision}',[App\Http\Controllers\RevisionesController::class,'update'])->name('revisiones.update')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/edit/{revision}',[App\Http\Controllers\RevisionesController::class,'edit'])->name('revisiones.edit')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/show/{revision}',[App\Http\Controllers\RevisionesController::class,'show'])->name('revisiones.show')->middleware(['logueo']);
+Route::delete('/revisiones/destroy/{revision}',[App\Http\Controllers\RevisionesController::class,'destroy'])->name('revisiones.destroy');
 
 /*=============== Rutas de Lista de precios ===============*/
 Route::resource('precios', PreciosController::class)->middleware('rol:admin,recepcionista');
