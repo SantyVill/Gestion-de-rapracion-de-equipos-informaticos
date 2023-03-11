@@ -15,26 +15,25 @@
                     <div class="col-4">
                         <label for="accesorio" class="form-label">Estado: </label>
                         <select class="form-select border-dark" name="estado" aria-label="Default select example">
-                            <option value="">Elegir Nuevo Estado</option>
-                            @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                            @if (auth()->user()->tieneRol(['admin','recepcionista'])||strcmp($recepcion->estado->estado,'A presupuestar')==0)
                             <option value="A presupuestar" {{$recepcion->estado->opSelected("A presupuestar")}}>A presupuestar</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','tecnico']))
+                            @if (auth()->user()->tieneRol(['admin','tecnico'])||strcmp($recepcion->estado->estado,'En Revisión')==0)
                             <option value="En Revisión" {{$recepcion->estado->opSelected("En Revisión")}}>En Revisión</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','tecnico']))
+                            @if (auth()->user()->tieneRol(['admin','tecnico'])||strcmp($recepcion->estado->estado,'Presupuesto Realizado')==0)
                             <option value="Presupuesto Realizado" {{$recepcion->estado->opSelected("Presupuesto Realizado")}}>Presupuesto Realizado</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                            @if (auth()->user()->tieneRol(['admin','recepcionista'])||strcmp($recepcion->estado->estado,'Presupuesto Aceptado')==0)
                             <option value="Presupuesto Aceptado" {{$recepcion->estado->opSelected("Presupuesto Aceptado")}}>Presupuesto Aceptado</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','tecnico']))
+                            @if (auth()->user()->tieneRol(['admin','tecnico'])||strcmp($recepcion->estado->estado,'En Reparación')==0)
                             <option value="En Reparación" {{$recepcion->estado->opSelected("En Reparación")}}>En Reparación</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','tecnico']))
+                            @if (auth()->user()->tieneRol(['admin','tecnico'])||strcmp($recepcion->estado->estado,'Reparación Terminada')==0)
                             <option value="Reparación Terminada" {{$recepcion->estado->opSelected("Reparación Terminada")}}>Reparación Terminada</option>
                             @endif
-                            @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                            @if (auth()->user()->tieneRol(['admin','recepcionista'])||strcmp($recepcion->estado->estado,'Equipo Entregado')==0)
                             <option value="Equipo Entregado" {{$recepcion->estado->opSelected("Equipo Entregado")}}>Equipo Entregado</option>
                             @endif
                         </select>

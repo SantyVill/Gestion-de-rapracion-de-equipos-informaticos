@@ -83,8 +83,8 @@ Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('
 
 /*=============== Rutas de Revisiones ===============*/
 Route::resource('revisiones', RevisionesController::class)->middleware(['logueo']);
-Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create')->middleware(['logueo','rol:recepcionista,admin']);
-Route::post('/revisiones/store/{recepcion}/',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create')->middleware(['logueo']);
+Route::post('/revisiones/store/{recepcion}/',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store')->middleware(['logueo']);
 Route::get('/revisiones/index/',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']);
 /* Route::get('/revisiones/index/{buscar?}/{NumOrden?}',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']); */
 Route::patch('/revisiones/update/{revision}',[App\Http\Controllers\RevisionesController::class,'update'])->name('revisiones.update')->middleware(['logueo','rol:recepcionista,admin']);
