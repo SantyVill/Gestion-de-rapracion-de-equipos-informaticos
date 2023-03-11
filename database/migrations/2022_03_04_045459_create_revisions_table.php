@@ -20,6 +20,7 @@ class CreateRevisionsTable extends Migration
             $table->foreign('tecnico_id')->references('id')->on('users');
             $table->foreign('recepcion_id')->references('id')->on('recepciones')->onDelete('cascade');
             $table->text('nota')->nullable();
+            $table->boolean('interna')->default(false);
             $table->timestamp('fecha')->nullable();
  //           $table->text('Observación');
             $table->timestamps();

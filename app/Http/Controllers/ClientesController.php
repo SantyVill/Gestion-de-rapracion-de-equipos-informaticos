@@ -152,8 +152,14 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        $cliente->delete();
-        return redirect()->route('clientes.index');
+        
+        try {
+            $cliente->delete();
+            return redirect()->route('clientes.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error de integridad en la base de datos: Primero debe eliminar las recepciones en las que se registro este cliente.'/*  . $e->getMessage() */;
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     public function select_cliente_recepcion()

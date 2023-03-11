@@ -10,6 +10,8 @@ use App\Models\Estado;
 
 class RevisionesController extends Controller
 {
+    protected $singular = 'revision';
+    protected $resourceName = 'revision';
     /**
      * Display a listing of the resource.
      *
@@ -41,16 +43,18 @@ class RevisionesController extends Controller
         $fields = request()->validate([
             'nota'=>'required'
         ]);
-
         $revision = Revision::create([
             'tecnico_id'=>auth()->user()->id,
             'recepcion_id'=>$recepcion['id'],
             'nota'=>ucfirst($request['nota']),
             'fecha'=>date('Y-m-d H:i:s'),
+            'interna' => ($request['interna'])?true:false,
         ]);
         $recepcion = $revision->recepcion;
-        $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
-        $recepcion->estado_id= $nuevoEstado['id'];
+        if ($request['estado']!='') {
+            $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
+            $recepcion->estado_id= $nuevoEstado['id'];
+        }
         $recepcion->save();
         return redirect() -> route('recepciones.show',$recepcion);
     }
@@ -72,9 +76,9 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Revision $revision)
     {
-        //
+        return view('revisiones.edit',compact('revision'));
     }
 
     /**
@@ -84,9 +88,12 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Revision $revision)
     {
-        //
+        $revision->nota=$request['nota'];
+        $revision->interna=($request['interna'])?true:false;
+        $revision->save();
+        return redirect() -> route('recepciones.show',$revision->recepcion_id);
     }
 
     /**
@@ -95,8 +102,10 @@ class RevisionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Revision $revision)
     {
-        //
+        $recepcion_id=$revision->recepcion_id;
+        $revision->delete();
+        return redirect() -> route('recepciones.show',$revision->recepcion_id);
     }
 }

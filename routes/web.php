@@ -6,6 +6,7 @@ use App\Http\Controllers\SesionesController;
 //use App\Http\Controllers\RecepcionesController;
 //use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $recepciones = App\Models\Recepcion::all();
+    $equipoMasRegistrado = App\Models\Equipo::withCount('recepciones')
+    ->orderBy('recepciones_count', 'desc')
+    ->first();
+
+    $marcaMasRepetida = App\Models\Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
+    ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
+    ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
+    ->groupBy('marcas.marca')
+    ->select('marcas.marca', DB::raw('COUNT(*) as cantidad'))
+    ->orderByDesc('cantidad')
+    ->first();
+
+    return view('home')->with('recepciones', $recepciones)->with('equipoMasRegistrado',$equipoMasRegistrado)->with('marcaMasRepetida',$marcaMasRepetida);
 })->middleware('auth')->name('home');
 
 /* Route::get('/equipos',[App\Http\Controllers\EquiposController::class, 'index'])-> name('equipos.index'); */
@@ -69,8 +83,14 @@ Route::delete('/registro/{user}',[RegistrosController::class,'destroy'])->name('
 
 /*=============== Rutas de Revisiones ===============*/
 Route::resource('revisiones', RevisionesController::class)->middleware(['logueo']);
-Route::post('/revisiones/store/{recepcion}',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store');
-Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create');
+Route::get('/revisiones/create/{recepcion}',[App\Http\Controllers\RevisionesController::class,'create'])->name('revisiones.create')->middleware(['logueo']);
+Route::post('/revisiones/store/{recepcion}/',[App\Http\Controllers\RevisionesController::class,'store'])->name('revisiones.store')->middleware(['logueo']);
+Route::get('/revisiones/index/',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']);
+/* Route::get('/revisiones/index/{buscar?}/{NumOrden?}',[App\Http\Controllers\RevisionesController::class,'index'])->name('revisiones.index')->middleware(['logueo']); */
+Route::patch('/revisiones/update/{revision}',[App\Http\Controllers\RevisionesController::class,'update'])->name('revisiones.update')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/edit/{revision}',[App\Http\Controllers\RevisionesController::class,'edit'])->name('revisiones.edit')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/revisiones/show/{revision}',[App\Http\Controllers\RevisionesController::class,'show'])->name('revisiones.show')->middleware(['logueo']);
+Route::delete('/revisiones/destroy/{revision}',[App\Http\Controllers\RevisionesController::class,'destroy'])->name('revisiones.destroy');
 
 /*=============== Rutas de Lista de precios ===============*/
 Route::resource('precios', PreciosController::class)->middleware(['logueo','rol:admin,recepcionista']);
@@ -84,3 +104,12 @@ Route::resource('marcas', MarcasController::class)->middleware(['logueo','rol:re
 Route::resource('modelos', ModelosController::class)->middleware(['logueo','rol:admin,recepcionista']);
 Route::get('/modelos/create/{marca}',[App\Http\Controllers\ModelosController::class,'create'])->name('modelos.create');
 Route::post('/modelos/store/{marca}',[App\Http\Controllers\ModelosController::class,'store'])->name('modelos.store');
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request')->middleware(['logueado']);
+Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email')->middleware(['logueado']);
+Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset')->middleware(['logueado']);
+Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update')->middleware(['logueado']);

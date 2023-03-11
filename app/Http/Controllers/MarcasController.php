@@ -117,8 +117,14 @@ class MarcasController extends Controller
      */
     public function destroy($id)
     {
-        $marca = Marca::find($id);
-        $marca -> delete();
-        return redirect()->route('marcas.index');
+        
+        try {
+            $marca = Marca::find($id);
+            $marca -> delete();
+            return redirect()->route('marcas.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error de integridad en la base de datos: Primero debe eliminar las recepciones en las que se registro este quipo.'/*  . $e->getMessage() */;
+            return redirect()->back()->with('message', $mensaje)->with('error', true);
+        }
     }
 }

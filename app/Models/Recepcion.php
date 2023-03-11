@@ -38,4 +38,10 @@ class Recepcion extends Model
     public function revisiones(){
         return $this->hasMany(Revision::class);
     }
+    public function terminada(){
+        if (strcmp($this->estado->estado,'Equipo Entregado')==0) {
+            return 'disabled';
+        }
+        return '';
+    }
 }

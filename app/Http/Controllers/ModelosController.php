@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\Caracteristica;
 use App\Models\Tipo;
+use App\Models\Equipo;
 
 class ModelosController extends Controller
 {
@@ -90,7 +91,23 @@ class ModelosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $tipo = Tipo::firstOrCreate(['tipo' => $request['tipo']]);
         $caracteristica = Caracteristica::find($id);
+        $existe = Caracteristica::where('modelo', $request['modelo'])
+        ->where('tipo_id', $tipo->id)
+        ->where('marca_id', $request['marca_id'])
+        ->exists();
+        if ($existe) {
+            $nuevaCaracteristica = Caracteristica::firstOrCreate([
+                'modelo' => $request['modelo'],
+                'tipo_id' => $tipo->id,
+                'marca_id' => $request['marca_id']
+            ]);
+            Equipo::where('caracteristica_id', '=', $caracteristica['id'])
+            ->update(['caracteristica_id' => $nuevaCaracteristica['id']]);
+            $caracteristica -> delete();
+            return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
+        }
         $caracteristica['modelo']=ucfirst($request['modelo']);
         if ($caracteristica->tipo->tipo!=$request['tipo']) {
             $tipo = Tipo::firstOrCreate(['tipo'=>$request['tipo']]);
@@ -98,6 +115,7 @@ class ModelosController extends Controller
         }
         $caracteristica->save();
         return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
+        
     }
 
     /**

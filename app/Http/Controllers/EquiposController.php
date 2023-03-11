@@ -15,6 +15,7 @@ use App\Models\Tipo;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Recepcion;
+use PhpParser\Node\Stmt\TryCatch;
 
 class EquiposController extends Controller
 {
@@ -173,8 +174,13 @@ class EquiposController extends Controller
      */
     public function destroy(Equipo $equipo)
     {
-        $equipo->delete();
-        return redirect()->route('equipos.index');
+        try {
+            $equipo->delete();
+            return redirect()->route('equipos.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error de integridad en la base de datos: Primero debe eliminar las recepciones en las que se registro este quipo.'/*  . $e->getMessage() */;
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     public function select_equipo_recepcion()

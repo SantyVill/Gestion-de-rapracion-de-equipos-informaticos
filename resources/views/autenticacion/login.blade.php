@@ -43,9 +43,9 @@
                         </div> --}}
                         <button class="w-100 btn btn-lg btn-primary" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
                         {{-- <p class="mt-5 mb-3 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2017–2021</font></font></p> --}}
+                        <div><a class="w-100 btn btn-sm btn-outline-primary mt-1 " href="{{route('password.request')}}">Restablecer Contraseña</a></div>
                 </form>
             </div>
-            <div class="col-4"></div>
         </div>
     </div>
 

@@ -20,6 +20,7 @@
                         <input type="text" class="form-control border-dark" name="tipo" placeholder="" value="{{ old('tipo',$caracteristica->tipo->tipo)}}" required><br>
                         {!!$errors->first('tipo','<small>:message</small><br>')!!} 
                     </div>
+                    <input type="number" name="marca_id" value="{{$caracteristica->marca->id}}" hidden>
                 </div>
                 <div class="row mb-0 justify-content-center">
                     <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">

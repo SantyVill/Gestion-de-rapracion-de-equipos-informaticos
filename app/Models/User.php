@@ -54,9 +54,9 @@ class User extends Authenticatable
     public function revisiones(){
         return $this->hasMany('App\Models\Revision','tecnico_id');
     }
-    public function setPasswordAttribute($password){
+    /* public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
-    } 
+    }  */
 
     public function tieneRol($roles){
         foreach ($this->roles as $rol) {

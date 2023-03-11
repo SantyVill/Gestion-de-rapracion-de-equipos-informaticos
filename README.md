@@ -1,66 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://guarani.unt.edu.ar/autogestion/_comp/siu/img/logo-transparente.png" width="400"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<h1>TEC-SPIN</h1>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# **PROYECTO FINAL EN BITBUCKET**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+_git clone https://saab250683@bitbucket.org/saab250683/proyectofinalblue.git_
 
-## Learning Laravel
+## 2) INGRESAR AL DIRECTORIO LARAGON/WWW/proyectofinal
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 3) Ejecutar el comando
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+_composer install_
 
-## Laravel Sponsors
+Esto descargara las librerías de laravel en la carpeta vendor (que no existe).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 4) Duplicar el archivo env.example y guardar la copia como .env
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+## 5) Configurar .env - Aqui se realizan configuraciones locales
 
-## Contributing
+Si APP_KEY esta vacio, ejecutar en la terminal
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+_php artisan key:generate_
 
-## Code of Conduct
+y APP_KEY aparecera algo parecido a esto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+_APP_KEY=base64:ChcJtx+YtUXYRyVSsd1fgxipQ6rmTStABl/w2ppnLrQ=
 
-## Security Vulnerabilities
+## 6) Configurar la informacion de la base de datos LOCAL que van a usar
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+_DB_DATABASE=proyectofinal_
 
-## License
+_DB_USERNAME=root_
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+_DB_PASSWORD=_
+
+
+## 7) Finalmente ejecutar las migraciones para crear las tablas en la base de datos
+
+_php artisan migrate_
+
+
+## 8) Para lanzar el sistema utilizando el localhost se puede realizar lo siguiente:
+ _php artisan serve --host=localhost_
+ 
+ o si se quiere usar una ip que se encuentre dentro de nuestra red local:
+ 
+ _php artisan serve --host=192.168.1.##_
+
+## Contact
+
+2021 - Tucuman Argentina
