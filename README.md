@@ -17,7 +17,7 @@ _git clone https://saab250683@bitbucket.org/saab250683/proyectofinalblue.git_
 
 _composer install_
 
-Esto descargara las librerÃ­as de laravel en la carpeta vendor (que no existe).
+Esto descargara las librerías de laravel en la carpeta vendor (que no existe).
 
 ## 4) Duplicar el archivo env.example y guardar la copia como .env
 
@@ -43,16 +43,28 @@ _DB_PASSWORD=_
 
 ## 7) Finalmente ejecutar las migraciones para crear las tablas en la base de datos
 
-_php artisan migrate_
+_php artisan migrate:fresh --seed_
 
 
 ## 8) Para lanzar el sistema utilizando el localhost se puede realizar lo siguiente:
+
  _php artisan serve --host=localhost_
  
  o si se quiere usar una ip que se encuentre dentro de nuestra red local:
  
  _php artisan serve --host=192.168.1.##_
+ 
+ ## 9) Para loguearse en el sistema
 
+Ingresar al usuario
+
+_admin@admin.com_
+
+contraseña:
+
+_12345_
+
+Nota: Al ingresar debe cambiar usuario con su cuenta de correo eléctronico y contraseña.
 ## Contact
 
 2021 - Tucuman Argentina
