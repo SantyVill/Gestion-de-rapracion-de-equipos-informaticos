@@ -8,9 +8,9 @@
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
     <title>@yield('titulo')</title>
 </head>
-<body {{-- class="bd-green-500" --}} style="background-color: rgb(244, 255, 255)">
+<body {{-- class="bd-green-500" --}} style="background-color: rgb(176 237 237)">
     <header>
-        <h1 class="text-center">Gestión de reparaciones</h1>
+        <h1 class="text-center bg-dark" style="color: rgb(150 150 150)"><b>Gestión de Reparaciones</b></h1>
 
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark mb-3">
           <div class="container-fluid">
@@ -86,7 +86,8 @@
                         <a href="{{route('usuarios.index')}}"  class="nav-link {{ setActiva('usuarios.*') }}">Lista de Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('usuarios.create')}}" class="dropdown-item nav-link">Registrar usuario</a>
+                        <!-- <a href="{{route('usuarios.create')}}" class="dropdown-item nav-link">Registrar usuario</a> -->
+                        <a href="{{route('usuarios.create')}}" class="nav-link {{ setActiva('usuarios.*') }}">Registrar usuario</a>
                     </li>
                   </ul>
                 </li>

@@ -6,7 +6,7 @@
     <div class="container mb-2">
         <div class="row">
             <div class="col-7">
-                <a href="{{route('equipos.create')}}" class="btn btn-success {{ setActiva('equipos/create') }}">
+                <a href="{{route('equipos.create')}}" class="btn btn-primary {{ setActiva('equipos/create') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
@@ -32,11 +32,11 @@
             </div>
         </div>
     </div>
-    <h3 class="text-center">Lista de Equipos</h3>
+    <h3 class="text-center bg-dark " style="color:rgb(170 170 170">Equipos</h3>
     <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
         <thead>
             {{-- <tr><th colspan="5" class="text-center"><h4>Lista de Equipos</h4></th></tr> --}}
-            <tr>
+            <tr class="text-center" style="background-color:black">
                 <th scope="col">Numero de Serie</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Marca</th>

@@ -8,23 +8,21 @@
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
     <title>Logueo</title>
 </head>
-<body>
+<body {{-- class="bd-green-500" --}} style="background-color: rgb(176 237 237)">
     <header>
-        <h1 class="text-center">Gestion de reparaciones</h1>
-
-
-
+        <h1 class="text-center bg-dark" style="color: rgb(150 150 150)">Gestión de Reparaciones</h1>
 
     </header>
-    <div class="container text-center mt-4">
+    <div class="container text-center mt-4" style="background-color:#2c99a5">
         <div class="row">
             <div class="col-7 position-relative top-50 ">
                 <img width="350" height="350" src="https://www.facet.unt.edu.ar/wp-content/uploads/2022/03/FACET-logo.jpg" class="attachment-1200x1200 size-1200x1200" alt="" decoding="async" loading="lazy">
+                <!-- <img width="700" height="250" src="https://www.facet.unt.edu.ar/ingenieriainformatica/wp-content/uploads/sites/75/2022/08/Ingenieria-cabecera2.gif" class="attachment-1200x700 size-1200x1200" alt="" decoding="async" loading="lazy"> -->
             </div>
             <div class="mr-auto col-4 mt-4">
-                <form class="form-signin" method="POST" action="{{route('login.store')}}">
+                <form class="form-signin" method="POST" action="{{route('login.store')}}" style=" color:white">
                     @csrf
-                    <h2 class="h4 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Por favor correo electrónico y contraseña</font></font></h2>
+                    <h2 class="h6 mb-3 fw-normal"><font style="horizontal-align: inherit;">Por favor, ingrese correo electrónico y contraseña</font></h2>
                     
                     <div class="form-floating">
                         <input  class="form-control" placeholder="nombre@ejemplo.com" type="email" name="email" placeholder="Email" value="{{session()->has('emailA')?session()->get('emailA'):''}}" required><br>
@@ -41,9 +39,9 @@
                             <input type="checkbox" value="remember-me"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Acuérdate de mí
                             </font></font></label>
                         </div> --}}
-                        <button class="w-100 btn btn-lg btn-primary" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
+                        <button class="w-100 btn btn-lg btn-outline-primary" type="submit"><font style="vertical-align: inherit; color:white;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
                         {{-- <p class="mt-5 mb-3 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2017–2021</font></font></p> --}}
-                        <div><a class="w-100 btn btn-sm btn-outline-primary mt-1 " href="{{route('password.request')}}">Restablecer Contraseña</a></div>
+                        <div><a class="w-100 btn btn-sm btn-outline-primary mt-1 " href="{{route('password.request')}}" style="color:white">Restablecer Contraseña</a></div>
                 </form>
             </div>
         </div>

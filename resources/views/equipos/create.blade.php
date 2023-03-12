@@ -4,10 +4,10 @@
 
 @section('contenido')
     <div class="row justify-content-center">
-        <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #41aa42">
+        <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #94bbc8">
             <section class="w-100 p-3 text-center pb-4">
                 <form method="POST" action="{{route('equipos.store')}}" class=" align-items-center">
-                    <legend>Registrar Equipo</legend>
+                    <legend class="bg-dark" style="color:rgb(150 150 150)">Registrar Equipo</legend>
                     @csrf 
                     <div class="row mb-0 justify-content-center">
                         <div class="col-6">

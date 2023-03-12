@@ -3,7 +3,7 @@
 @section('titulo','Home')
 
 @section('contenido')
-    <h2 class="text-center m-5">Bienvenido 
+    <h2 class="text-center m-5 bg-primary" style="color:white" >Bienvenido: 
         @if (auth()->user()->tieneRol(['admin']))
             Administrador
         @else

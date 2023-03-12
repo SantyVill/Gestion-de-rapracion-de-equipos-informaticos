@@ -3,6 +3,7 @@
 @section('titulo','Lista de equipos')
 
 @section('contenido')
+<div style="background-color:#94bbc8">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -30,4 +31,5 @@
             <p>No se registro ningun equipo.</p>
         @endforelse
     </table>
+</div>
 @endsection
