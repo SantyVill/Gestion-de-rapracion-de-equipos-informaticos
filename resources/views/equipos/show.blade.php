@@ -37,4 +37,45 @@
             </td>
         </tr>
     </table>
+    <h3 class="text-center bg-dark " style="color:rgb(170 170 170)">Recepciones del equipo</h3>
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
+    
+      {{--  @if (!$clientes)--}}
+            <tr class="text-center"> 
+                <th style="width: 6em;">N° Orden</th>
+                <th>Fecha Recepción</th>
+                <th>Falla:</th>
+                {{-- @if (auth()->user()->tieneRol(['admin','recepcionista'])) --}}
+                <th>Cliente</th> 
+               {{--  @endif  --}}
+                <th>Estado:</th>
+                {{-- @if (auth()->user()->tieneRol(['admin','recepcionista'])) --}}
+                <th colspan="2">Accion</th>
+                {{-- @endif --}}
+            </tr>
+       {{-- @endif--}}
+        @forelse ($equipo->recepciones as $recepcion)
+        <tr>
+            <td class="text-center">{{$recepcion->id}}</td>
+            <td>{{date('d-m-y',strtotime($recepcion->fecha_recepcion))}}</td>
+            <td>{{$recepcion->falla}}</td>
+
+            {{-- @if (auth()->user()->tieneRol(['admin','recepcionista']))
+            @if (isset($recepcion->cliente)) --}}
+                <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
+            {{-- @else
+                <td class="text-center">Cliente Eliminado.</td>
+            @endif
+            @endif --}}
+            <td>{{$recepcion->estado->estado}}</td>
+            <td class="p-1 text-center col-1"><a href="{{route('recepciones.show',$recepcion)}}" class="btn btn-primary">Ver</a></td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="7" class="text-center">
+                <p>No se encontró ninguna recepción</p>
+            </td>
+        </tr>
+        @endforelse
+    </table>
 @endsection

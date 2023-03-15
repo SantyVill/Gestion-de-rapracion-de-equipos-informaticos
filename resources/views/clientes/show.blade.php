@@ -45,4 +45,38 @@
             </td> --}}
         </tr>
     </table>
+    <h3 class="text-center bg-dark " style="color:rgb(170 170 170)">Recepciones del cliente</h3>
+    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
+    
+      {{--  @if (!$clientes)--}}
+            <tr class="text-center"> 
+                <th style="width: 6em;">N° Orden</th>
+                <th>Modelo</th><th>Marca</th><th>Número de Serie</th><th>Fecha Recepción</th>
+                <th>Falla:</th>
+                <th>Estado:</th>
+                {{-- @if (auth()->user()->tieneRol(['admin','recepcionista'])) --}}
+                <th colspan="2">Accion</th>
+                {{-- @endif --}}
+            </tr>
+       {{-- @endif--}}
+        @forelse ($cliente->recepciones->sortByDesc('fecha_recepcion') as $recepcion)
+        <tr>
+            <td class="text-center">{{$recepcion->id}}</td>
+            <td>{{$recepcion->equipo->caracteristica->modelo}}</td>
+            <td>{{$recepcion->equipo->caracteristica->marca->marca}}</td>
+            {{-- <td>{{$recepcion->equipo->numero_serie}}</td> --}}
+            <td><a href="{{route('equipos.show',$recepcion->equipo)}}">{{$recepcion->equipo->numero_serie}}</a></td>
+            <td>{{date('d-m-y',strtotime($recepcion->fecha_recepcion))}}</td>
+            <td>{{$recepcion->falla}}</td>
+            <td>{{$recepcion->estado->estado}}</td>
+            <td class="p-1 text-center col-1"><a href="{{route('recepciones.show',$recepcion)}}" class="btn btn-primary">Ver</a></td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="7" class="text-center">
+                <p>No se encontró ninguna recepción</p>
+            </td>
+        </tr>
+        @endforelse
+    </table>
 @endsection

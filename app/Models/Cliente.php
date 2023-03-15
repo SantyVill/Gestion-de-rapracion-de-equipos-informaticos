@@ -11,4 +11,8 @@ class Cliente extends Model
     protected $fillable = ['nombre','apellido','dni','telefono1','telefono2','direccion','mail','observacion'];
     protected $hidden = ['create_at','update_at'];
     use HasFactory;
+
+    public function recepciones(){
+        return $this->hasMany('App\Models\Recepcion','cliente_id');
+    }
 }
