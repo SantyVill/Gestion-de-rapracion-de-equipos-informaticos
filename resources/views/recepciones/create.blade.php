@@ -87,7 +87,7 @@
                                 @endif
                             </div>
                             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                                <a class="btn btn-outline-danger" href="{{ route('recepciones.index') }}" role="button">Cancelar</a>
                             </div>
                         </div>
                     </form>
@@ -98,6 +98,9 @@
     @if (isset($equipo['id']) || isset($cliente->id))
     <div class="col-4">
         <div class="pb-4 justify-content-center">
+
+            {{-- ========================CARD DE EQUIPO=================== --}}
+
             @if (isset($equipo['id']))
             <div class="col-11 pb-1">
                 <div class="card bg-light" {{-- style="background-color:orangered; border-color:darkblue;" --}}>
@@ -117,6 +120,9 @@
                   </div>
             </div>
             @endif
+
+            {{-- ====================CRAD DE CLIENTE=============== --}}
+            
             @if (isset($cliente->id))
             <div class="col-11">
                 <div class="card bg-light" >

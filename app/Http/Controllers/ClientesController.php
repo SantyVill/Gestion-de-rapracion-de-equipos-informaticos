@@ -162,10 +162,34 @@ class ClientesController extends Controller
         }
     }
 
-    public function select_cliente_recepcion()
+    public function select_cliente_recepcion(Request $request)
     {
-        $clientes=Cliente::get();
-        return view('clientes.select_cliente_recepcion',compact('clientes'));
+        $buscar = $request['buscar'];
+        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
+        ->orwhere(
+             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono1','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'telefono2','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'direccion','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'mail','like','%'.$buscar.'%'
+        )
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        return view('clientes.select_cliente_recepcion',compact('clientes','buscar'));
     }
 
     public function update_cliente_recepcion(Request $request,Recepcion $recepcion)

@@ -183,10 +183,24 @@ class EquiposController extends Controller
         }
     }
 
-    public function select_equipo_recepcion()
+    public function select_equipo_recepcion(Request $request)
     {
-        $equipos=Equipo::get();
-        return view('equipos.select_equipo_recepcion',compact('equipos'));
+        $buscar=$request['buscar'];
+            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
+            ->orwhereRelation(
+                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
+        
+            return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
     }
 
     public function update_equipo_recepcion(Request $request,Recepcion $recepcion)
