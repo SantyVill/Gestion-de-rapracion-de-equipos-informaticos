@@ -33,45 +33,32 @@
         </div>
     </div>
     
-    <h3 class="text-center bg-dark " style="color:rgb(170 170 170">Clientes</h3> 
-    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
-    
-      {{--  @if (!$clientes)--}}
-            <tr class="text-center" style="background-color:black">
-                <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Telefono 2</th><th>Dirección</th>
-                <th>Correo Electronico</th><th>Obs:</th><th colspan="1">Accion</th>
+    <h3 class="text-center bg-dark " style="color:rgb(170 170 170">Clientes</h3>
+    <div class="row justify-content-center">
+        <table class="table w-auto table-responsive table-success table-hover table-striped table-bordered border-2 border-dark shadow rounded">
+            <thead>
+                <tr class="text-center" style="background-color:black">
+                    <th>Nombre</th><th>Apellido</th><th>DNI</th><th>Telefono 1</th><th>Dirección</th>
+                    <th>Correo Electronico</th><th colspan="1">Accion</th>
+                </tr>
+            </thead>
+            @forelse ($clientes as $cliente)
+            <tr>
+                <td>{{$cliente->nombre}}</td>
+                <td>{{$cliente->apellido}}</td>
+                <td>{{$cliente->dni}}</td>
+                <td>{{$cliente->telefono1}}</td>
+                <td>{{$cliente->direccion}}</td>
+                <td>{{$cliente->mail}}</td>
+                <td class=""><a href="{{route('clientes.show',$cliente)}}" class="btn btn-primary">Ver</a></td>
             </tr>
-       {{-- @endif--}}
-        @forelse ($clientes as $cliente)
-        <tr>
-            <td>{{$cliente->nombre}}</td>
-            <td>{{$cliente->apellido}}</td>
-            <td>{{$cliente->dni}}</td>
-            <td>{{$cliente->telefono1}}</td>
-            <td>{{$cliente->telefono2}}</td>
-            <td>{{$cliente->direccion}}</td>
-            <td>{{$cliente->mail}}</td>
-            <td>{{$cliente->observacion}}</td>
-            <td class=""><a href="{{route('clientes.show',$cliente)}}" class="btn btn-primary">Ver</a></td>
-            
-            {{-- <td><form method="POST" action="{{route('recepciones.store')}}">
-                @csrf
-                <input type="submit" value="Agregar a recepcion">
-                <input type="number" name="cliente_id" value="{{$cliente['id']}}" hidden>
-            </form></td> --}}
-            {{-- <a href="{{route('recepciones.create',$equipo)}}">Agregar a recepcion</a> --}}
-
-        {{-- @if(isset($equipo->id))
-            <td><a href="{{route('recepciones.create',[$equipo,$cliente])}}">Agregar a recepcion</a></td>
-        @endif --}}
-            {{-- <td><a href="{{url('recepciones.create', ['equipo_id' => $equipo->id, 'cliente_id' => $cliente->id])}}">Agregar a recepcion</a></td> --}}
-        </tr>
-        @empty
-        <tr>
-            <td colspan="9">No se encontró ningún cliente</td>
-        </tr>
-        @endforelse
-    </table>  
+            @empty
+            <tr>
+                <td colspan="9">No se encontró ningún cliente</td>
+            </tr>
+            @endforelse
+        </table>
+    </div>
     <div class="d-flex justify-content-center">
         {{ $clientes->appends($_GET)->links() }}
     </div>     

@@ -33,7 +33,9 @@
         </div>
     </div>
     <h3 class="text-center bg-dark " style="color:rgb(170 170 170">Equipos</h3>
-    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
+    <div class="d-flex justify-content-center">
+        <div class="">
+            <table class="table table-responsive table-success table-hover table-striped table-bordered border-2 border-dark shadow rounded">
         <thead>
             {{-- <tr><th colspan="5" class="text-center"><h4>Lista de Equipos</h4></th></tr> --}}
             <tr class="text-center" style="background-color:black">
@@ -58,6 +60,8 @@
         </tr>
         @endforelse
     </table>
+        </div>
+    </div>
     <div class="d-flex justify-content-center">
         {{ $equipos->appends($_GET)->links() }}
     </div>

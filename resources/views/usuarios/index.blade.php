@@ -32,34 +32,36 @@
         </div>
     </div>
     <h3 class="text-center bg-dark " style="color:rgb(170 170 170">Usuarios</h3>
-    <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded">
-        <thead>
-            <tr class="text-center">
-                <th scope="col">Apellido y Nombre</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Roles</th>
-                <th colspan="2" scope="col">Accion</th>
+    <div class=" row justify-content-center">
+        <table class="table table-success table-hover table-striped table-bordered bg-white border-2 border-dark shadow rounded w-auto">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Apellido y Nombre</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Roles</th>
+                    <th colspan="2" scope="col">Accion</th>
+                </tr>
+            </thead>
+            @forelse ($users as $usuario)
+            <tr>
+                <td>{{$usuario->apellido.', '.$usuario->nombre}}</td>
+                <td>{{$usuario->email}}</td>
+                <td>
+                    @forelse ($usuario->roles as $rol)
+                        {{$rol->rol}}
+                    @empty
+                        No tiene roles
+                    @endforelse
+                </td>
+                <td class="p-1 text-center col-1"><a href="{{route('usuarios.show',$usuario)}}" class="btn btn-primary">Ver</a></td>
             </tr>
-        </thead>
-        @forelse ($users as $usuario)
-        <tr>
-            <td>{{$usuario->apellido.', '.$usuario->nombre}}</td>
-            <td>{{$usuario->email}}</td>
-            <td>
-                @forelse ($usuario->roles as $rol)
-                    {{$rol->rol}}
-                @empty
-                    No tiene roles
-                @endforelse
-            </td>
-            <td class="p-1 text-center col-1"><a href="{{route('usuarios.show',$usuario)}}" class="btn btn-primary">Ver</a></td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="4">No se encontró ningún usuario.</td>
-        </tr>
-        @endforelse
-    </table>
+            @empty
+            <tr>
+                <td colspan="4">No se encontró ningún usuario.</td>
+            </tr>
+            @endforelse
+        </table>
+    </div>
     <div class="d-flex justify-content-center">
         {{ $users->appends($_GET)->links() }}
     </div>
