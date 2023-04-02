@@ -10,9 +10,9 @@
 </head>
 <body {{-- class="bd-green-500" --}} style="background-color: rgb(176 237 237)">
     <header>
-        <h1 class="text-center bg-dark" style="color: rgb(150 150 150)"><b>Gestión de Reparaciones</b></h1>
+        <h2 class="text-center m-0 {{-- text-light --}}" style="color: rgb(185, 185, 185);background-color: rgb(10, 10, 10)"><b>Gestión de Reparaciones</b></h2>
 
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark mb-3">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark mb-2 p-0">
           <div class="container-fluid">
             {{-- <a class="navbar-brand" href="#">Navbar</a> --}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@
 
     </header>
     <main>
-      <div class="container-fluid">
+      <div class="container-fluid mb-5">
           @yield('contenido')
       </div>
       @if (session()->has('message'))
