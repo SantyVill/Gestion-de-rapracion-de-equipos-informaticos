@@ -23,13 +23,19 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-6"><p class="card-text"><b>N° de recepciones:</b> {{($recepciones)?$recepciones->count():'No se registraron recepciones.'}}</p></div>
-                <div class="col-6"><p class="card-text"><b>Recaudación total:</b> {{($recepciones)?$recepciones->sum('precio'):''}}</p></div>
+                <div class="col-6">
+                    <div class="w-auto"><p class="card-text"><b>Recepciones totales:</b> {{($recepciones)?$recepciones->count():'No se registraron recepciones.'}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Recepciones pendientes:</b> {{($recepcionesPendientes)?$recepcionesPendientes->count():'No se registraron recepciones.'}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Recepciones terminadas:</b> {{($recepcionesPendientes && $recepciones)?$recepciones->count()-$recepcionesPendientes->count():'No se registraron recepciones.'}}</p></div>
+
+                </div>
+                <div class="col-6">
+                    <div class="w-auto"><p class="card-text"><b>Modelo más común:</b> {{($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->modelo:'No se registraron equipos'}} ({{ ($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->marca->marca:'No se registraron equipos'}})</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Marca más común:</b> {{($marcaMasRepetida)?$marcaMasRepetida->marca:'No se registro ningun Equipo'}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Recaudación total:</b> {{($montoTotal)?$montoTotal:''}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Recaudación del mes pasado:</b> {{($recaudadoMesPasado)?$recaudadoMesPasado:''}}</p></div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-6"><p class="card-text"><b>Modelo más concurrente:</b> {{($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->modelo:'No se registraron equipos'}} ({{ ($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->marca->marca:'No se registraron equipos'}})</p></div>
-                <div class="col-6"><p class="card-text"><b>Marca mas concurrente:</b> {{($marcaMasRepetida)?$marcaMasRepetida->marca:'No se registro ningun Equipo'}}</p></div>
-            </div>   
         </div>
     </div>
     <br>

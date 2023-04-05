@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recepcion;
 use App\Models\Equipo;
+use Illuminate\Support\Carbon;
+use App\Models\Estado;
 
 
 use Illuminate\Http\Request;
@@ -27,7 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $recepciones = Recepcion::all();
+    $recepcionesPendientes = DB::table('recepciones')
+                ->join('estados', 'recepciones.estado_id', '=', 'estados.id')
+                ->where('estados.estado', '!=', 'Equipo Entregado')
+                ->select('recepciones.*')
+                ->get();
+    $recepciones = Recepcion::all();
     $equipoMasRegistrado = Equipo::withCount('recepciones')
     ->orderBy('recepciones_count', 'desc')
     ->first();
@@ -40,6 +47,16 @@ class HomeController extends Controller
     ->orderByDesc('cantidad')
     ->first();
 
-    return view('home')->with('recepciones', $recepciones)->with('equipoMasRegistrado',$equipoMasRegistrado)->with('marcaMasRepetida',$marcaMasRepetida);
+    $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
+    $montoTotal = Recepcion::where('estado_id', $estadoEntregado)->sum('precio');
+
+    $now = Carbon::now();
+    $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
+    $lastMonthEnd = $now->copy()->subMonth()->endOfMonth();
+
+    $recaudadoMesPasado = Recepcion::where('estado_id', $estadoEntregado)->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->sum('precio');
+
+    return view('home', compact('recepciones', 'equipoMasRegistrado', 'marcaMasRepetida', 'recepcionesPendientes', 'montoTotal', 'recaudadoMesPasado'));
+
     }
 }

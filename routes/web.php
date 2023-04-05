@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     $recepciones = App\Models\Recepcion::all();
     $equipoMasRegistrado = App\Models\Equipo::withCount('recepciones')
     ->orderBy('recepciones_count', 'desc')
@@ -34,7 +34,8 @@ Route::get('/', function () {
     ->first();
 
     return view('home')->with('recepciones', $recepciones)->with('equipoMasRegistrado',$equipoMasRegistrado)->with('marcaMasRepetida',$marcaMasRepetida);
-})->middleware('auth')->name('home');
+})->middleware('auth')->name('home'); */
+Route::get('/',[App\Http\Controllers\HomeController::class,'index'])->name('home')->middleware('auth');
 
 /* Route::get('/equipos',[App\Http\Controllers\EquiposController::class, 'index'])-> name('equipos.index'); */
 /*Route::get('/clientes',[App\Http\Controllers\ClientesController::class, 'index'])-> name('clientes.index');*/
