@@ -50,11 +50,16 @@ class RevisionesController extends Controller
             'fecha'=>date('Y-m-d H:i:s'),
             'interna' => ($request['interna'])?true:false,
         ]);
-        $recepcion = $revision->recepcion;
         if ($request['estado']!='') {
             $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
+            if (strcmp($request['estado'],$recepcion->estado->estado)!=0) {
+                $revision->nota = '###Nuevo estado: ' . $nuevoEstado->estado . '###. ' . $revision->nota;
+                $revision->save();
+            }
             $recepcion->estado_id= $nuevoEstado['id'];
         }
+        /* return $recepcion; */
+        /* $recepcion = $revision->recepcion; */
         $recepcion->save();
         return redirect() -> route('recepciones.show',$recepcion);
     }

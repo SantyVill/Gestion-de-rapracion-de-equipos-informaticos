@@ -1,0 +1,14 @@
+.btn-garantia-success {
+    color: rgb(0, 0, 0);
+    background-color: #27e021;
+    border-color: #27e021;
+  }
+.bg-card-recepcion{
+  background-color: rgb(171 217 248) !important;
+}
+.bg-card-recepcion-header{
+  background-color: rgb(88 171 228) !important;
+}
+.bg-card-recepcion-elemento{
+  background-color: rgb(205 233 252) !important;
+}

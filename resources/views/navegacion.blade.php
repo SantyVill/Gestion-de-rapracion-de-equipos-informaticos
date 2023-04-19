@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/app.css">
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+    <link href="{{ asset('css/MiEstilo.css') }}" rel="stylesheet">
     <title>@yield('titulo')</title>
 </head>
 <body {{-- class="bd-green-500" --}} style="background-color: rgb(176 237 237)">
@@ -118,7 +119,7 @@
 
     </header>
     <main>
-      <div class="container-fluid mb-5">
+      <div class="container-fluid mb-3">
           @yield('contenido')
       </div>
       @if (session()->has('message'))

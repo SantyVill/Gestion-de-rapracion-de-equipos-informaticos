@@ -15,8 +15,8 @@
     </footer>
 </div> --}}
 
-<div class="container mt-4">
-    <footer class="pb-1 fixed-bottom mt-5" style="background-color: rgb(176 237 237)">
+<div class="container">
+    <footer class="pb-1" style="background-color: rgb(176 237 237)">
         {{-- <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>

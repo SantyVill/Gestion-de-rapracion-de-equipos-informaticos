@@ -100,19 +100,47 @@ class MarcasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
-        $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
+    {
         $marca = Marca::find($id);
-        if ($nuevaMarca != $marca) {    
-            Caracteristica::where('marca_id', '=', $marca['id'])
-            ->update(['marca_id' => $nuevaMarca['id']]);
-            $marca -> delete();
+        $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
+
+        if ($nuevaMarca != $marca) {
+            // Busca todos los caracteristicas que pertenecen a la marca que se está actualizando
+            $caracteristicas = Caracteristica::where('marca_id', $marca->id)->get();
+
+            // Actualiza los caracteristicas para que pertenezcan a la nueva marca
+            foreach ($caracteristicas as $caracteristica) {
+                $caracteristica->marca_id = $nuevaMarca->id;
+                $caracteristica->save();
+            }
+
+            // Busca y elimina los caracteristicas duplicados en la marca "samsung"
+            $caracteristicasRepetidos = Caracteristica::where('marca_id', $nuevaMarca->id)
+                                    ->groupBy('modelo')
+                                    ->havingRaw('COUNT(*) > 1')
+                                    ->get();
+            foreach ($caracteristicasRepetidos as $caracteristica) {
+                $caracteristicasAEliminar = Caracteristica::where('marca_id', $nuevaMarca->id)
+                                        ->where('modelo', $caracteristica->modelo)
+                                        ->where('id', '<>', $caracteristica->id)
+                                        ->get();
+                foreach ($caracteristicasAEliminar as $caracteristicaAEliminar) {
+                    $caracteristicaAEliminar->delete();
+                }
+            }
+
+            // Elimina la marca original
+            $marca->delete();
         } else {
             $marca->marca = $request['marca'];
             $marca->save();
         }
-        return redirect()->route('marcas.index',$nuevaMarca);
+
+        return redirect()->route('marcas.index', $nuevaMarca);
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
