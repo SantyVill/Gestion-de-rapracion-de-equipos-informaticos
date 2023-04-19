@@ -6,93 +6,103 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div class="row justify-content-center">
-            <div class="col ms-2 border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #94bbc8">
-                <section class="w-100 p-4 text-center pb-4">
-                    <form method="POST" action="{{route('recepciones.store')}}">
-                        @csrf
-                        <legend class="bg-dark" style="color:rgb(150 150 150)">Registrar Recepción</legend>
-                
-                        @if (isset($recepcion))
+            <section class="m-0-auto  text-center">
+                <form method="POST" action="{{route('recepciones.store')}}" class="mx-auto rounded-3 align-items-center bg-form border border-2 border-dark justify-content-center">
+                    @csrf
+                    <legend class="bg-dark" style="color:rgb(150 150 150)">Registrar Recepción</legend>
+            
+                    @if (isset($recepcion))
+                    
+                    <div class="row mx-auto col-11">
+                        <div class="col-6">
+                            <label for="falla" class="form-label">Falla: </label>
+                            <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
+                            {!!$errors->first('falla','<small>:message</small><br>')!!}
+                        </div>
+                        <div class="col-6">
+                            <label for="accesorio" class="form-label">Accesorios: </label>
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
+                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+                        </div>
+                    </div>
+                    <div class="row mb-0 justify-content-center">
+                        <div class="col-4">
+                            <label for="estado" class="form-label">Estado: </label>
+                            <select class="form-select border-dark" name="estado" aria-label="Default select example">
+                                <option value="A presupuestar" selected>A presupuestar</option>
+                                <option value="En Revisión">En Revisión</option>
+                                <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
+                                <option value="En Reparación">En Reparación</option>
+                                <option value="Reparación Terminada">Reparación Terminada</option>
+                                <option value="Equipo Entregado">Equipo Entregado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-0 justify-content-center">
+                        <div class="col-8">
+                            <label for="observacion" class="form-label">Observación: </label><br>                    
+                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
+                            {!!$errors->first('observacion','<small>:message</small><br>')!!}
+    
+                        </div>
+                    </div>
+                    
+                    
                         
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-6">
-                                <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
-                                {!!$errors->first('falla','<small>:message</small><br>')!!}
-                            </div>
-                            <div class="col-6">
-                                <label for="accesorio" class="form-label">Accesorios: </label>
-                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
-                                {!!$errors->first('accesorio','<small>:message</small><br>')!!}
-                            </div>
+                    @else
+                    
+                    <div class="row mx-auto col-11">
+                        <div class="col-6">
+                            <label for="falla" class="form-label">Falla: </label>
+                            <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}" required><br>
+                            {!!$errors->first('falla','<small>:message</small><br>')!!}
                         </div>
-                        <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br>
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-8">
-                                <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
-                                {!!$errors->first('observacion','<small>:message</small><br>')!!}
-        
-                            </div>
+                        <div class="col-6">
+                            <label for="accesorio" class="form-label">Accesorio: </label>
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}" required><br>
+                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                         </div>
-                        
-                        
-                            
-                        @else
-                        
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-6">
-                                <label for="falla" class="form-label">Falla: </label>
-                                <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}" required><br>
-                                {!!$errors->first('falla','<small>:message</small><br>')!!}
-                            </div>
-                            <div class="col-6">
-                                <label for="accesorio" class="form-label">Accesorio: </label>
-                                <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}" required><br>
-                                {!!$errors->first('accesorio','<small>:message</small><br>')!!}
-                            </div>
+                    </div>
+                    {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br> --}}
+                    <div class="row mb-0 justify-content-center">
+                        <div class="col-4">
+                            <label for="estado" class="form-label">Estado: </label>
+                            <select class="form-select border-dark" name="estado" aria-label="Default select example">
+                                <option value="A presupuestar" selected>A presupuestar</option>
+                                <option value="En Revisión">En Revisión</option>
+                                <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
+                                <option value="En Reparación">En Reparación</option>
+                                <option value="Reparación Terminada">Reparación Terminada</option>
+                                <option value="Equipo Entregado">Equipo Entregado</option>
+                            </select>
                         </div>
-                        {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br> --}}
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-4">
-                                <label for="estado" class="form-label">Estado: </label>
-                                <select class="form-select border-dark" name="estado" aria-label="Default select example">
-                                    <option value="A presupuestar" selected>A presupuestar</option>
-                                    <option value="En Revisión">En Revisión</option>
-                                    <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
-                                    <option value="En Reparación">En Reparación</option>
-                                    <option value="Reparación Terminada">Reparación Terminada</option>
-                                    <option value="Equipo Entregado">Equipo Entregado</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="row mb-0 justify-content-center">
+                        <div class="col-8">
+                            <label for="observacion" class="form-label">Observación: </label><br>                    
+                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
+                            {!!$errors->first('observacion','<small>:message</small><br>')!!}
+    
                         </div>
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-8">
-                                <label for="observacion" class="form-label">Observación: </label><br>                    
-                                <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
-                                {!!$errors->first('observacion','<small>:message</small><br>')!!}
-        
-                            </div>
+                    </div>
+                    
+                    @endif
+                    <div class="row mb-0 justify-content-center mb-2">
+                        <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+                            @if (!(null!==(Cookie::get('equipo'))))
+                                <input type="submit" value="Selecionar Equipo" class="btn btn-outline-success">
+                            @elseif(!(null!==(Cookie::get('cliente'))))
+                                <input type="submit" value="Selecionar Cliente" class="btn btn-outline-success">      
+                            @else
+                                <input type="submit" value="Confirmar" class="btn btn-outline-success">
+                            @endif
                         </div>
-                        
-                        @endif
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
-                                @if (!(null!==(Cookie::get('equipo'))))
-                                    <input type="submit" value="Selecionar Equipo" class="btn btn-outline-success">
-                                @elseif(!(null!==(Cookie::get('cliente'))))
-                                    <input type="submit" value="Selecionar Cliente" class="btn btn-outline-success">      
-                                @else
-                                    <input type="submit" value="Confirmar" class="btn btn-outline-success">
-                                @endif
-                            </div>
-                            <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                                <a class="btn btn-outline-danger" href="{{ route('recepciones.index') }}" role="button">Cancelar</a>
-                            </div>
+                        <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
+                            <a class="btn btn-outline-danger" href="{{ route('recepciones.index') }}" role="button">Cancelar</a>
                         </div>
-                    </form>
-                </section>
-            </div>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
     @if (isset($equipo['id']) || isset($cliente->id))

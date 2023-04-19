@@ -3,13 +3,11 @@
 @section('titulo','Registrar usuario')
 
 @section('contenido')
-<div class="row justify-content-center">
-    <div class="col-8  border border-dark border-2 rounded-3 justify-content-center bg-formulario" style="background-color: #94bbc8">
-        <section class="w-100 p-4 text-center pb-4">
-            <form method="POST" action="{{route('usuarios.store')}}" class="align-items-center">
+<section class="m-0-auto  text-center">
+            <form method="POST" action="{{route('usuarios.store')}}" class="col-8 mx-auto rounded-3 align-items-center bg-form border border-2 border-dark justify-content-center">
                 <legend class="bg-dark" style="color:rgb(150 150 150)">Registrar Usuario</legend>
                 @csrf 
-                <div class="row mb-0 justify-content-center">
+                <div class="row mx-auto col-11">
                     <div class="col-6">
                         <label for="nombre" class="form-label">Nombre </label>
                         <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre')}}" required><br>
@@ -22,12 +20,12 @@
                     </div>
                 </div>
                 <div class="row mb-0 justify-content-center">
-                    <div class="col-6 pt-4 mt-2">
+                    <div class="col-6 pt-0 mt-2">
                         <label for="email" class="form-label">Correo Electrónico </label>
                         <input type="text" name="email" class="form-control border-dark" value="{{ old('email')}}" required><br>
                         {!!$errors->first('email','<small>:message</small><br>')!!}
                     </div>
-                    <div class="col-3 pt-4 pb-4">
+                    <div class="col-3 pt-0 pb-2">
                         <fieldset class="border border-dark" style="background-color: #f2f2f2">
                             <legend class="w-auto px-2">Roles</legend><br>
                                 <div class="d-inline-flex p-0 bd-highlight form-check form-switch d-inline-flex bd-highlight">
@@ -41,7 +39,7 @@
                         </fieldset>
                     </div>
                 </div>
-                <div class="row mb-0 justify-content-center">
+                <div class="row mx-auto col-11">
                     <div class="col-6">
                         <label for="password" class="form-label">Contraseña </label>
                         <input type="password" name="password" class="form-control border-dark" required><br>
@@ -54,7 +52,7 @@
                         {!!$errors->first('password_confirmar','<small>:message</small><br>')!!}
                     </div>
                 </div>
-                <div class="row mb-0 justify-content-center">
+                <div class="row mb-0 justify-content-center mb-2">
                     <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
                         <input type="submit" value="Registrar" class="btn btn-outline-success">
                     </div>
