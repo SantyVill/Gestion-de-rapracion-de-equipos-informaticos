@@ -83,9 +83,19 @@ class MarcasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $marca = Marca::find($id);
+        $modificarMarca = Marca::find($id);
+        if ($marca = Marca::where('marca',$request['marca'])->first()) {
+            foreach ($modificarMarca->caracteristicas as $caracteristica) {
+                $marca->agregarModelo($caracteristica);
+            }
+            $modificarMarca->delete();
+        } else {
+            $modificarMarca->marca=$request['marca'];
+            $modificarMarca->save();
+        }
+        return redirect()->route('marcas.index');
         $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
-
+        return $nuevaMarca;
         if ($nuevaMarca != $marca) {
             // Busca todos los caracteristicas que pertenecen a la marca que se está actualizando
             $caracteristicas = Caracteristica::where('marca_id', $marca->id)->get();

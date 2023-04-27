@@ -41,4 +41,12 @@ class Marca extends Model
             ]);
         }
     }
+    public function agregarModelo(Caracteristica $nuevaCaracteristica){
+        foreach ($this->caracteristicas as $caracteristica) {
+            if ($caracteristica->modelo == $nuevaCaracteristica->modelo) {
+                return;
+            }
+        }
+        $nuevaCaracteristica->marca_id=$this->id;
+    }
 }
