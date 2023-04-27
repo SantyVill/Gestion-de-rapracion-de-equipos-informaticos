@@ -89,7 +89,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center">
+                        <td colspan="9" class="text-center">
                             <p>No se encontró ninguna recepción</p>
                         </td>
                     </tr>

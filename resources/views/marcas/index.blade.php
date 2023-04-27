@@ -35,7 +35,7 @@
 <div class="d-flex justify-content-center">
     <div class="card d-inline-block mx-auto border-dark" style="margin: 0 auto">
         <div class="card-header h4 text-center bg-dark text-light p-1">
-            Recepciones
+            Marcas
         </div>
         <div class="card-body p-0">
             <table class="table p-0 m-0 w-100 table-responsive table-info table-hover table-striped table-bordered border-2 border-dark shadow rounded">

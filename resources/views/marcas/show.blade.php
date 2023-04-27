@@ -17,7 +17,7 @@
 <div class="d-flex justify-content-center">
     <div class="card d-inline-block mx-auto border-dark" style="margin: 0 auto">
         <div class="card-header h4 text-center bg-dark text-light p-1">
-            Recepciones
+            Marca: {{$marca->marca}}
         </div>
         
         <div class="card-body p-0">

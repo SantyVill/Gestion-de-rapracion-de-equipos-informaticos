@@ -91,7 +91,7 @@
                         <div class="card-body text-dark">
                             <h5 class="card-title m-0"><b>Datos de Equipo</b></h5>
                             <p class="card-text">
-                                <b>Numero de serie:</b> {{$recepcion->equipo->numero_serie}}<br>
+                                <b>Numero de serie:</b> <a href="{{route('equipos.show',$recepcion->equipo)}}">{{$recepcion->equipo->numero_serie}}</a><br>
                                 <b>Marca:</b> {{$recepcion->equipo->caracteristica->marca->marca}} <br>
                                 <b>Modelo:</b> {{$recepcion->equipo->caracteristica->modelo}}
                             </p>
