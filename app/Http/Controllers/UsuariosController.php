@@ -20,18 +20,7 @@ class UsuariosController extends Controller
     public function index(Request $request)
     {
         $buscar=$request['buscar'];
-        $users=User::where('nombre','like','%'.$buscar.'%')
-        ->orwhere(
-            'apellido','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'email','like','%'.$buscar.'%'
-        )
-        ->orwhereRelation(
-            'roles', 'rol', 'like' ,'%'.$buscar.'%'
-        )
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $users=User::listarUsuarios($buscar);
         return view('usuarios.index',compact('users','buscar'));
     }
 

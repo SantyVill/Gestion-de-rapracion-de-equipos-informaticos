@@ -15,4 +15,30 @@ class Marca extends Model
     public function caracteristicas(){
         return $this->hasMany('App\Models\Caracteristica','marca_id');
     }
+
+    public static function listarMarcas($buscar){
+        $marcas=Marca::where('marca','like','%'.$buscar.'%')
+        ->orderBy('marca', 'asc')
+        ->paginate(10);
+        return $marcas;
+    }
+
+    public static function crearMarca(string $marca,$modelo,$tipo){
+        $marca=Marca::firstOrCreate(['marca'=> ucfirst($marca)]);
+        if (isset($modelo) && $modelo!=[]) {
+            $caracteristica= new Caracteristica([
+                'marca_id'=> $marca['id'],
+                'modelo'=> ucfirst($modelo)
+            ]);
+            if (isset($tipo)) {
+                $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst($tipo)]);
+                $caracteristica['tipo_id']=$tipo['id'];
+            }
+            Caracteristica::firstOrCreate([
+                'modelo'=>ucfirst($caracteristica['modelo']),
+                'marca_id'=> $caracteristica['marca_id'],
+                'tipo_id'=>$caracteristica['tipo_id']
+            ]);
+        }
+    }
 }

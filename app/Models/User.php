@@ -94,4 +94,19 @@ class User extends Authenticatable
         }
         return false;
     }
+    public static function listarUsuarios($buscar){
+        $users=User::where('nombre','like','%'.$buscar.'%')
+        ->orwhere(
+            'apellido','like','%'.$buscar.'%'
+        )
+        ->orwhere(
+            'email','like','%'.$buscar.'%'
+        )
+        ->orwhereRelation(
+            'roles', 'rol', 'like' ,'%'.$buscar.'%'
+        )
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        return $users;
+    }
 }

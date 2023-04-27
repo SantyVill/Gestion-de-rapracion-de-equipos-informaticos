@@ -16,38 +16,9 @@ class ClientesController extends Controller
      */
 
     public function index(Request $request)
-    {   
+    {
         $buscar = $request['buscar'];
-        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
-        /* ->orwhere(
-            'apellido','like','%'.$buscar.'%'
-        ) */
-        /* ->orwhere(
-            'nombre','like','%'.$buscar.'%'
-        ) */
-        ->orwhere(
-             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono1','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono2','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'direccion','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'mail','like','%'.$buscar.'%'
-        )
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $clientes = Cliente::listarClientes($buscar);
         
          return view('clientes.index',compact('clientes','buscar'));
     }
@@ -165,60 +136,14 @@ class ClientesController extends Controller
     public function select_cliente_recepcion(Request $request)
     {
         $buscar = $request['buscar'];
-        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
-        ->orwhere(
-             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono1','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono2','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'direccion','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'mail','like','%'.$buscar.'%'
-        )
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $clientes=Cliente::listarClientes($buscar);
         return view('clientes.select_cliente_recepcion',compact('clientes','buscar'));
     }
 
     public function update_cliente_recepcion(Request $request,Recepcion $recepcion)
     {
         $buscar = $request['buscar'];
-        $clientes=Cliente::where('dni','like','%'.$buscar.'%')
-        ->orwhere(
-             DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono1','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'telefono2','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'direccion','like','%'.$buscar.'%'
-        )
-        ->orwhere(
-            'mail','like','%'.$buscar.'%'
-        )
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $clientes=Cliente::listarClientes($buscar);
         
         return view('clientes.update_cliente_recepcion',compact('clientes','buscar','recepcion'));
         

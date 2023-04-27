@@ -27,24 +27,7 @@ class EquiposController extends Controller
     public function index(Request $request)
     {
         $buscar=$request['buscar'];
-        /* if (isset($request['buscar']) && $request['buscar']!='') { */
-            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
-            ->orwhereRelation(
-                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-            return view('equipos.index',compact('equipos','buscar'));
-        /* } else {
-            $equipos=Equipo::paginate(10);
-        } */
-        
+        $equipos=Equipo::listarEquipos($buscar);
         return view('equipos.index',compact('equipos','buscar'));
     }
 
@@ -77,19 +60,12 @@ class EquiposController extends Controller
         ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
 
         $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
-        //$id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
         $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
-        //$id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
-
         $caracteristica=Caracteristica::firstOrCreate([
             'modelo'=>ucfirst(request('modelo')),
             'marca_id'=> $marca['id'],
             'tipo_id'=>$tipo['id']
         ]);
-        //otra forma:
-        //$equipo=Equipo::create(['numero_serie'=>request('numero_serie'),'observacion'=>request('observacion')]);
-        //$equipo->caracteristica()->associate($caracteristica);
-        //$equipo->save();
         
         $equipo=Equipo::create([
             'numero_serie'=>request('numero_serie'),
@@ -142,9 +118,7 @@ class EquiposController extends Controller
 
 
         $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
-        #$id_marca=Marca::get()->where('marca','=',request('marca'))->pluck('id')->first();
         $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
-        #$id_tipo=Tipo::get()->where('tipo','=',request('tipo'))->pluck('id')->first();
 
         $caracteristica=Caracteristica::firstOrCreate([
             'modelo'=>ucfirst(request('modelo')),
@@ -186,38 +160,14 @@ class EquiposController extends Controller
     public function select_equipo_recepcion(Request $request)
     {
         $buscar=$request['buscar'];
-            $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
-            ->orwhereRelation(
-                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-            return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
-        
-            return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
+        $equipos=Equipo::listarEquipos($buscar);
+        return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
     }
 
     public function update_equipo_recepcion(Request $request,Recepcion $recepcion)
     {
         $buscar=$request['buscar'];
-        $equipos=Equipo::where('numero_serie','like','%'.$buscar.'%')
-            ->orwhereRelation(
-                'caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'caracteristica.tipo', 'tipo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $equipos=Equipo::listarEquipos($buscar);
         return view('equipos.update_equipo_recepcion',compact('equipos','buscar','recepcion'));
     }
 }

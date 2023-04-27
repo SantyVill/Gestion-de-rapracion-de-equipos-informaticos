@@ -29,45 +29,11 @@ class RecepcionesController extends Controller
         $buscar='';
         if ($request['NumOrden']=='1') {
             $buscarId = $request['buscar'];
-            $recepciones=Recepcion::where('id','like','%'.$request['buscar'].'%')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            $recepciones=Recepcion::buscarPorId($buscarId);
             return view('recepciones.index',compact('recepciones','buscar'));
         } else {
             $buscar=$request['buscar'];
-            $recepciones=Recepcion::where('falla','like','%'.$buscar.'%')
-            ->orwhere(
-                'accesorio', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhere(
-                'id', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhere(
-                'fecha_recepcion', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'equipo', 'numero_serie', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'estado', 'estado', 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'cliente', DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'cliente', DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
-            )
-            ->orwhereRelation(
-                'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
-            )
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            $recepciones=Recepcion::listarRecepciones($buscar);
         }
         
         return view('recepciones.index',compact('recepciones','buscar'));

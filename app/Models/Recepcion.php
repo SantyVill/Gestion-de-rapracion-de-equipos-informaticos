@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Recepcion extends Model
 {
@@ -43,5 +44,48 @@ class Recepcion extends Model
             return 'disabled';
         }
         return '';
+    }
+    public static function buscarPorId($id){
+        $recepciones=Recepcion::where('id','like','%'.$id.'%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return $recepciones;
+    }
+
+    public static function listarRecepciones($buscar){
+        $recepciones=Recepcion::where('falla','like','%'.$buscar.'%')
+            ->orwhere(
+                'accesorio', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhere(
+                'id', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhere(
+                'fecha_recepcion', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo', 'numero_serie', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica.marca', 'marca', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'equipo.caracteristica', 'modelo', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'estado', 'estado', 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(apellido,', ',nombre)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(apellido,' ',nombre)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orwhereRelation(
+                'cliente', DB::raw("CONCAT(nombre,' ',apellido)"), 'like' ,'%'.$buscar.'%'
+            )
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return $recepciones;
     }
 }

@@ -18,10 +18,7 @@ class MarcasController extends Controller
     {
         /* $marcas = Marca::paginate(10); */
         $buscar=$request['buscar'];
-        $marcas=Marca::where('marca','like','%'.$buscar.'%')
-        
-        ->orderBy('marca', 'asc')
-        ->paginate(10);
+        $marcas=Marca::listarMarcas($buscar);
 
         return view('marcas.index',compact('marcas','buscar'));
 
@@ -46,25 +43,10 @@ class MarcasController extends Controller
      */
     public function store(Request $request)
     {
-        $field=request()->validate([
+        request()->validate([
             'marca'=>'required'
         ]);
-        $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
-        if (isset($request['modelo']) && $request['modelo']!=[]) {
-            $caracteristica= new Caracteristica([
-                'marca_id'=> $marca['id'],
-                'modelo'=> ucfirst($request['modelo'])
-            ]);
-            if (isset($request['tipo'])) {
-                $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
-                $caracteristica['tipo_id']=$tipo['id'];
-            }
-            Caracteristica::firstOrCreate([
-                'modelo'=>ucfirst($caracteristica['modelo']),
-                'marca_id'=> $caracteristica['marca_id'],
-                'tipo_id'=>$caracteristica['tipo_id']
-            ]);
-        }
+        Marca::crearMarca($request['marca'],$request['modelo'],$request['tipo']);
         return redirect()->route('marcas.index');
     }
 
