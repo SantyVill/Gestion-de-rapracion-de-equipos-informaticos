@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center">
     <div class="card d-inline-block mx-auto border-dark" style="margin: 0 auto">
         <div class="card-header h4 text-center bg-dark text-light p-1">
-            Recepciones
+            Datos del Usuario
         </div>
         <div class="card-body p-0">
             <table class="table p-0 m-0 w-100 table-responsive table-info table-hover table-striped table-bordered border-2 border-dark shadow rounded">
@@ -71,19 +71,19 @@
                     @endif
                     <td>{{$recepcion->fecha_recepcion}}</td>
                     <td>{{$recepcion->falla}}</td>
-                    @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                    {{-- @if (auth()->user()->tieneRol(['admin','recepcionista'])) --}}
                         @if (isset($recepcion->cliente))
                         <td><a href="{{route('clientes.show',$recepcion->cliente)}}">{{$recepcion->cliente->apellido.', '.$recepcion->cliente->nombre}}</a></td>
                         @else
                         <td class="text-center">Cliente Eliminado.</td>
                         @endif
-                    @endif
+                    {{-- @endif --}}
                     <td>{{$recepcion->estado->estado}}</td>
                     <td><a href="{{route('recepciones.show',$recepcion)}}">Ver</a></td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center">
+                    <td colspan="8" class="text-center">
                         <p>No participó en ninguna recepción</p>
                     </td>
                 </tr>

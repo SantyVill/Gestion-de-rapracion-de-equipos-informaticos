@@ -10,18 +10,18 @@
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="nombre" class="form-label">Nombre </label>
-                <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre',$user->nombre)}}" required><br>
+                <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre',$user->nombre)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
                 {!!$errors->first('nombre','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
                 <label for="apellido" class="form-label">Apellido </label>
-                <input type="text" name="apellido" class="form-control border-dark" value="{{ old('apellido',$user->apellido)}}" required><br>
+                <input type="text" name="apellido" class="form-control border-dark" value="{{ old('apellido',$user->apellido)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
                 {!!$errors->first('apellido','<small>:message</small><br>')!!}
         </div>
         <div class="row mx-auto">
             <div class="col-6">
                 <label for="email" class="form-label">Correo Electrónico </label>
-                <input type="text" name="email" class="form-control border-dark" value="{{ old('email',$user->email)}}" required><br>
+                <input type="text" name="email" class="form-control border-dark" value="{{ old('email',$user->email)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
                 {!!$errors->first('email','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
@@ -33,14 +33,14 @@
         </div>
         <div class="row mb-0 justify-content-center">
             <div class="col-3 pt-4 pb-4">
-                <fieldset class="border border-dark" style="background-color: #f2f2f2">
+                <fieldset class="border border-dark " style="background-color: #f2f2f2">
                     <legend class="w-auto px-2">Roles</legend><br>
                         <div class="d-inline-flex p-0 bd-highlight form-check form-switch d-inline-flex bd-highlight">
-                            <input class="form-check-input" type="checkbox" name="tecnico" {{($user->esTecnico())?'checked':''}}>
+                            <input class="form-check-input" type="checkbox" name="tecnico" {{($user->esTecnico())?'checked':''}} {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}>
                             <label class="form-check-label" for="tecnico">Técnico</label>
                         </div><br>
                         <div class="form-check form-switch d-inline-flex bd-highlight pb-3">
-                            <input class="form-check-input" type="checkbox" name="recepcionista" {{($user->esRecepcionista())?'checked':''}}>
+                            <input class="form-check-input" type="checkbox" name="recepcionista" {{($user->esRecepcionista())?'checked':''}} {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}>
                             <label class="form-check-label" for="recepcionista">Recepcionista</label>
                         </div>
                 </fieldset>

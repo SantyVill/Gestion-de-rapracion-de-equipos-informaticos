@@ -103,6 +103,15 @@ class UsuariosController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        if (auth()->user()->tieneRol(['tecnico','recepcionista'])) {
+            if ($request->password!='') {
+                $user->password=bcrypt($request->password);
+            }
+            if ($request['nombre']!=$user->nombre||$request['apellido']!=$user->apellido||$request['email']!=$user->email) {
+                return redirect()->route('usuarios.show',$user)->with('message','No tienes permisos para modificar tus datos (solo puedes cambiar tu contraseña).');
+            }
+            return redirect()->route('usuarios.show',$user);
+        }
         $user['nombre']=ucfirst(request('nombre'));
         $user['apellido']=ucfirst($request['apellido']);
         $user['email']=$request['email'];
