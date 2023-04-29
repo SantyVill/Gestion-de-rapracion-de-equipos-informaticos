@@ -12,24 +12,24 @@
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="numero_serie" class="form-label">Numero de Serie: </label>
-                <input type="text" class="form-control border-dark" name="numero_serie" value="{{ old('numero_serie',$equipo->numero_serie)}}" required><br>
+                <input type="text" class="form-control border-dark" name="numero_serie" value="{{ old('numero_serie',$equipo->numero_serie)}}" required maxlength="{{config('tam_numSerie')}}"><br>
                 {!!$errors->first('num_serie','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
                 <label for="tipo" class="form-label">Tipo: </label>
-                <input type="text" class="form-control border-dark" name="tipo" value="{{ old('tipo',$equipo->caracteristica->tipo->tipo)}}" required><br>
+                <input type="text" class="form-control border-dark" name="tipo" value="{{ old('tipo',$equipo->caracteristica->tipo->tipo)}}" required maxlength="{{config('tam_tipo')}}"><br>
                 {!!$errors->first('tipo','<small>:message</small><br>')!!}
             </div>
         </div>
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="modelo" class="form-label">Modelo: </label>
-                <input type="text"  class="form-control border-dark" name="modelo" value="{{ old('modelo',$equipo->caracteristica->modelo)}}" required><br>
+                <input type="text"  class="form-control border-dark" name="modelo" value="{{ old('modelo',$equipo->caracteristica->modelo)}}" required maxlength="{{config('tam_modelo')}}"><br>
                 {!!$errors->first('modelo','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
                 <label for="marca" class="form-label">Marca: </label>
-                <input type="text" class="form-control border-dark" name="marca" value="{{ old('marca',$equipo->caracteristica->marca->marca)}}" required><br>
+                <input type="text" class="form-control border-dark" name="marca" value="{{ old('marca',$equipo->caracteristica->marca->marca)}}" required maxlength="{{config('tam_marca')}}"><br>
                 {!!$errors->first('marca','<small>:message</small><br>')!!}
             </div>
         </div>
