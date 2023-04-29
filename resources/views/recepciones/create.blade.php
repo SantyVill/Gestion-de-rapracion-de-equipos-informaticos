@@ -16,13 +16,13 @@
                     <div class="row mx-auto col-11">
                         <div class="col-6">
                             <label for="falla" class="form-label">Falla: </label>
-                            <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required><br>
-                            {!!$errors->first('falla','<small>:message</small><br>')!!}
+                            <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required maxlength="{{config("tam_falla")}}">
+                            {!!$errors->first('falla','<small>:message</small><br>')!!}<br>
                         </div>
                         <div class="col-6">
                             <label for="accesorio" class="form-label">Accesorios: </label>
-                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required><br>
-                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required maxlength="{{config("tam_accesorio")}}">
+                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}<br>
                         </div>
                     </div>
                     <div class="row mb-0 justify-content-center">
@@ -41,8 +41,8 @@
                     <div class="row mb-0 justify-content-center">
                         <div class="col-8">
                             <label for="observacion" class="form-label">Observación: </label><br>                    
-                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea><br>
-                            {!!$errors->first('observacion','<small>:message</small><br>')!!}
+                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea>
+                            {!!$errors->first('observacion','<small>:message</small><br>')!!}<br>
     
                         </div>
                     </div>

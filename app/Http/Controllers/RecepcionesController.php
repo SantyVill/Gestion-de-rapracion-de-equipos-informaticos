@@ -25,7 +25,6 @@ class RecepcionesController extends Controller
      */
     public function index(Request $request)
     {
-        /* return $request; */
         $buscar='';
         if ($request['NumOrden']=='1') {
             $buscarId = $request['buscar'];
@@ -69,53 +68,63 @@ class RecepcionesController extends Controller
      */
     public function store(Request $request,Equipo $equipo,Cliente $cliente)
     {
-        if (isset($request['falla'])) {
-            $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
-            $recepcion = new Recepcion([
-                'estado_id'=>$estado['id'],
-                'recepcionista_id'=>auth()->user()->id,
-                'falla'=>ucfirst($request['falla']),
-                'accesorio'=>ucfirst($request['accesorio']),
-                'observacion'=>ucfirst($request['observacion']),
-                'fecha_recepcion'=>date('Y-m-d H:i:s'),
+        try {
+            request()->validate([
+                'falla'=>'required|max:'.config("tam_falla"),
+                'observacion'=>'',
+                'accesorio'=>'required|max:'.config("tam_accesorio"),
             ]);
-            Cookie::queue('recepcion', $recepcion, 100);
-        } else if(!(null!==(Cookie::get('recepcion')))) {
-            return redirect()->route('recepciones.create');
+            if (isset($request['falla'])) {
+                $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
+                $recepcion = new Recepcion([
+                    'estado_id'=>$estado['id'],
+                    'recepcionista_id'=>auth()->user()->id,
+                    'falla'=>ucfirst($request['falla']),
+                    'accesorio'=>ucfirst($request['accesorio']),
+                    'observacion'=>ucfirst($request['observacion']),
+                    'fecha_recepcion'=>date('Y-m-d H:i:s'),
+                ]);
+                Cookie::queue('recepcion', $recepcion, 100);
+            } else if(!(null!==(Cookie::get('recepcion')))) {
+                return redirect()->route('recepciones.create');
+            }
+    
+            if (isset($request['equipo_id'])) {
+                Cookie::queue('equipo',$request['equipo_id'] , 100);
+                return redirect()->route('recepciones.create');
+            } else if(!(null!==(Cookie::get('equipo')))) {
+                return redirect()->route('equipos.select_recepcion');
+            }
+    
+    
+            if (isset($request['cliente_id'])) {
+                Cookie::queue('cliente',$request['cliente_id'] , 100);
+                return redirect()->route('recepciones.create');
+            } else if(!(null!==(Cookie::get('cliente')))) {
+                return redirect()->route('clientes.select_recepcion');
+            }
+    
+            $recepcion = json_decode(Cookie::get('recepcion'),true);
+            $equipo_id=Cookie::get('equipo');
+            $cliente_id=Cookie::get('cliente');
+            Recepcion::create([
+                'equipo_id'=>$equipo_id,
+                'cliente_id'=>$cliente_id,
+                'estado_id'=>$recepcion['estado_id'],
+                'recepcionista_id'=>$recepcion['recepcionista_id'],//Hay que llenar este campo con el id del usuario logueado
+                'falla'=>$recepcion['falla'],
+                'accesorio'=>$recepcion['accesorio'],
+                'observacion'=>$recepcion['observacion'],
+                'fecha_recepcion'=>$recepcion['fecha_recepcion'],
+            ]);
+            Cookie::queue(Cookie::forget('recepcion'));
+            Cookie::queue(Cookie::forget('equipo'));
+            Cookie::queue(Cookie::forget('cliente'));
+            return redirect()->route('recepciones.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-
-        if (isset($request['equipo_id'])) {
-            Cookie::queue('equipo',$request['equipo_id'] , 100);
-            return redirect()->route('recepciones.create');
-        } else if(!(null!==(Cookie::get('equipo')))) {
-            return redirect()->route('equipos.select_recepcion');
-        }
-
-
-        if (isset($request['cliente_id'])) {
-            Cookie::queue('cliente',$request['cliente_id'] , 100);
-            return redirect()->route('recepciones.create');
-        } else if(!(null!==(Cookie::get('cliente')))) {
-            return redirect()->route('clientes.select_recepcion');
-        }
-
-        $recepcion = json_decode(Cookie::get('recepcion'),true);
-        $equipo_id=Cookie::get('equipo');
-        $cliente_id=Cookie::get('cliente');
-        Recepcion::create([
-            'equipo_id'=>$equipo_id,
-            'cliente_id'=>$cliente_id,
-            'estado_id'=>$recepcion['estado_id'],
-            'recepcionista_id'=>$recepcion['recepcionista_id'],//Hay que llenar este campo con el id del usuario logueado
-            'falla'=>$recepcion['falla'],
-            'accesorio'=>$recepcion['accesorio'],
-            'observacion'=>$recepcion['observacion'],
-            'fecha_recepcion'=>$recepcion['fecha_recepcion'],
-        ]);
-        Cookie::queue(Cookie::forget('recepcion'));
-        Cookie::queue(Cookie::forget('equipo'));
-        Cookie::queue(Cookie::forget('cliente'));
-        return redirect()->route('recepciones.index');
     }
 
     /**
@@ -161,32 +170,68 @@ class RecepcionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $recepcion = Recepcion::find($id);
-        if (isset($request['equipo_id'])) {
-            $recepcion->equipo_id=$request['equipo_id'];
-            $recepcion->save();
+        try {
+            request()->validate([
+                'falla'=>'required|max:'.config("tam_falla"),
+                'observacion'=>'',
+                'accesorio'=>'required|max:'.config("tam_accesorio"),
+            ]);
+            $recepcion = Recepcion::find($id);
+            if (isset($request['equipo_id'])) {
+                $recepcion->equipo_id=$request['equipo_id'];
+                $recepcion->save();
+                return redirect()->route('recepciones.show',$recepcion);
+            }
+            if (isset($request['cliente_id'])) {
+                $recepcion->cliente_id=$request['cliente_id'];
+                $recepcion->save();
+                return redirect()->route('recepciones.show',$recepcion);
+            }
+            /* if ($request['informe_final']) {
+                $recepcion['informe_final'] = ucfirst($request['informe_final']);
+                $recepcion['precio']= $request['precio'];
+                $recepcion['garantia'] = $request['garantia'];
+                $recepcion->save();
+                return redirect()->route('recepciones.show',$recepcion);
+            } */
+    
+            $estado=Estado::firstOrCreate(['estado'=> ucfirst($request['estado'])]);
+            if ($estado->estado!="Equipo Entregado") {
+                $recepcion->fecha_entrega = null;
+            }
+            $recepcion['falla'] = ucfirst($request['falla']);
+            $recepcion['accesorio'] = ucfirst($request['accesorio']);
+            $recepcion['observacion'] = ucfirst($request['observacion']);
+            $recepcion['estado_id'] = $estado->id;
+            $recepcion -> save();
             return redirect()->route('recepciones.show',$recepcion);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        if (isset($request['cliente_id'])) {
-            $recepcion->cliente_id=$request['cliente_id'];
-            $recepcion->save();
-            return redirect()->route('recepciones.show',$recepcion);
-        }
-        if ($request['informe_final']) {
-            $recepcion['informe_final'] = ucfirst($request['informe_final']);
-            $recepcion['precio']= $request['precio'];
-            $recepcion['garantia'] = $request['garantia'];
-            $recepcion->save();
-            return redirect()->route('recepciones.show',$recepcion);
-        }
+    }
+    public function agregarInforme(Request $request, $id)
+    {
+        try {
+            request()->validate([
+                'informe_final'=>'required',
+                'precio'=>'required|max:'.config("tam_precio"),
+                'garantia'=>'required',
+            ]);
+            $recepcion = Recepcion::find($id);
+            if ($request['informe_final']) {
+                $recepcion['informe_final'] = ucfirst($request['informe_final']);
+                $recepcion['precio']= $request['precio'];
+                $recepcion['garantia'] = $request['garantia'];
+                $recepcion->save();
+                return redirect()->route('recepciones.show',$recepcion);
+            }
 
-        $estado=Estado::firstOrCreate(['estado'=> ucfirst($request['estado'])]);
-        $recepcion['falla'] = ucfirst($request['falla']);
-        $recepcion['accesorio'] = ucfirst($request['accesorio']);
-        $recepcion['observacion'] = ucfirst($request['observacion']);
-        $recepcion['estado_id'] = $estado->id;
-        $recepcion -> save();
-        return redirect()->route('recepciones.show',$recepcion);
+            return redirect()->route('recepciones.show',$recepcion);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     /**

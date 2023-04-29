@@ -50,7 +50,6 @@ class AppServiceProvider extends ServiceProvider
         Config::set('tam_estado',30);
         Config::set('tam_falla',100);
         Config::set('tam_accesorio',100);
-        Config::set('tam_precio',20);
         /* PRECIO */
         Config::set('tam_riesgo',30);
         Config::set('tam_plazo',11);

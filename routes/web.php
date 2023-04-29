@@ -59,6 +59,7 @@ Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\Rec
 Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo']);
 /* Route::get('/recepciones/index/{buscar?}/{NumOrden?}',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo']); */
 Route::patch('/recepciones/update/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'update'])->name('recepciones.update')->middleware(['logueo','rol:recepcionista,admin']);
+Route::patch('/recepciones/informe/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'agregarInforme'])->name('recepciones.agregarInforme')->middleware(['logueo','rol:tecnico,admin']);
 Route::get('/recepciones/edit/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'edit'])->name('recepciones.edit')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/show/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'show'])->name('recepciones.show')->middleware(['logueo']);
 Route::delete('/recepciones/destroy/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'destroy'])->name('recepciones.destroy');

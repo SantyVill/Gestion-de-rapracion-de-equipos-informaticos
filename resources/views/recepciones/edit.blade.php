@@ -14,12 +14,12 @@
                     <div class="row mx-auto col-11">
                         <div class="col-6">
                             <label for="falla" class="form-label">Falla: </label>
-                            <input type="text" name="falla" class="form-control border-dark"  value="{{$recepcion->falla}}" required><br>
-                            {!!$errors->first('falla','<small>:message</small><br>')!!}
+                            <input type="text" name="falla" class="form-control border-dark"  value="{{$recepcion->falla}}" required maxlength="{{config("tam_falla")}}">
+                            {!!$errors->first('falla','<small>:message</small><br>')!!}<br>
                         </div>
                         <div class="col-6">
                             <label for="accesorio" class="form-label">Accesorio: </label>
-                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ $recepcion->accesorio }}" required><br>
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ $recepcion->accesorio }}" required maxlength="{{config("tam_accesorio")}}"><br>
                             {!!$errors->first('accesorio','<small>:message</small><br>')!!}
                         </div>
                     </div>

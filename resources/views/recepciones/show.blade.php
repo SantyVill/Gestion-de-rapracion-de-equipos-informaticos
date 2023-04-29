@@ -169,6 +169,7 @@
                 {{$recepcion->garantia}}
             </p><br>
             <b>Monto:</b> ${{$recepcion->precio}}<br>
+            <b>Fecha de entrega:</b> {{$recepcion->fecha_entrega}}<br>
           </div>
         </div>
       </div>
