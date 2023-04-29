@@ -24,21 +24,25 @@ class Marca extends Model
     }
 
     public static function crearMarca(string $marca,$modelo,$tipo){
-        $marca=Marca::firstOrCreate(['marca'=> ucfirst($marca)]);
-        if (isset($modelo) && $modelo!=[]) {
-            $caracteristica= new Caracteristica([
-                'marca_id'=> $marca['id'],
-                'modelo'=> ucfirst($modelo)
-            ]);
-            if (isset($tipo)) {
-                $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst($tipo)]);
-                $caracteristica['tipo_id']=$tipo['id'];
+        try {
+            $marca=Marca::firstOrCreate(['marca'=> ucfirst($marca)]);
+            if (isset($modelo) && $modelo!=[]) {
+                $caracteristica= new Caracteristica([
+                    'marca_id'=> $marca['id'],
+                    'modelo'=> ucfirst($modelo)
+                ]);
+                if (isset($tipo)) {
+                    $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst($tipo)]);
+                    $caracteristica['tipo_id']=$tipo['id'];
+                }
+                Caracteristica::firstOrCreate([
+                    'modelo'=>ucfirst($caracteristica['modelo']),
+                    'marca_id'=> $caracteristica['marca_id'],
+                    'tipo_id'=>$caracteristica['tipo_id']
+                ]);
             }
-            Caracteristica::firstOrCreate([
-                'modelo'=>ucfirst($caracteristica['modelo']),
-                'marca_id'=> $caracteristica['marca_id'],
-                'tipo_id'=>$caracteristica['tipo_id']
-            ]);
+        } catch (\Exception $e) {
+            throw new \Exception('Se ha producido un error al intentar crear la marca.', 0, $e);
         }
     }
     public function agregarModelo(Caracteristica $nuevaCaracteristica){

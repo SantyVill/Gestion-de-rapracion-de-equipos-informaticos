@@ -43,11 +43,18 @@ class MarcasController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'marca'=>'required'
-        ]);
-        Marca::crearMarca($request['marca'],$request['modelo'],$request['tipo']);
-        return redirect()->route('marcas.index');
+        try {
+            request()->validate([
+                'marca'=>'required|max:'.config('tam_marca'),
+                'modelo'=>'max:'.config('tam_modelo'),
+                'tipo'=>'max:'.config('tam_tipo'),
+            ]);
+            Marca::crearMarca($request['marca'],$request['modelo'],$request['tipo']);
+            return redirect()->route('marcas.index');
+        } catch (\Exception | \Throwable $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     /**
@@ -83,18 +90,26 @@ class MarcasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $modificarMarca = Marca::find($id);
-        if ($marca = Marca::where('marca',$request['marca'])->first()) {
-            foreach ($modificarMarca->caracteristicas as $caracteristica) {
-                $marca->agregarModelo($caracteristica);
+        try {
+            request()->validate([
+                'marca'=>'required|max:'.config('tam_marca'),
+            ]);
+            $modificarMarca = Marca::find($id);
+            if ($marca = Marca::where('marca',$request['marca'])->first()) {
+                foreach ($modificarMarca->caracteristicas as $caracteristica) {
+                    $marca->agregarModelo($caracteristica);
+                }
+                $modificarMarca->delete();
+            } else {
+                $modificarMarca->marca=$request['marca'];
+                $modificarMarca->save();
             }
-            $modificarMarca->delete();
-        } else {
-            $modificarMarca->marca=$request['marca'];
-            $modificarMarca->save();
+            return redirect()->route('marcas.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        return redirect()->route('marcas.index');
-        $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
+        /* $nuevaMarca = Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);
         return $nuevaMarca;
         if ($nuevaMarca != $marca) {
             // Busca todos los caracteristicas que pertenecen a la marca que se está actualizando
@@ -128,7 +143,7 @@ class MarcasController extends Controller
             $marca->save();
         }
 
-        return redirect()->route('marcas.index', $nuevaMarca);
+        return redirect()->route('marcas.index', $nuevaMarca); */
     }
 
 

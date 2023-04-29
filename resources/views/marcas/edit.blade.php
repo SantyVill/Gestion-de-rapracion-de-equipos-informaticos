@@ -10,7 +10,7 @@
         <div class="row mb-0 justify-content-center">
             <div class="col-4">
                 <label for="marca" class="form-label">Marca: </label>
-                <input type="text" class="form-control border-dark" name="marca" placeholder="" value="{{ old('marca',$marca->marca)}}" required><br>
+                <input type="text" class="form-control border-dark" name="marca" placeholder="" value="{{ old('marca',$marca->marca)}}" required maxlength="{{config("tam_marca")}}"><br>
                 {!!$errors->first('marca','<small>:message</small><br>')!!} 
             </div>
             <input type="text" name='marca_id' value="{{$marca['id']}}" hidden>
