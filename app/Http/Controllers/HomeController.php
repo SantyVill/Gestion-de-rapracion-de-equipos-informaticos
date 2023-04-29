@@ -29,32 +29,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-    $recepcionesPendientes = DB::table('recepciones')
-                ->join('estados', 'recepciones.estado_id', '=', 'estados.id')
-                ->where('estados.estado', '!=', 'Equipo Entregado')
-                ->select('recepciones.*')
-                ->get();
+    $recepcionesPendientes = Recepcion::recepcionesPendientes();
+
     $recepciones = Recepcion::all();
     $equipoMasRegistrado = Equipo::withCount('recepciones')
     ->orderBy('recepciones_count', 'desc')
     ->first();
 
-    $marcaMasRepetida = Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
-    ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
-    ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
-    ->groupBy('marcas.marca')
-    ->select('marcas.marca', DB::raw('COUNT(*) as cantidad'))
-    ->orderByDesc('cantidad')
-    ->first();
+    $marcaMasRepetida = Recepcion::marcaMasRepetida();
+    
+    $montoTotal = Recepcion::montoRecaudado();
 
-    $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
-    $montoTotal = Recepcion::where('estado_id', $estadoEntregado)->sum('precio');
-
-    $now = Carbon::now();
-    $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
-    $lastMonthEnd = $now->copy()->subMonth()->endOfMonth();
-
-    $recaudadoMesPasado = Recepcion::where('estado_id', $estadoEntregado)->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->sum('precio');
+    $recaudadoMesPasado = Recepcion::recaudacionMesPasado();
 
     return view('home', compact('recepciones', 'equipoMasRegistrado', 'marcaMasRepetida', 'recepcionesPendientes', 'montoTotal', 'recaudadoMesPasado'));
 

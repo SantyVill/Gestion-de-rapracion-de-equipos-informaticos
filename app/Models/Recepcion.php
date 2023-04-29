@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class Recepcion extends Model
 {
@@ -87,5 +88,37 @@ class Recepcion extends Model
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         return $recepciones;
+    }
+
+    public static function recepcionesPendientes(){
+        $recepciones = DB::table('recepciones')
+                ->join('estados', 'recepciones.estado_id', '=', 'estados.id')
+                ->where('estados.estado', '!=', 'Equipo Entregado')
+                ->select('recepciones.*')
+                ->get();
+        return $recepciones;
+    }
+
+    public static function marcaMasRepetida(){
+        return Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
+        ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
+        ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
+        ->groupBy('marcas.marca')
+        ->select('marcas.marca', DB::raw('COUNT(*) as cantidad'))
+        ->orderByDesc('cantidad')
+        ->first();
+    }
+
+    public static function montoRecaudado(){
+        $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
+        return Recepcion::where('estado_id', $estadoEntregado)->sum('precio');
+    }
+
+    public static function recaudacionMesPasado(){
+        $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
+    $now = Carbon::now();
+    $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
+    $lastMonthEnd = $now->copy()->subMonth()->endOfMonth();
+    return Recepcion::where('estado_id', $estadoEntregado)->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->sum('precio');
     }
 }
