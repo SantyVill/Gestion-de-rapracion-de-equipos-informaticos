@@ -41,8 +41,8 @@
             </div>
             <div class="col-8">
                 <label for="nota" class="form-label">Nota: </label><br>
-                <textarea  class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3" required>{{ old('nota',$revision->nota)}}</textarea><br>
-                {!!$errors->first('nota','<small>:message</small><br>')!!}
+                <textarea  class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3" required>{{ old('nota',$revision->nota)}}</textarea>
+                {!!$errors->first('nota','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mb-2 justify-content-center">

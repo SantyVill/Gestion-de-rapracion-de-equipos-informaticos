@@ -40,28 +40,36 @@ class RevisionesController extends Controller
      */
     public function store(Request $request, Recepcion $recepcion)
     {
-        $fields = request()->validate([
-            'nota'=>'required'
-        ]);
-        $revision = Revision::create([
-            'tecnico_id'=>auth()->user()->id,
-            'recepcion_id'=>$recepcion['id'],
-            'nota'=>ucfirst($request['nota']),
-            'fecha'=>date('Y-m-d H:i:s'),
-            'interna' => ($request['interna'])?true:false,
-        ]);
-        if ($request['estado']!='') {
-            $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
-            if (strcmp($request['estado'],$recepcion->estado->estado)!=0) {
-                $revision->nota = '###Nuevo estado: ' . $nuevoEstado->estado . '###. ' . $revision->nota;
-                $revision->save();
+        try {
+            request()->validate([
+                'nota'=>'required'
+            ]);
+            $revision = Revision::create([
+                'tecnico_id'=>auth()->user()->id,
+                'recepcion_id'=>$recepcion['id'],
+                'nota'=>ucfirst($request['nota']),
+                'fecha'=>date('Y-m-d H:i:s'),
+                'interna' => ($request['interna'])?true:false,
+            ]);
+            if ($request['estado']!='') {
+                $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
+                if (strcmp($request['estado'],$recepcion->estado->estado)!=0) {
+                    $revision->nota = '###Nuevo estado: ' . $nuevoEstado->estado . '###. ' . $revision->nota;
+                    $revision->save();
+                }
+                $recepcion->estado_id= $nuevoEstado['id'];
+                if ($nuevoEstado->estado=="Equipo Entregado") {
+                    $recepcion->fecha_entrega = now();
+                }
             }
-            $recepcion->estado_id= $nuevoEstado['id'];
+            /* return $recepcion; */
+            /* $recepcion = $revision->recepcion; */
+            $recepcion->save();
+            return redirect() -> route('recepciones.show',$recepcion);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        /* return $recepcion; */
-        /* $recepcion = $revision->recepcion; */
-        $recepcion->save();
-        return redirect() -> route('recepciones.show',$recepcion);
     }
 
     /**
@@ -109,8 +117,16 @@ class RevisionesController extends Controller
      */
     public function destroy(Revision $revision)
     {
-        $recepcion_id=$revision->recepcion_id;
-        $revision->delete();
-        return redirect() -> route('recepciones.show',$revision->recepcion_id);
+        try {
+            request()->validate([
+                'nota'=>'required'
+            ]);
+            $recepcion_id=$revision->recepcion_id;
+            $revision->delete();
+            return redirect() -> route('recepciones.show',$revision->recepcion_id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 }
