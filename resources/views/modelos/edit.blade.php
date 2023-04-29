@@ -11,13 +11,13 @@
         <div class="row mb-0 justify-content-center">
             <div class="col-4">
                 <label for="modelo" class="form-label">Modelo: </label>
-                <input type="text" class="form-control border-dark" name="modelo" placeholder="" value="{{ old('modelo',$caracteristica->modelo)}}" required><br>
-                {!!$errors->first('modelo','<small>:message</small><br>')!!} 
+                <input type="text" class="form-control border-dark" name="modelo" placeholder="" value="{{ old('modelo',$caracteristica->modelo)}}" required maxlength="{{config("tam_modelo")}}">
+                {!!$errors->first('modelo','<small>:message</small><br>')!!} <br>
             </div>
             <div class="col-4">
                 <label for="tipo" class="form-label">Tipo: </label>
-                <input type="text" class="form-control border-dark" name="tipo" placeholder="" value="{{ old('tipo',$caracteristica->tipo->tipo)}}" required><br>
-                {!!$errors->first('tipo','<small>:message</small><br>')!!} 
+                <input type="text" class="form-control border-dark" name="tipo" placeholder="" value="{{ old('tipo',$caracteristica->tipo->tipo)}}" required maxlength="{{config("tam_tipo")}}">
+                {!!$errors->first('tipo','<small>:message</small><br>')!!} <br>
             </div>
             <input type="number" name="marca_id" value="{{$caracteristica->marca->id}}" hidden>
         </div>

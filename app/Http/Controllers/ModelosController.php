@@ -38,25 +38,31 @@ class ModelosController extends Controller
      */
     public function store(Request $request,Marca $marca)
     {
-        $field=request()->validate([
-            'modelo'=>'required'
-        ]);
-        if (isset($request['modelo'])) {
-            $caracteristica= new Caracteristica([
-                'marca_id'=> $marca['id'],
-                'modelo'=>ucfirst($request['modelo'])
+        try {
+            request()->validate([
+                'modelo'=>'required|max:'.config('tam_modelo'),
+                'tipo'=>'required|max:'.config('tam_tipo'),
             ]);
-            if (isset($request['tipo'])) {
-                $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
-                $caracteristica['tipo_id']=$tipo['id'];
+            if (isset($request['modelo'])) {
+                $caracteristica= new Caracteristica([
+                    'marca_id'=> $marca['id'],
+                    'modelo'=>ucfirst($request['modelo'])
+                ]);
+                if (isset($request['tipo'])) {
+                    $tipo=Tipo::firstOrCreate(['tipo'=> request('tipo')]);
+                    $caracteristica['tipo_id']=$tipo['id'];
+                }
+                Caracteristica::firstOrCreate([
+                    'modelo'=>ucfirst($caracteristica['modelo']),
+                    'marca_id'=> $caracteristica['marca_id'],
+                    'tipo_id'=>$caracteristica['tipo_id']
+                ]);
             }
-            Caracteristica::firstOrCreate([
-                'modelo'=>ucfirst($caracteristica['modelo']),
-                'marca_id'=> $caracteristica['marca_id'],
-                'tipo_id'=>$caracteristica['tipo_id']
-            ]);
+            return redirect()->route('marcas.show',$marca);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        return redirect()->route('marcas.show',$marca);
     }
 
     /**
@@ -91,30 +97,39 @@ class ModelosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tipo = Tipo::firstOrCreate(['tipo' => $request['tipo']]);
-        $caracteristica = Caracteristica::find($id);
-        $existe = Caracteristica::where('modelo', $request['modelo'])
-        ->where('tipo_id', $tipo->id)
-        ->where('marca_id', $request['marca_id'])
-        ->exists();
-        if ($existe) {
-            $nuevaCaracteristica = Caracteristica::firstOrCreate([
-                'modelo' => $request['modelo'],
-                'tipo_id' => $tipo->id,
-                'marca_id' => $request['marca_id']
+        try {
+            request()->validate([
+                'modelo'=>'required|max:'.config('tam_modelo'),
+                'tipo'=>'required|max:'.config("tam_tipo"),
             ]);
-            Equipo::where('caracteristica_id', '=', $caracteristica['id'])
-            ->update(['caracteristica_id' => $nuevaCaracteristica['id']]);
-            $caracteristica -> delete();
+            $tipo = Tipo::firstOrCreate(['tipo' => $request['tipo']]);
+            $caracteristica = Caracteristica::find($id);
+            $existe = Caracteristica::where('modelo', $request['modelo'])
+            ->where('tipo_id', $tipo->id)
+            ->where('marca_id', $request['marca_id'])
+            ->exists();
+            if ($existe) {
+                $nuevaCaracteristica = Caracteristica::firstOrCreate([
+                    'modelo' => $request['modelo'],
+                    'tipo_id' => $tipo->id,
+                    'marca_id' => $request['marca_id']
+                ]);
+                Equipo::where('caracteristica_id', '=', $caracteristica['id'])
+                ->update(['caracteristica_id' => $nuevaCaracteristica['id']]);
+                $caracteristica -> delete();
+                return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
+            }
+            $caracteristica['modelo']=ucfirst($request['modelo']);
+            if ($caracteristica->tipo->tipo!=$request['tipo']) {
+                $tipo = Tipo::firstOrCreate(['tipo'=>$request['tipo']]);
+                $caracteristica['tipo_id']=$tipo['id'];
+            }
+            $caracteristica->save();
             return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        $caracteristica['modelo']=ucfirst($request['modelo']);
-        if ($caracteristica->tipo->tipo!=$request['tipo']) {
-            $tipo = Tipo::firstOrCreate(['tipo'=>$request['tipo']]);
-            $caracteristica['tipo_id']=$tipo['id'];
-        }
-        $caracteristica->save();
-        return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
         
     }
 
