@@ -42,27 +42,32 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        $field=request()->validate([
-            'nombre'=>'required',
-            'apellido'=>'required',
-            'email'=>'required|email',
-            'password'=>['required',Rules\password::min(4)],
-            'password_confirmar'=>'required|same:password',
-        ]);
-        $field['nombre']=ucfirst($field['nombre']);
-        $field['apellido']=ucfirst($field['apellido']);
-        $field['password']=bcrypt($field['password']);
-        $user = User::create($field);
-        if ($request->tecnico=='on') {
-            $rol = Rol::get()->where('rol','=','tecnico');
-            $user->roles()->attach($rol);
+        try {
+            $field=request()->validate([
+                'nombre'=>'required|max:'.config("tam_nombre"),
+                'apellido'=>'required|max:'.config("tam_apellido"),
+                'email'=>'required|email|max:'.config("tam_email"),
+                'password'=>['required',Rules\password::min(4),'max:255'],
+                'password_confirmar'=>'required|same:password|max:255',
+            ]);
+            $field['nombre']=ucfirst($field['nombre']);
+            $field['apellido']=ucfirst($field['apellido']);
+            $field['password']=bcrypt($field['password']);
+            $user = User::create($field);
+            if ($request->tecnico=='on') {
+                $rol = Rol::get()->where('rol','=','tecnico');
+                $user->roles()->attach($rol);
+            }
+            if ($request->recepcionista=='on') {
+                $rol = Rol::get()->where('rol','=','recepcionista');
+                $user->roles()->attach($rol);
+            }
+            /* Auth::loginUsingId($user->id); */
+            return redirect()->route('usuarios.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        if ($request->recepcionista=='on') {
-            $rol = Rol::get()->where('rol','=','recepcionista');
-            $user->roles()->attach($rol);
-        }
-        /* Auth::loginUsingId($user->id); */
-        return redirect()->route('usuarios.index');
     }
 
     /**
@@ -102,41 +107,51 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        if (auth()->user()->tieneRol(['tecnico','recepcionista'])) {
+        try {
+            request()->validate([
+                'nombre'=>'required|max:'.config("tam_nombre"),
+                'apellido'=>'required|max:'.config("tam_apellido"),
+                'email'=>'required|email|max:'.config("tam_email"),
+            ]);
+            $user = User::find($id);
+            if (auth()->user()->tieneRol(['tecnico','recepcionista'])) {
+                if ($request->password!='') {
+                    $user->password=bcrypt($request->password);
+                }
+                if ($request['nombre']!=$user->nombre||$request['apellido']!=$user->apellido||$request['email']!=$user->email) {
+                    return redirect()->route('usuarios.show',$user)->with('message','No tienes permisos para modificar tus datos (solo puedes cambiar tu contraseña).');
+                }
+                return redirect()->route('usuarios.show',$user);
+            }
+            $user['nombre']=ucfirst(request('nombre'));
+            $user['apellido']=ucfirst($request['apellido']);
+            $user['email']=$request['email'];
+            if ($request->tecnico=='on') {
+                if (!($user->esTecnico())) {
+                    $rol = Rol::get()->where('rol','=','tecnico');
+                    $user->roles()->attach($rol);
+                }
+            } else {
+                $user->roles()->detach(Rol::get()->where('rol','=','tecnico'));
+            }
+            if ($request->recepcionista=='on' ) {
+                if (!($user->esRecepcionista())) {
+                    $rol = Rol::get()->where('rol','=','recepcionista');
+                    $user->roles()->attach($rol);
+                }
+            } else {
+                $user->roles()->detach(Rol::get()->where('rol','=','recepcionista'));
+            }
+    
             if ($request->password!='') {
                 $user->password=bcrypt($request->password);
             }
-            if ($request['nombre']!=$user->nombre||$request['apellido']!=$user->apellido||$request['email']!=$user->email) {
-                return redirect()->route('usuarios.show',$user)->with('message','No tienes permisos para modificar tus datos (solo puedes cambiar tu contraseña).');
-            }
+            $user->save();
             return redirect()->route('usuarios.show',$user);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
         }
-        $user['nombre']=ucfirst(request('nombre'));
-        $user['apellido']=ucfirst($request['apellido']);
-        $user['email']=$request['email'];
-        if ($request->tecnico=='on') {
-            if (!($user->esTecnico())) {
-                $rol = Rol::get()->where('rol','=','tecnico');
-                $user->roles()->attach($rol);
-            }
-        } else {
-            $user->roles()->detach(Rol::get()->where('rol','=','tecnico'));
-        }
-        if ($request->recepcionista=='on' ) {
-            if (!($user->esRecepcionista())) {
-                $rol = Rol::get()->where('rol','=','recepcionista');
-                $user->roles()->attach($rol);
-            }
-        } else {
-            $user->roles()->detach(Rol::get()->where('rol','=','recepcionista'));
-        }
-
-        if ($request->password!='') {
-            $user->password=bcrypt($request->password);
-        }
-        $user->save();
-        return redirect()->route('usuarios.show',$user);
     }
 
     /**

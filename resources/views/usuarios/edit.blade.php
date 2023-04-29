@@ -10,24 +10,24 @@
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="nombre" class="form-label">Nombre </label>
-                <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre',$user->nombre)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
-                {!!$errors->first('nombre','<small>:message</small><br>')!!}
+                <input type="text" name="nombre" class="form-control border-dark" value="{{ old('nombre',$user->nombre)}}" required  {{auth()->user()->tieneRol(['admin'])?'':'disabled'}} maxlength="{{config("tam_nombre")}}">
+                {!!$errors->first('nombre','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-6">
                 <label for="apellido" class="form-label">Apellido </label>
-                <input type="text" name="apellido" class="form-control border-dark" value="{{ old('apellido',$user->apellido)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
-                {!!$errors->first('apellido','<small>:message</small><br>')!!}
+                <input type="text" name="apellido" class="form-control border-dark" value="{{ old('apellido',$user->apellido)}}" required  {{auth()->user()->tieneRol(['admin'])?'':'disabled'}} maxlength="{{config("tam_apellido")}}">
+                {!!$errors->first('apellido','<small>:message</small><br>')!!}<br>
         </div>
         <div class="row mx-auto">
             <div class="col-6">
                 <label for="email" class="form-label">Correo Electrónico </label>
-                <input type="text" name="email" class="form-control border-dark" value="{{ old('email',$user->email)}}" required  {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}><br>
-                {!!$errors->first('email','<small>:message</small><br>')!!}
+                <input type="text" name="email" class="form-control border-dark" value="{{ old('email',$user->email)}}" required  {{auth()->user()->tieneRol(['admin'])?'':'disabled'}} maxlength="{{config("tam_mail")}}">
+                {!!$errors->first('email','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-6">
                 <label for="password" class="form-label">Nueva Contraseña </label>
-                <input type="password" name="password" class="form-control border-dark" ><br>
-                {!!$errors->first('password','<small>:message</small><br>')!!}
+                <input type="password" name="password" class="form-control border-dark" maxlength="255">
+                {!!$errors->first('password','<small>:message</small><br>')!!}<br>
                 
             </div>
         </div>
@@ -36,11 +36,11 @@
                 <fieldset class="border border-dark " style="background-color: #f2f2f2">
                     <legend class="w-auto px-2">Roles</legend><br>
                         <div class="d-inline-flex p-0 bd-highlight form-check form-switch d-inline-flex bd-highlight">
-                            <input class="form-check-input" type="checkbox" name="tecnico" {{($user->esTecnico())?'checked':''}} {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}>
+                            <input class="form-check-input" type="checkbox" name="tecnico" {{($user->esTecnico())?'checked':''}} {{auth()->user()->tieneRol(['admin'])?'':'disabled'}}>
                             <label class="form-check-label" for="tecnico">Técnico</label>
                         </div><br>
                         <div class="form-check form-switch d-inline-flex bd-highlight pb-3">
-                            <input class="form-check-input" type="checkbox" name="recepcionista" {{($user->esRecepcionista())?'checked':''}} {{auth()->user()->tieneRol(['tecnico','recepcionista'])?'disabled':''}}>
+                            <input class="form-check-input" type="checkbox" name="recepcionista" {{($user->esRecepcionista())?'checked':''}} {{auth()->user()->tieneRol(['admin'])?'':'disabled'}}>
                             <label class="form-check-label" for="recepcionista">Recepcionista</label>
                         </div>
                 </fieldset>
