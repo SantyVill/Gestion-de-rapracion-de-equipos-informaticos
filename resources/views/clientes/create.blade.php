@@ -10,48 +10,48 @@
         <div class="row mx-auto col-11">
             <div class="col-4">
                 <label for="nombre" class="form-label">Nombre: </label>
-                <input type="text" class="form-control border-dark" name="nombre" placeholder="" value="{{ old('nombre')}}" required><br>
+                <input type="text" class="form-control border-dark" name="nombre" value="{{ old('nombre')}}" required maxlength="{{ config('tam_nombre') }}"><br>
                 {!!$errors->first('nombre','<small>:message</small><br>')!!} {{-- Error de validacion: https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 --}}
             </div>
             <div class="col-4">
                 <label for="apellido" class="form-label">Apellido: </label>
-                <input type="text" class="form-control border-dark" name="apellido" placeholder="" value="{{ old('apellido')}}" required><br>
+                <input type="text" class="form-control border-dark" name="apellido" value="{{ old('apellido')}}" required maxlength="{{ config('tam_apellido') }}"><br>
                 {!!$errors->first('apellido','<small>:message</small><br>')!!}
             </div>
             <div class="col-4">
                 <label for="dni" class="form-label">DNI: </label>
-                <input type="text" class="form-control border-dark" name="dni" placeholder="" value="{{ old('dni')}}"><br>
+                <input type="text" class="form-control border-dark" name="dni"value="{{ old('dni')}}" maxlength="{{ config('tam_dni') }}"><br>
                 {!!$errors->first('dni','<small>:message</small><br>')!!}
             </div>
         </div>
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="telefono1" class="form-label">Telefono: </label>
-                <input type="text" class="form-control border-dark" name="telefono1" placeholder="" value="{{ old('telefono1')}}" required><br>
+                <input type="text" class="form-control border-dark" name="telefono1" value="{{ old('telefono1')}}" required maxlength="{{ config('tam_telefono') }}"><br>
                 {!!$errors->first('telefono1','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
                 <label for="telefono2" class="form-label">Telefono 2: </label>
-                <input type="text" class="form-control border-dark" name="telefono2" placeholder="" value="{{ old('telefono2')}}"><br>
+                <input type="text" class="form-control border-dark" name="telefono2" value="{{ old('telefono2')}}" maxlength="{{config('tam_telefono')}}"><br>
                 {!!$errors->first('telefono2','<small>:message</small><br>')!!}
             </div>
         </div>
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="direccion" class="form-label">Dirección: </label>
-                <input type="text" class="form-control border-dark" name="direccion" placeholder="" value="{{ old('direccion')}}"><br>
+                <input type="text" class="form-control border-dark" name="direccion" value="{{ old('direccion')}}" maxlength="{{config('tam_direccion')}}"><br>
                 {!!$errors->first('direccion','<small>:message</small><br>')!!}
             </div>
             <div class="col-6">
                 <label for="mail" class="form-label">Email: </label>
-                <input type="email"  class="form-control border-dark" name="mail" placeholder="" value="{{ old('mail')}}" required><br>
+                <input type="email"  class="form-control border-dark" name="mail" value="{{ old('mail')}}" required maxlength="{{config('tam_mail')}}"><br>
                 {!!$errors->first('mail','<small>:message</small><br>')!!}
             </div>
         </div>
         <div class="row mb-0 justify-content-center">
             <div class="col-8">
                 <label for="observacion" class="form-label">Observación: </label><br>
-                <textarea  class="form-control border-dark" name="observacion" placeholder="" cols="30" rows="3">{{ old('observacion')}}</textarea><br>
+                <textarea  class="form-control border-dark" name="observacion" cols="30" rows="3">{{ old('observacion')}}</textarea><br>
                 {!!$errors->first('observacion','<small>:message</small><br>')!!}
             </div>
         </div>

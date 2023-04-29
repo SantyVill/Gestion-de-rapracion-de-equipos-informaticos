@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Equipo;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recepcion;
+use Illuminate\Support\Facades\Config;
 class ClientesController extends Controller
 {
     /**
@@ -41,22 +42,27 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $field=request()->validate([
-            'nombre'=>'required',
-            'apellido'=>'required',
-            'dni'=>'',
-            'telefono1'=>'required',
-            'telefono2'=>'',
-            'direccion'=>'',
-            'mail'=>'required',
-            'observacion'=>''
-        ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
-        $field['nombre']=ucfirst($field['nombre']);
-        $field['apellido']=ucfirst($field['apellido']);
-        $field['direccion']=ucfirst($field['direccion']);
-        $field['observacion']=ucfirst($field['observacion']);
-        Cliente::create($field);
-        return redirect()->route('clientes.index');
+        try {
+            $field=request()->validate([
+                'nombre'=>'required|max:'.config('tam_nombre'),
+                'apellido'=>'required|max:'.config('tam_apellido'),
+                'dni'=>''/* .config('tam_dni') */,
+                'telefono1'=>'required|max:'.config('tam_telefono'),
+                'telefono2'=>'max:'.config('tam_telefono'),
+                'direccion'=>'max:'.config('tam_direccion'),
+                'mail'=>'required|max:'.config('tam_mail'),
+                'observacion'=>''
+            ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
+            $field['nombre']=ucfirst($field['nombre']);
+            $field['apellido']=ucfirst($field['apellido']);
+            $field['direccion']=ucfirst($field['direccion']);
+            $field['observacion']=ucfirst($field['observacion']);
+            Cliente::create($field);
+            return redirect()->route('clientes.index');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se produjo un error en la carga de datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     /**
@@ -91,14 +97,15 @@ class ClientesController extends Controller
      */
     public function update(Request $request,Cliente $cliente)
     {
-        $fields = request()->validate([
-            'nombre'=>'required',
-            'apellido'=>'required',
-            'dni'=>'',
-            'telefono1'=>'required',
-            'telefono2'=>'',
-            'direccion'=>'',
-            'mail'=>'required',
+        try {
+        request()->validate([
+            'nombre'=>'required|max:'.config('tam_nombre'),
+            'apellido'=>'required|max:'.config('tam_apellido'),
+            'dni'=>'max:'.config('tam_dni'),
+            'telefono1'=>'required|max:'.config('tam_telefono'),
+            'telefono2'=>'max:'.config('tam_telefono'),
+            'direccion'=>'max:'.config('tam_direccion'),
+            'mail'=>'required|max:'.config('tam_mail'),
             'observacion'=>''
         ]);
 
@@ -113,6 +120,11 @@ class ClientesController extends Controller
             'observacion'=>ucfirst(request('observacion'))
         ]);
         return redirect()->route('clientes.show',$cliente);
+            
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al cargar los datos.'/*  . $e->getMessage() */;
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     /**
