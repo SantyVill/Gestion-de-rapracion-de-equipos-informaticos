@@ -16,12 +16,12 @@
                     <div class="row mx-auto col-11">
                         <div class="col-6">
                             <label for="falla" class="form-label">Falla: </label>
-                            <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" required maxlength="{{config("tam_falla")}}">
+                            <input type="text" name="falla" class="form-control border-dark"  value="{{ old('falla' ,$recepcion['falla'] )}}" maxlength="{{config("tam_falla")}}">
                             {!!$errors->first('falla','<small>:message</small><br>')!!}<br>
                         </div>
                         <div class="col-6">
                             <label for="accesorio" class="form-label">Accesorios: </label>
-                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" required maxlength="{{config("tam_accesorio")}}">
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio' ,$recepcion['accesorio'] )}}" maxlength="{{config("tam_accesorio")}}">
                             {!!$errors->first('accesorio','<small>:message</small><br>')!!}<br>
                         </div>
                     </div>
@@ -54,16 +54,16 @@
                     <div class="row mx-auto col-11">
                         <div class="col-6">
                             <label for="falla" class="form-label">Falla: </label>
-                            <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}" required><br>
-                            {!!$errors->first('falla','<small>:message</small><br>')!!}
+                            <input type="text" name="falla" class="form-control border-dark" value="{{ old('falla')}}">
+                            {!!$errors->first('falla','<small>:message</small><br>')!!}<br>
                         </div>
                         <div class="col-6">
                             <label for="accesorio" class="form-label">Accesorio: </label>
-                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}" required><br>
-                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}
+                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ old('accesorio')}}">
+                            {!!$errors->first('accesorio','<small>:message</small><br>')!!}<br>
                         </div>
                     </div>
-                    {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" required hidden><br> --}}
+                    {{-- <input type="text" name="estado" placeholder="Estado" value="A presupuestar" hidden><br> --}}
                     <div class="row mb-0 justify-content-center">
                         <div class="col-4">
                             <label for="estado" class="form-label">Estado: </label>
@@ -80,8 +80,8 @@
                     <div class="row mb-0 justify-content-center">
                         <div class="col-8">
                             <label for="observacion" class="form-label">Observación: </label><br>                    
-                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea><br>
-                            {!!$errors->first('observacion','<small>:message</small><br>')!!}
+                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion')}}</textarea>
+                            {!!$errors->first('observacion','<small>:message</small><br>')!!}<br>
     
                         </div>
                     </div>

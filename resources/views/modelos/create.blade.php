@@ -11,18 +11,18 @@
             <div class="col-4">
                 <fieldset disabled>
                     <label for="marca" class="form-label">Marca </label>
-                    <input type="text" class="form-control border-dark" name="marca" placeholder="" value="{{ old('marca',$marca['marca'])}}" required>
+                    <input type="text" class="form-control border-dark" name="marca" value="{{ old('marca',$marca['marca'])}}">
                     {!!$errors->first('marca','<small>:message</small><br>')!!} <br>
                 </fieldset>
             </div>
             <div class="col-4">
                 <label for="modelo" class="form-label">Modelo </label>
-                <input type="text" class="form-control border-dark" name="modelo" placeholder="" value="{{ old('modelo')}}" required maxlength="{{config("tam_modelo")}}">
+                <input type="text" class="form-control border-dark" name="modelo" value="{{ old('modelo')}}" maxlength="{{config("tam_modelo")}}">
                 {!!$errors->first('modelo','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-4">
                 <label for="tipo" class="form-label">Tipo </label>
-                <input type="text" class="form-control border-dark" name="tipo" placeholder="" value="{{ old('tipo')}}" required maxlength="{{config("tam_tipo")}}">
+                <input type="text" class="form-control border-dark" name="tipo" value="{{ old('tipo')}}" maxlength="{{config("tam_tipo")}}">
                 {!!$errors->first('tipo','<small>:message</small><br>')!!}<br>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <input type="submit" value="Registrar" class="btn btn-outline-success">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                <a class="btn btn-outline-danger" href="{{ route('marcas.show',$marca) }}" role="button">Cancelar</a>
             </div>
         </div>
     </form>

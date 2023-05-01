@@ -118,7 +118,7 @@
 
 
     </header>
-    <main>
+    <main style="min-height: 37em;">
       <div class="container-fluid mb-3">
           @yield('contenido')
       </div>

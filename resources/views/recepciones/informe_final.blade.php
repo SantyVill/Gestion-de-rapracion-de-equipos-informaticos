@@ -10,25 +10,25 @@
         <div class="row mb-0 justify-content-center">
             <div class="col-8">
                 <label for="informe_final" class="form-label">Informe Final: </label><br>
-                <textarea  class="form-control border-dark" name="informe_final" cols="30" rows="3" required>{{ old('informe_final',$recepcion->informe_final)}}</textarea>
+                <textarea  class="form-control border-dark" name="informe_final" cols="30" rows="3">{{ old('informe_final',$recepcion->informe_final)}}</textarea>
                 {!!$errors->first('informe_final','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-5">
                 <label for="precio" class="form-label">Monto total: </label>
-                <input type="text" class="form-control border-dark" name="precio" value="{{ old('precio',$recepcion->precio)}}" required maxlength="{{config("tam_precio")}}">
+                <input type="text" class="form-control border-dark" name="precio" value="{{ old('precio',$recepcion->precio)}}" maxlength="{{config("tam_precio")}}">
                 {!!$errors->first('precio','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-5">
                 <label for="garantia" class="form-label">Garantia: </label>
-                <input type="date" class="form-control border-dark" name="garantia" value="{{ old('garantia',$recepcion->garantia)}}" required>
+                <input type="date" class="form-control border-dark" name="garantia" value="{{ old('garantia',$recepcion->garantia)}}">
                 {!!$errors->first('garantia','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mb-3">
             <div class="dropend">
-                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn border-dark btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Ver precios del modelo {{$recepcion->equipo->caracteristica->modelo}}
                 </button>
                 <div class="position-fixed top-50 start-50 translate-middle dropdown-menu p-1 justify-content-center" style="background-color: rgb(196, 231, 255)">
@@ -66,7 +66,7 @@
                 <input type="submit" value="Registrar" class="btn btn-outline-success">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                <a class="btn btn-outline-danger" href="{{ route('recepciones.show',$recepcion) }}" role="button">Cancelar</a>
             </div>
         </div>
     </form>

@@ -43,12 +43,12 @@ class MarcasController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'marca'=>'required|max:'.config('tam_marca'),
+            'modelo'=>'max:'.config('tam_modelo'),
+            'tipo'=>'max:'.config('tam_tipo'),
+        ]);
         try {
-            request()->validate([
-                'marca'=>'required|max:'.config('tam_marca'),
-                'modelo'=>'max:'.config('tam_modelo'),
-                'tipo'=>'max:'.config('tam_tipo'),
-            ]);
             Marca::crearMarca($request['marca'],$request['modelo'],$request['tipo']);
             return redirect()->route('marcas.index');
         } catch (\Exception | \Throwable $e) {
@@ -90,16 +90,18 @@ class MarcasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        request()->validate([
+            'marca'=>'required|max:'.config('tam_marca'),
+        ]);
         try {
-            request()->validate([
-                'marca'=>'required|max:'.config('tam_marca'),
-            ]);
             $modificarMarca = Marca::find($id);
             if ($marca = Marca::where('marca',$request['marca'])->first()) {
                 foreach ($modificarMarca->caracteristicas as $caracteristica) {
                     $marca->agregarModelo($caracteristica);
                 }
-                $modificarMarca->delete();
+                if ($modificarMarca->marca != $marca->marca) {
+                    $modificarMarca->delete();
+                }
             } else {
                 $modificarMarca->marca=$request['marca'];
                 $modificarMarca->save();

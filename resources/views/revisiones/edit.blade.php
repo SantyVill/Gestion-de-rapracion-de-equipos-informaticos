@@ -41,7 +41,7 @@
             </div>
             <div class="col-8">
                 <label for="nota" class="form-label">Nota: </label><br>
-                <textarea  class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3" required>{{ old('nota',$revision->nota)}}</textarea>
+                <textarea  class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3">{{ old('nota',$revision->nota)}}</textarea>
                 {!!$errors->first('nota','<small>:message</small><br>')!!}<br>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <input type="submit" value="Registrar" class="btn btn-outline-success">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                <a class="btn btn-outline-danger" href="{{ route('recepciones.show',$revision->recepcion) }}" role="button">Cancelar</a>
             </div>
         </div>
     </form>

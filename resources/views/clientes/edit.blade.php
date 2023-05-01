@@ -11,42 +11,42 @@
         <div class="row mx-auto col-11">
             <div class="col-4">
                 <label for="nombre" class="form-label">Nombre: </label>
-                <input type="text" class="form-control border-dark" name="nombre" value="{{ old('nombre',$cliente->nombre)}}" required maxlength="{{config('tam_nombre')}}"><br>
-                {!!$errors->first('nombre','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="nombre" value="{{ old('nombre',$cliente->nombre)}}" maxlength="{{config('tam_nombre')}}">
+                {!!$errors->first('nombre','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-4">
                 <label for="apellido" class="form-label">Apellido: </label>
-                <input type="text" class="form-control border-dark" name="apellido" value="{{ old('apellido',$cliente->apellido)}}" required maxlength="{{config('tam_apellido')}}"><br>
-                {!!$errors->first('apellido','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="apellido" value="{{ old('apellido',$cliente->apellido)}}" maxlength="{{config('tam_apellido')}}">
+                {!!$errors->first('apellido','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-4">
                 <label for="dni" class="form-label">DNI: </label>
-                <input type="text" class="form-control border-dark" name="dni" value="{{ old('dni',$cliente->dni)}}" maxlength="{{config('tam_dni')}}"><br>
-                {!!$errors->first('dni','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="dni" value="{{ old('dni',$cliente->dni)}}" maxlength="{{config('tam_dni')}}">
+                {!!$errors->first('dni','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="telefono1" class="form-label">Telefono: </label>
-                <input type="text" class="form-control border-dark" name="telefono1" value="{{ old('telefono1',$cliente->telefono1)}}" required maxlength="{{config('tam_telefono')}}"><br>
-                {!!$errors->first('telefono1','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="telefono1" value="{{ old('telefono1',$cliente->telefono1)}}" maxlength="{{config('tam_telefono')}}">
+                {!!$errors->first('telefono1','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-6">
                 <label for="telefono2" class="form-label">Telefono 2: </label>
-                <input type="text" class="form-control border-dark" name="telefono2" value="{{ old('telefono2',$cliente->telefono2)}}" maxlength="{{config('tam_telefono')}}"><br>
-                {!!$errors->first('telefono2','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="telefono2" value="{{ old('telefono2',$cliente->telefono2)}}" maxlength="{{config('tam_telefono')}}">
+                {!!$errors->first('telefono2','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mx-auto col-11">
             <div class="col-6">
                 <label for="direccion" class="form-label">Dirección: </label>
-                <input type="text" class="form-control border-dark" name="direccion" value="{{ old('direccion',$cliente->direccion)}}" maxlength="{{config('tam_direccion')}}"><br>
-                {!!$errors->first('direccion','<small>:message</small><br>')!!}
+                <input type="text" class="form-control border-dark" name="direccion" value="{{ old('direccion',$cliente->direccion)}}" maxlength="{{config('tam_direccion')}}">
+                {!!$errors->first('direccion','<small>:message</small><br>')!!}<br>
             </div>
             <div class="col-6">
                 <label for="mail" class="form-label">Email: </label>
-                <input type="email"  class="form-control border-dark" name="mail" value="{{ old('mail',$cliente->mail)}}" required maxlength="{{config('tam_mail')}}"><br>
-                {!!$errors->first('mail','<small>:message</small><br>')!!}
+                <input type="email"  class="form-control border-dark" name="mail" value="{{ old('mail',$cliente->mail)}}" maxlength="{{config('tam_mail')}}">
+                {!!$errors->first('mail','<small>:message</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mb-0 justify-content-center">
@@ -62,7 +62,7 @@
                 <input type="submit" value="Registrar" class="btn btn-outline-success">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
-                <a class="btn btn-outline-danger" href="{{ url()->previous() }}" role="button">Cancelar</a>
+                <a class="btn btn-outline-danger" href="{{route('clientes.show',$cliente)}}" role="button">Cancelar</a>
             </div>
         </div>
     </form>

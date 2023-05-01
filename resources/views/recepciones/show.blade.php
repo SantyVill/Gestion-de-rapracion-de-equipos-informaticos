@@ -316,7 +316,6 @@
  ===============================================================================--}}
  <div class="border border-dark mt-2 bg-dark">
     <table class="table table-dark table-bordered table-sm m-0"> 
-         <thead class="thead-dark">
          <tr class="">
              <th class="col-7">
                  <div class="row">

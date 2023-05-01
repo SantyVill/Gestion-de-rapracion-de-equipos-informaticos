@@ -116,7 +116,9 @@ class ModelosController extends Controller
                 ]);
                 Equipo::where('caracteristica_id', '=', $caracteristica['id'])
                 ->update(['caracteristica_id' => $nuevaCaracteristica['id']]);
-                $caracteristica -> delete();
+                if ($caracteristica!=$nuevaCaracteristica) {
+                    $caracteristica -> delete();
+                }
                 return redirect()->route('marcas.show',Marca::find($caracteristica['marca_id']));
             }
             $caracteristica['modelo']=ucfirst($request['modelo']);

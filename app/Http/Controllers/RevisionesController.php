@@ -103,10 +103,18 @@ class RevisionesController extends Controller
      */
     public function update(Request $request, Revision $revision)
     {
-        $revision->nota=$request['nota'];
-        $revision->interna=($request['interna'])?true:false;
-        $revision->save();
-        return redirect() -> route('recepciones.show',$revision->recepcion_id);
+        try {
+            request()->validate([
+                'nota'=>'required'
+            ]);
+            $revision->nota=$request['nota'];
+            $revision->interna=($request['interna'])?true:false;
+            $revision->save();
+            return redirect() -> route('recepciones.show',$revision->recepcion_id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     /**
@@ -117,16 +125,8 @@ class RevisionesController extends Controller
      */
     public function destroy(Revision $revision)
     {
-        try {
-            request()->validate([
-                'nota'=>'required'
-            ]);
             $recepcion_id=$revision->recepcion_id;
             $revision->delete();
             return redirect() -> route('recepciones.show',$revision->recepcion_id);
-        } catch (\Illuminate\Database\QueryException $e) {
-            $mensaje = 'Se ha producido un error al intentar cargar los datos';
-            return redirect()->back()->with('message', $mensaje);
-        }
     }
 }
