@@ -15,6 +15,7 @@ use App\Models\Cliente;
 use App\Models\Recepcion;
 use App\Models\Estado;
 use Barryvdh\DomPDF\Facade\Pdf;
+use PhpParser\Node\Stmt\Return_;
 
 class RecepcionesController extends Controller
 {
@@ -69,12 +70,13 @@ class RecepcionesController extends Controller
     public function store(Request $request,Equipo $equipo,Cliente $cliente)
     {
         try {
-            request()->validate([
-                'falla'=>'required|max:'.config("tam_falla"),
-                'observacion'=>'',
-                'accesorio'=>'required|max:'.config("tam_accesorio"),
-            ]);
+            /* return $request['equipo_id']; */
             if (isset($request['falla'])) {
+                request()->validate([
+                    'falla'=>'required|max:'.config("tam_falla"),
+                    'observacion'=>'',
+                    'accesorio'=>'required|max:'.config("tam_accesorio"),
+                ]);
                 $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
                 $recepcion = new Recepcion([
                     'estado_id'=>$estado['id'],
