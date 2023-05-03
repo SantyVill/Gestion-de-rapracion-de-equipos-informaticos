@@ -60,7 +60,7 @@
                 
                 
                 {{-- =============LINKS DE EQUIPOS============= --}}
-                @if (auth()->user()->tieneRol(['admin','recepcionista']))
+                @if (auth()->user()->tieneRol(['admin','recepcionista','tecnico']))
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle {{ setActiva('equipos.*') }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Equipos
