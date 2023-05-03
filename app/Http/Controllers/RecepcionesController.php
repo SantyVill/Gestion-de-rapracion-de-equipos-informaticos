@@ -251,12 +251,12 @@ class RecepcionesController extends Controller
     { 
         /* return view('recepciones.generarPdfIngreso',compact('recepcion')); */
         $pdf = Pdf::loadView('recepciones.generarPdfIngreso', compact('recepcion'));
-        return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'.pdf');
+        return $pdf->stream($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'.pdf');
     }
     public function generarPdfInforme(Recepcion $recepcion)
     { 
         /* return view('recepciones.generarPdfInforme',compact('recepcion')); */
         $pdf = Pdf::loadView('recepciones.generarPdfInforme', compact('recepcion'));
-        return $pdf->download($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'-Informe.pdf');
+        return $pdf->stream($recepcion->cliente->apellido.$recepcion->cliente->nombre.$recepcion->fecha_recepcion.'-Informe.pdf');
     }
 }
