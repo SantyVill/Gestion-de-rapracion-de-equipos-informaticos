@@ -17,7 +17,7 @@
         </div>
         <div class="row mb-2 justify-content-center">
             <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
-                <input type="submit" value="Registrar" class="btn btn-outline-success">
+                <input type="submit" value="Registrar" class="btn btn-outline-success" onclick="return confirm('¿Está seguro que desea editar la marca {{$marca->marca}}? Si ingresas un nombre de una marca existente, se le agregara la lista de precio de esta y no podras revertirlo.')">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
                 <a class="btn btn-outline-danger" href="{{route('marcas.show',$marca)}}" role="button">Cancelar</a>
