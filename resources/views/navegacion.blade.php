@@ -9,7 +9,7 @@
     <link href="{{ asset('css/MiEstilo.css') }}" rel="stylesheet">
     <title>@yield('titulo')</title>
 </head>
-<body {{-- class="bd-green-500" --}} style="background-color: rgb(176 237 237)">
+<body {{-- class="bd-green-500" --}} style="background-color: rgb(232 232 232)">
     <header>
         <h2 class="text-center m-0 {{-- text-light --}}" style="color: rgb(185, 185, 185);background-color: rgb(10, 10, 10)"><b>Gestión de Reparaciones</b></h2>
 
@@ -119,18 +119,18 @@
 
     </header>
     <main style="min-height: 37em;">
-      <div class="container-fluid mb-3">
-          @yield('contenido')
-      </div>
       @if (session()->has('message'))
       <div class="alert alert-warning alert-dismissible" role="alert" id="error">
           <strong>{{ session()->get('message') }}</strong> {{ session('success') }}
       </div>
-      @if(session('error'))
-        <script>
-            document.getElementById('error').scrollIntoView();
-        </script>
       @endif
+      <div class="container-fluid mb-3">
+      </div>
+      @yield('contenido')
+      @if(session('error'))
+      <script>
+        document.getElementById('error').scrollIntoView();
+        </script>
       @endif
     </main>
 @extends('footer')
