@@ -223,9 +223,9 @@ class RecepcionesController extends Controller
             } */
     
             $estado=Estado::firstOrCreate(['estado'=> ucfirst($request['estado'])]);
-            if ($estado->estado!="Equipo Entregado") {
+            /* if ($estado->estado!="Equipo Entregado") {
                 $recepcion->fecha_entrega = null;
-            }
+            } */
             $recepcion['falla'] = ucfirst($request['falla']);
             $recepcion['accesorio'] = ucfirst($request['accesorio']);
             $recepcion['observacion'] = ucfirst($request['observacion']);
