@@ -61,4 +61,22 @@ class Cliente extends Model
         return $clientes;
     }
 
+    public static function crearCliente($request){
+        $request['nombre']=ucfirst($request['nombre']);
+        $request['apellido']=ucfirst($request['apellido']);
+        $request['direccion']=ucfirst($request['direccion']);
+        $request['observacion']=ucfirst($request['observacion']);
+        $cliente=Cliente::create([
+            'nombre'=>$request['nombre'],
+            'apellido'=>$request['apellido'],
+            'dni'=>$request['dni'],
+            'telefono1'=>$request['telefono1'],
+            'telefono2'=>$request['telefono2'],
+            'direccion'=>$request['direccion'],
+            'mail'=>$request['mail'],
+            'observacion'=>$request['observacion']]);
+        return $cliente;
+        
+    }
+
 }

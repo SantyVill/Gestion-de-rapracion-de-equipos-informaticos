@@ -90,7 +90,12 @@ class RecepcionesController extends Controller
             } else if(!(null!==(Cookie::get('recepcion')))) {
                 return redirect()->route('recepciones.create');
             }
-    
+            
+            if (isset($request['numero_serie'])) {
+                $equipo=Equipo::crearEquipo($request);
+                Cookie::queue('equipo',$equipo['id'] , 100);
+                return redirect()->route('recepciones.create');
+            }
             if (isset($request['equipo_id'])) {
                 Cookie::queue('equipo',$request['equipo_id'] , 100);
                 return redirect()->route('recepciones.create');
@@ -99,6 +104,26 @@ class RecepcionesController extends Controller
             }
     
     
+            if (isset($request['nombre'])) {
+                try {
+                    request()->validate([
+                        'nombre'=>'required|max:'.config('tam_nombre'),
+                        'apellido'=>'required|max:'.config('tam_apellido'),
+                        'dni'=>''/* .config('tam_dni') */,
+                        'telefono1'=>'required|max:'.config('tam_telefono'),
+                        'telefono2'=>'max:'.config('tam_telefono'),
+                        'direccion'=>'max:'.config('tam_direccion'),
+                        'mail'=>'required|max:'.config('tam_mail'),
+                        'observacion'=>''
+                    ]);
+                    $cliente=Cliente::crearCliente($request);
+                    Cookie::queue('cliente',$cliente['id'] , 100);
+                    return redirect()->route('recepciones.create');
+                } catch (\Illuminate\Database\QueryException $e) {
+                    $mensaje = 'Se produjo un error en la carga de datos';
+                    return redirect()->back()->with('message', $mensaje);
+                }
+            }
             if (isset($request['cliente_id'])) {
                 Cookie::queue('cliente',$request['cliente_id'] , 100);
                 return redirect()->route('recepciones.create');

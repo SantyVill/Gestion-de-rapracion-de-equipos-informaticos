@@ -12,6 +12,8 @@ use App\Models\Caracteristica;
 
 use App\Models\Tipo;
 
+use Illuminate\Support\Facades\Cookie;
+
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Recepcion;
@@ -170,6 +172,44 @@ class EquiposController extends Controller
         $buscar=$request['buscar'];
         $equipos=Equipo::listarEquipos($buscar);
         return view('equipos.select_equipo_recepcion',compact('equipos','buscar'));
+    }
+
+    public function createRecepcion()
+    {
+        return view('equipos.createParaRecepcion');
+    }
+
+    public function storeRecepcion(Request $request)
+    {
+        try {
+            request()->validate([
+                'numero_serie'=>'required|max:'.config('tam_numSerie'),// "App/providers/AppServiceProvider" para editar vaiables globales
+                'observacion'=>'',
+                'tipo'=>'required|max:'.config('tam_tipo'),
+                'marca'=>'required|max:'.config('tam_marca'),
+                'modelo'=>'required|max:'.config('tam_modelo'),
+            ]);/* validaciones:  https://www.youtube.com/watch?v=N_G52bdrQtI&list=PLpKWS6gp0jd_uZiWmjuqLY7LAMaD8UJhc&index=18 */
+    
+            $marca=Marca::firstOrCreate(['marca'=> ucfirst(request('marca'))]);//firstOrCreate busca si existe el registro y lo devuelve, sino lo crea
+            $tipo=Tipo::firstOrCreate(['tipo'=> ucfirst(request('tipo'))]);
+            $caracteristica=Caracteristica::firstOrCreate([
+                'modelo'=>ucfirst(request('modelo')),
+                'marca_id'=> $marca['id'],
+                'tipo_id'=>$tipo['id']
+            ]);
+            
+            $equipo=Equipo::create([
+                'numero_serie'=>request('numero_serie'),
+                'observacion'=>ucfirst(request('observacion')),
+                'caracteristica_id'=>$caracteristica['id']
+            ]);
+            
+            Cookie::queue('equipo',$request['equipo_id'] , 100);
+            return redirect()->route('recepciones.store');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $mensaje = 'Se ha producido un error al intentar cargar los datos';
+            return redirect()->back()->with('message', $mensaje);
+        }
     }
 
     public function update_equipo_recepcion(Request $request,Recepcion $recepcion)

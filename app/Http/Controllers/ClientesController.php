@@ -152,6 +152,11 @@ class ClientesController extends Controller
         return view('clientes.select_cliente_recepcion',compact('clientes','buscar'));
     }
 
+    public function createRecepcion()
+    {
+        return view('clientes.createParaRecepcion');
+    }
+
     public function update_cliente_recepcion(Request $request,Recepcion $recepcion)
     {
         $buscar = $request['buscar'];
