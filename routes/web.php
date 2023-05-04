@@ -50,7 +50,7 @@ Route::get('/clientes/show/{cliente}',[App\Http\Controllers\ClientesController::
 Route::delete('/clientes/destroy/{cliente}',[App\Http\Controllers\ClientesController::class,'destroy'])->name('clientes.destroy')->middleware(['logueo','rol:recepcionista,admin']);
 
 /*=============== Rutas de recepciones ===============*/
-Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','rol:recepcionista,admin']);
+Route::get('/recepciones/informe_final/{recepcion}',[App\Http\Controllers\RecepcionesController::class,'add_informe_final'])->name('recepciones.informe_final')->middleware(['logueo','rol:tecnico,admin']);
 Route::get('/recepciones/create/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'create'])->name('recepciones.create')->middleware(['logueo','rol:recepcionista,admin']);
 Route::post('/recepciones/store/{equipo?}/{cliente?}/',[App\Http\Controllers\RecepcionesController::class,'store'])->name('recepciones.store')->middleware(['logueo','rol:recepcionista,admin']);
 Route::get('/recepciones/index/',[App\Http\Controllers\RecepcionesController::class,'index'])->name('recepciones.index')->middleware(['logueo','rol:recepcionista,admin,tecnico']);
@@ -72,9 +72,9 @@ Route::get('/login/destroy',[SesionesController::class,'destroy'])->name('login.
 
 /*=============== Rutas de registro de usuarios ===============*/
 Route::resource('usuarios', UsuariosController::class)->middleware(['logueo','rol:admin']);
-Route::get('/usuarios/{usuario}',[App\Http\Controllers\UsuariosController::class,'show'])->name('usuarios.show')->middleware(['logueo','mi_perfil'])->withoutMiddleware(['logueo','rol:admin']);
-Route::get('/usuarios/edit/{usuario}',[App\Http\Controllers\UsuariosController::class,'edit'])->name('usuarios.edit')->middleware(['logueo','mi_perfil'])->withoutMiddleware(['logueo','rol:admin']);
-Route::patch('/usuarios/update/{usuario}',[App\Http\Controllers\UsuariosController::class,'update'])->name('usuarios.update')->middleware(['logueo','mi_perfil'])->withoutMiddleware(['logueo','rol:admin']);
+Route::get('/usuarios/{usuario}',[App\Http\Controllers\UsuariosController::class,'show'])->name('usuarios.show')->middleware(['logueo','mi_perfil']);
+Route::get('/usuarios/edit/{usuario}',[App\Http\Controllers\UsuariosController::class,'edit'])->name('usuarios.edit')->middleware(['logueo','mi_perfil']);
+Route::patch('/usuarios/update/{usuario}',[App\Http\Controllers\UsuariosController::class,'update'])->name('usuarios.update')->middleware(['logueo','mi_perfil']);
 /* Route::get('/registro/lista',[RegistrosController::class,'index'])->name('registros.index'); */
 /* Route::get('/registro',[RegistrosController::class,'create'])->name('registros.create');
 Route::post('/registro',[RegistrosController::class,'store'])->name('registros.store');

@@ -32,8 +32,10 @@
                 <div class="col-6">
                     <div class="w-auto"><p class="card-text"><b>Modelo más común:</b> {{($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->modelo:'No se registraron equipos'}} ({{ ($equipoMasRegistrado)?$equipoMasRegistrado->caracteristica->marca->marca:'No se registraron equipos'}})</p></div>
                     <div class="w-auto"><p class="card-text"><b>Marca más común:</b> {{($marcaMasRepetida)?$marcaMasRepetida->marca:'No se registro ningun Equipo'}}</p></div>
+                    @if (auth()->user()->tieneRol(['admin']))
                     <div class="w-auto"><p class="card-text"><b>Recaudación total:</b> {{($montoTotal)?$montoTotal:''}}</p></div>
                     <div class="w-auto"><p class="card-text"><b>Recaudación del mes pasado:</b> {{($recaudadoMesPasado)?$recaudadoMesPasado:''}}</p></div>
+                    @endif
                 </div>
             </div>
         </div>
