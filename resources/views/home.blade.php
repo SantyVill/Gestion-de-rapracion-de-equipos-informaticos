@@ -23,7 +23,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                @if (isset($recepcion))
+                @if (isset($recepciones))
                     
                 <div class="col-6">
                     <div class="w-auto"><p class="card-text"><b>Recepciones totales:</b> {{($recepciones)?$recepciones->count():'No se registraron recepciones.'}}</p></div>
@@ -40,7 +40,7 @@
                     @endif
                 </div>
                 @else
-                    <p class="text-center">Aun no se cargo ninguna recepción</p>
+                    <p class="text-center">Aún no se cargó ninguna recepción</p>
                 @endif
             </div>
         </div>

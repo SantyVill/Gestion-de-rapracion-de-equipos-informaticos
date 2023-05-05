@@ -110,15 +110,24 @@ class Recepcion extends Model
     }
 
     public static function montoRecaudado(){
-        $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
-        return Recepcion::where('estado_id', $estadoEntregado)->sum('precio');
+        $estadoEntregado=Estado::where('estado','Equipo Entregado')->first();
+        if ($estadoEntregado) {
+            return Recepcion::where('estado_id', $estadoEntregado->id)->sum('precio');
+        } else {
+            return 0;
+        }
     }
 
     public static function recaudacionMesPasado(){
-        $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first()->id;
-    $now = Carbon::now();
-    $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
-    $lastMonthEnd = $now->copy()->subMonth()->endOfMonth();
-    return Recepcion::where('estado_id', $estadoEntregado)->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->sum('precio');
+        $estadoEntregado=Estado::where('estado','Equipo Entregado')->first();
+        $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first();
+        $now = Carbon::now();
+        $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
+        $lastMonthEnd = $now->copy()->subMonth()->endOfMonth();
+        if ($estadoEntregado) {
+            return Recepcion::where('estado_id', $estadoEntregado)->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->sum('precio');
+        } else {
+            return 0;
+        }
     }
 }
