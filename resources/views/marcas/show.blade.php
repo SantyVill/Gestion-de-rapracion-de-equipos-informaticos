@@ -38,14 +38,20 @@
                             Ver Lista de Precios
                         </button>
                         <div class="position-fixed top-50 start-50 translate-middle dropdown-menu p-1 justify-content-center" aria-labelledby="dropdownMenuClickableInside" style="background-color: rgb(196, 231, 255)">
-                            <h6 class="dropdown-header">Lista de precios de modelo: {{$caracteristica->modelo}}</h6>
+                            {{-- TABLA DESPLEGABLE DE LISTA DE PRECIOS --}}
+                            <h4 class="dropdown-header">Lista de precios de modelo: {{$caracteristica->modelo}}
+                                @if (auth()->user()->tieneRol(['admin']))
+                                    <a class="btn border-dark btn-success btn-sm ms-4" href="{{route('precios.create',$caracteristica->id)}}">Agregar nueva reparacion</a>
+                                @endif
+                            </h4>
+                            {{-- BOTON DE AGREGAR NUEVO PRECIO DE REPARACION --}}
                             <table class="table table-hover table-striped table-bordered bg-white border-2 border-dark rounded m-0">
                                 <tr>
                                     <th>Reparacion</th>
                                     <th>Precio</th>
                                     <th>Plazo</th>
                                     <th>Riesgo</th>
-                                    <th colspan="2">Acciones</th>
+                                    <th colspan="1">Acciones</th>
                                 </tr>
                                 @forelse ($caracteristica->precios as $precio)
                                 <tr>
@@ -85,11 +91,6 @@
                             </table>
                         </div>
                     </td>
-                    @if (auth()->user()->tieneRol(['admin']))
-                    <td class="py-1">
-                        <a class="btn btn-success btn-sm" href="{{route('precios.create',$caracteristica->id)}}">Agregar nueva reparacion</a>
-                    </td>
-                    @endif
                     @if (auth()->user()->tieneRol(['admin','recepcionista']))
                     <td class="py-1">
                         <a class="btn btn-primary btn-sm" href="{{route('modelos.edit',$caracteristica)}}">
@@ -100,6 +101,9 @@
                     </td>
                     @endif
                     @if (auth()->user()->tieneRol(['admin']))
+
+                    {{-- BOTON PARA ELIMINAR MODELO --}}
+
                     <td class="py-1">
                         <form method="POST" action="{{route('modelos.destroy',$caracteristica)}}">
                             @csrf @method('DELETE')
