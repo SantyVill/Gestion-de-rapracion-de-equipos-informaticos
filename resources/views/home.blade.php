@@ -23,6 +23,8 @@
         </div>
         <div class="card-body">
             <div class="row">
+                @if (isset($recepcion))
+                    
                 <div class="col-6">
                     <div class="w-auto"><p class="card-text"><b>Recepciones totales:</b> {{($recepciones)?$recepciones->count():'No se registraron recepciones.'}}</p></div>
                     <div class="w-auto"><p class="card-text"><b>Recepciones pendientes:</b> {{($recepcionesPendientes)?$recepcionesPendientes->count():'No se registraron recepciones.'}}</p></div>
@@ -37,6 +39,9 @@
                     <div class="w-auto"><p class="card-text"><b>Recaudación del mes pasado:</b> {{($recaudadoMesPasado)?$recaudadoMesPasado:''}}</p></div>
                     @endif
                 </div>
+                @else
+                    <p class="text-center">Aun no se cargo ninguna recepción</p>
+                @endif
             </div>
         </div>
     </div>

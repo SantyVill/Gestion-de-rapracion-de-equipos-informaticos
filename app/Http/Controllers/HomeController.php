@@ -29,20 +29,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-    $recepcionesPendientes = Recepcion::recepcionesPendientes();
-
-    $recepciones = Recepcion::all();
-    $equipoMasRegistrado = Equipo::withCount('recepciones')
-    ->orderBy('recepciones_count', 'desc')
-    ->first();
-
-    $marcaMasRepetida = Recepcion::marcaMasRepetida();
+        if (Recepcion::exists()) {
+            
+            $recepcionesPendientes = Recepcion::recepcionesPendientes();
     
-    $montoTotal = Recepcion::montoRecaudado();
+            $recepciones = Recepcion::all();
+            $equipoMasRegistrado = Equipo::withCount('recepciones')
+            ->orderBy('recepciones_count', 'desc')
+            ->first();
+    
+            $marcaMasRepetida = Recepcion::marcaMasRepetida();
+            
+            $montoTotal = Recepcion::montoRecaudado();
+    
+            $recaudadoMesPasado = Recepcion::recaudacionMesPasado();
+            return view('home', compact('recepciones', 'equipoMasRegistrado', 'marcaMasRepetida', 'recepcionesPendientes', 'montoTotal', 'recaudadoMesPasado'));
+        } else {
+            return view('home');
+        }
 
-    $recaudadoMesPasado = Recepcion::recaudacionMesPasado();
-
-    return view('home', compact('recepciones', 'equipoMasRegistrado', 'marcaMasRepetida', 'recepcionesPendientes', 'montoTotal', 'recaudadoMesPasado'));
 
     }
 }
