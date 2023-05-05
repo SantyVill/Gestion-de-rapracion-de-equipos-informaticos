@@ -21,7 +21,7 @@ class CreatePreciosTable extends Migration
 
             $table->string('reparacion',100)->not_null();
             $table->double('precio',9,2)->not_null();
-            $table->integer('plazo')->not_null();
+            $table->integer('plazo',3)->not_null();
             $table->string('riesgo',30)->nullable();
 
             $table->timestamps();

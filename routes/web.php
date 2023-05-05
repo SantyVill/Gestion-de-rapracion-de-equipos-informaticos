@@ -121,9 +121,9 @@ Route::delete('/revisiones/destroy/{revision}',[App\Http\Controllers\RevisionesC
 /*=================================================*/
 
 Route::resource('precios', PreciosController::class)->middleware(['logueo','rol:admin']);
-/* Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','rol:admin']);
+Route::get('/precios/create/{caracteristica?}',[App\Http\Controllers\PreciosController::class,'create'])->name('precios.create')->middleware(['logueo','rol:admin']);
 Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
-Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']); */
+Route::post('/precios/store/{caracteristica?}/',[App\Http\Controllers\PreciosController::class,'store'])->name('precios.store')->middleware(['logueo','rol:admin']);
 
 /*=================================================*/
 /*=============== Rutas de Marcas ===============*/

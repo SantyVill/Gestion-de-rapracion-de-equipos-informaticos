@@ -50,7 +50,7 @@
                                 @forelse ($caracteristica->precios as $precio)
                                 <tr>
                                     <td>{{$precio->reparacion}}</td>
-                                    <td>{{$precio->precio}}</td>
+                                    <td>${{$precio->precio}}</td>
                                     <td>
                                         @if ($precio->plazo)
                                             {{$precio->plazo}} dias
@@ -87,7 +87,7 @@
                     </td>
                     @if (auth()->user()->tieneRol(['admin']))
                     <td class="py-1">
-                        <a class="btn btn-success btn-sm" href="{{route('precios.create',$caracteristica)}}">Agregar nueva reparacion</a>
+                        <a class="btn btn-success btn-sm" href="{{route('precios.create',$caracteristica->id)}}">Agregar nueva reparacion</a>
                     </td>
                     @endif
                     @if (auth()->user()->tieneRol(['admin','recepcionista']))

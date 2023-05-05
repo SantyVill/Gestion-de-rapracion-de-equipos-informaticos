@@ -44,8 +44,8 @@ class PreciosController extends Controller
     {
         request()->validate([
             'reparacion'=>'required|max:'.config('tam_reparacion'),
-            'precio'=>'integer|required|max:'.config('tam_precio'),
-            'plazo'=>'integer|required|max:'.config('tam_plazo'),
+            'precio'=>'required|integer|digits_between:1,'.config('tam_precio'),
+            'plazo'=>'integer|required|digits_between:1,'.config('tam_plazo'),
             'riesgo'=>'max:'.config('tam_riesgo'),
         ]);
         try {
@@ -97,8 +97,8 @@ class PreciosController extends Controller
     {
         request()->validate([
             'reparacion'=>'required|max:'.config('tam_reparacion'),
-            'precio'=>'integer|required|max:'.config('tam_precio'),
-            'plazo'=>'integer|required|max:'.config('tam_plazo'),
+            'precio'=>'integer|required|digits_between:1,'.config('tam_precio'),
+            'plazo'=>'integer|required|digits_between:1,'.config('tam_plazo'),
             'riesgo'=>'max:'.config('tam_riesgo'),
         ]);
         try {
