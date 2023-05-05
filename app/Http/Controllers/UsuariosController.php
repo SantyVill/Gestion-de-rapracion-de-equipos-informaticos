@@ -111,6 +111,9 @@ class UsuariosController extends Controller
             $user = User::find($id);
             if (!auth()->user()->tieneRol(['admin'])) {
                 if ($request->password!='') {
+                    request()->validate([
+                        'password'=>[Rules\password::min(4),'max:255'],
+                    ]);
                     $user->password=bcrypt($request->password);
                     $user->save();
                 }
@@ -145,6 +148,9 @@ class UsuariosController extends Controller
             }
     
             if ($request->password!='') {
+                request()->validate([
+                    'password'=>[Rules\password::min(4),'max:255'],
+                ]);
                 $user->password=bcrypt($request->password);
             }
             $user->save();
