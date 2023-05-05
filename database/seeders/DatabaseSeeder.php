@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         User::create(['apellido'=>'administrador',
                         'nombre'=>'admin',
                         'email'=>'admin@admin.com',
-                        'password'=>'12345']);
+                        'password'=>bcrypt('12345')]);
 
         DB::table('rol_user')->insert([
             'user_id'=>1,
