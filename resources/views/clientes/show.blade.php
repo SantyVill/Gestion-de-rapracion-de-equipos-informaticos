@@ -64,6 +64,7 @@
                     <th>Modelo</th><th>Marca</th><th>Número de Serie</th><th>Fecha Recepción</th>
                     <th>Falla:</th>
                     <th>Estado:</th>
+                    <th>Acción:</th>
                 </tr>
                 @forelse ($cliente->recepciones->sortByDesc('fecha_recepcion') as $recepcion)
                 <tr>
