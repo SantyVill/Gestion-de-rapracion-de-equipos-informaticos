@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Lista de equipos')
+@section('titulo','Cambiar equipo')
 
 @section('contenido')
 

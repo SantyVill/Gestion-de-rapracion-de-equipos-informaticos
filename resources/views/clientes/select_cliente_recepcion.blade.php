@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Lista de clientes')
+@section('titulo','Seleccionar cliente')
 
 @section('contenido')
 <div class="container mb-2">

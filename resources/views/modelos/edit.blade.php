@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Registrar cliente')
+@section('titulo','Editar Modelo')
 
 @section('contenido')
 

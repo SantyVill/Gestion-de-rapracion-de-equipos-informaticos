@@ -145,7 +145,7 @@
 
 
     </header>
-    <main style="min-height: 37em;">
+    <main style="min-height: 34em;">
       @if (session()->has('message'))
       <div class="alert alert-warning alert-dismissible" role="alert" id="error">
           <strong>{{ session()->get('message') }}</strong> {{ session('success') }}

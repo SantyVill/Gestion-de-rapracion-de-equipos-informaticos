@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Registrar reparación')
+@section('titulo','Registrar precio de reparación')
 
 @section('contenido')
 <section class="m-0-auto  text-center">

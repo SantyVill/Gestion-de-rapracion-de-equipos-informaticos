@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','editar titulo')
+@section('titulo','Editar Nota')
 
 @section('contenido')
 <section class="m-0-auto  text-center">

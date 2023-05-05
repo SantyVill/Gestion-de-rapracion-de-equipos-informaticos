@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Lista de equipos')
+@section('titulo','Seleccionar equipo')
 
 @section('contenido')
 <div class="container mb-2">

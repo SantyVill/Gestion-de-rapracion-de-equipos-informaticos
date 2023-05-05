@@ -1,6 +1,6 @@
 @extends('navegacion')
 
-@section('titulo','Lista de precios')
+@section('titulo','Ver Marca')
 
 @section('contenido')
 @if (auth()->user()->tieneRol(['admin','recepcionista']))    
