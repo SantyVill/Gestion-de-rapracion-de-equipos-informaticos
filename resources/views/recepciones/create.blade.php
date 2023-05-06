@@ -30,11 +30,7 @@
                             <label for="estado" class="form-label">Estado: </label>
                             <select class="form-select border-dark" name="estado" aria-label="Default select example">
                                 <option value="A presupuestar" selected>A presupuestar</option>
-                                <option value="En Revisión">En Revisión</option>
                                 <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
-                                <option value="En Reparación">En Reparación</option>
-                                <option value="Reparación Terminada">Reparación Terminada</option>
-                                <option value="Equipo Entregado">Equipo Entregado</option>
                             </select>
                         </div>
                     </div>
@@ -69,11 +65,7 @@
                             <label for="estado" class="form-label">Estado: </label>
                             <select class="form-select border-dark" name="estado" aria-label="Default select example">
                                 <option value="A presupuestar" selected>A presupuestar</option>
-                                <option value="En Revisión">En Revisión</option>
                                 <option value="Presupuesto Aceptado">Presupuesto Aceptado</option>
-                                <option value="En Reparación">En Reparación</option>
-                                <option value="Reparación Terminada">Reparación Terminada</option>
-                                <option value="Equipo Entregado">Equipo Entregado</option>
                             </select>
                         </div>
                     </div>
