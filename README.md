@@ -9,7 +9,7 @@
 
 ## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
 
-_git clone https://saab250683@bitbucket.org/saab250683/proyectofinalblue.git_
+_git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git_
 
 ## 2) INGRESAR AL DIRECTORIO LARAGON/WWW/proyectofinal
 
@@ -17,7 +17,7 @@ _git clone https://saab250683@bitbucket.org/saab250683/proyectofinalblue.git_
 
 _composer install_
 
-Esto descargara las librerÃ­as de laravel en la carpeta vendor (que no existe).
+Esto descargara las librerías de laravel en la carpeta vendor (que no existe).
 
 ## 4) Duplicar el archivo env.example y guardar la copia como .env
 
@@ -30,7 +30,7 @@ _php artisan key:generate_
 
 y APP_KEY aparecera algo parecido a esto
 
-_APP_KEY=base64:ChcJtx+YtUXYRyVSsd1fgxipQ6rmTStABl/w2ppnLrQ=
+_APP_KEY=base64:Chc....
 
 ## 6) Configurar la informacion de la base de datos LOCAL que van a usar
 
@@ -44,6 +44,15 @@ _DB_PASSWORD=_
 ## 7) Finalmente ejecutar las migraciones para crear las tablas en la base de datos
 
 _php artisan migrate_
+_php artisan migrate:rollback_ //elimina todas las migraciones de la base de datos (funcion down)
+_php artisan migrate:rollback --step=1_ //elimina la última migración creada
+_php artisan migrate:fresh_ //elimina todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
+_php artisan migrate:refresh_ //elimina todas las migraciones y las crea de nuevo. hace rollback 
+_php artisan migrate:reset_ //deshace todas las migraciones de la base de datos
+_php artisan migrate:refresh_ //es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate_
+
+_##php artisan migrate:fresh --seed##_ //el comando --seed también ejecuta los seeders para llenar la base de datos 
+con datos de prueba. Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada. 
 
 
 ## 8) Para lanzar el sistema utilizando el localhost se puede realizar lo siguiente:
