@@ -1,11 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://guarani.unt.edu.ar/autogestion/_comp/siu/img/logo-transparente.png" width="400"></a></p>
 
-<p align="center">
-<h1>TEC-SPIN</h1>
-</p>
 
-
-# **PROYECTO FINAL EN BITBUCKET**
+# **GESTION DE REPARACIÓN DE EQUIPOS INFORMÁTICOS**
 
 ## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
 
@@ -57,7 +53,7 @@ _php artisan migrate:reset_ //deshace todas las migraciones de la base de datos
 
 _php artisan migrate:refresh_ //es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate_
 
-_##php artisan migrate:fresh --seed##_ //el comando --seed también ejecuta los seeders para llenar la base de datos 
+## _php artisan migrate:fresh --seed_ //el comando --seed también ejecuta los seeders para llenar la base de datos 
 con datos de prueba. Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada. 
 
 
@@ -67,6 +63,20 @@ con datos de prueba. Los seeders son archivos que contienen código para inserta
  o si se quiere usar una ip que se encuentre dentro de nuestra red local:
  
  _php artisan serve --host=192.168.1.##_
+ 
+## 9) Login de usuario Administrador
+
+Usuario: admin@admin.com
+Contraseña: 12345
+
+## 10) Editar Usuario Administrador, por datos de la persona que administrará el sistema
+ Una vez iniciada la sesión:
+ i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
+ ii)  Click en en el boton de editar usuario
+ iii) Se ingresan los datos personales del usuario:
+     - Nombre y Apellido
+     - Correo Electrónico
+     - Contraseña
 
 ## Contact
 
