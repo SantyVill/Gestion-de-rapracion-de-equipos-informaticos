@@ -5,13 +5,13 @@
 
 ## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
 
-_git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git_
+    _git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git_
 
 ## 2) INGRESAR AL DIRECTORIO LARAGON/WWW/proyectofinal
 
 ## 3) Ejecutar el comando
 
-_composer install_
+    _composer install_
 
 Esto descargara las librerķas de laravel en la carpeta vendor (que no existe).
 
