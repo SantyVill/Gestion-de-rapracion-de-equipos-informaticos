@@ -1,15 +1,15 @@
 <p align="center"><a href="" target="_blank"><img src="" width="400"></a></p>
 
 
-# **GESTION DE REPARACIÓN DE EQUIPOS INFORMÁTICOS**
+# **GESTIÓN DE REPARACIÓN DE DISPOSITIVOS INFORMÁTICOS**
 
-## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
+## 1) Ejecutar en la terminal:
 
     $ git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git
 
 Esto debe ejecutarse dentro en el directorio de instalación de laragon "../laragon/www/"
 
-## 2) INGRESAR AL DIRECTORIO 
+## 2) Ingresar al directorio 
 
     $ cd laragon/www/proyectofinal
 
@@ -17,7 +17,7 @@ Esto debe ejecutarse dentro en el directorio de instalación de laragon "../lara
 
     $ composer install
 
-Esto descargara las librerķas de laravel en la carpeta vendor (que no existe).
+Esto descargará las librerías de laravel en la carpeta vendor (la cual no existe).
 
 ## 4) Duplicar el archivo env.example y guardar la copia como .env
 
@@ -42,40 +42,12 @@ y APP_KEY aparecera algo parecido a esto
     DB_PASSWORD=
 
 
-## 7) Finalmente ejecutar las migraciones para crear las tablas en la base de datos
+## 7) Ejecución de las migraciones con seeders 
  
- Genera las tablas mediante el uso de migraciones:
-
-    $ php artisan migrate
- 
- Elimina todas las migraciones de la base de datos (funcion down)
- 
-    $ php artisan migrate:rollback 
-
- Para eliminar la śltima migración creada
-
-    $ php artisan migrate:rollback --step=1 
-
- Para eliminar todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
- 
-    $ php artisan migrate:fresh 
-
- Para eliminar todas las migraciones y las crea de nuevo. hace rollback
- 
-    $ php artisan migrate:refresh  
-
- Para Deshacer todas las migraciones de la base de datos
-
-    $ php artisan migrate:reset 
-
- El siguiente comando es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate:
-  
-    $ php artisan migrate:refresh
+    $ php artisan migrate:fresh --seed 
 
  El comando --seed también ejecuta los seeders para llenar la base de datos con datos de prueba. 
  Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada:
-
-    $ php artisan migrate:fresh --seed 
 
 
 ## 8) Para lanzar el sistema utilizando el localhost se puede realizar lo siguiente:
