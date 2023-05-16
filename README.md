@@ -1,76 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://guarani.unt.edu.ar/autogestion/_comp/siu/img/logo-transparente.png" width="400"></a></p>
+<p align="center"><a href="" target="_blank"><img src="" width="400"></a></p>
 
 
 # **GESTION DE REPARACIÓN DE EQUIPOS INFORMÁTICOS**
 
 ## 1) EJECUTAR EN LA TERMINAL EN LARAGON/WWW :
 
-    _git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git_
+    $ git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git
 
-## 2) INGRESAR AL DIRECTORIO LARAGON/WWW/proyectofinal
+Esto debe ejecutarse dentro en el directorio de instalación de laragon "../laragon/www/"
 
-## 3) Ejecutar el comando
+## 2) INGRESAR AL DIRECTORIO 
 
-    _composer install_
+    $ cd laragon/www/proyectofinal
+
+## 3) Ejecutar el comando gestor de dependencias
+
+    $ composer install
 
 Esto descargara las librerķas de laravel en la carpeta vendor (que no existe).
 
 ## 4) Duplicar el archivo env.example y guardar la copia como .env
 
+Esto sirve para resguardar los datos inciales del archivo env.example
 
 ## 5) Configurar .env - Aqui se realizan configuraciones locales
 
 Si APP_KEY esta vacio, ejecutar en la terminal
 
-_php artisan key:generate_
+    $ php artisan key:generate
 
 y APP_KEY aparecera algo parecido a esto
 
-_APP_KEY=base64:Chc....
+    APP_KEY=base64:
 
 ## 6) Configurar la informacion de la base de datos LOCAL que van a usar
 
-_DB_DATABASE=proyectofinal_
+    DB_DATABASE=proyectofinal
 
-_DB_USERNAME=root_
+    DB_USERNAME=root
 
-_DB_PASSWORD=_
+    DB_PASSWORD=
 
 
 ## 7) Finalmente ejecutar las migraciones para crear las tablas en la base de datos
+ 
+ Genera las tablas mediante el uso de migraciones:
 
-_php artisan migrate_
+    $ php artisan migrate
+ 
+ Elimina todas las migraciones de la base de datos (funcion down)
+ 
+    $ php artisan migrate:rollback 
 
-_php artisan migrate:rollback_ //elimina todas las migraciones de la base de datos (funcion down)
+ Elimina la śltima migración creada
 
-_php artisan migrate:rollback --step=1_ //elimina la śltima migración creada
+    $ php artisan migrate:rollback --step=1 
 
-_php artisan migrate:fresh_ //elimina todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
+ Elimina todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
+ 
+    $ php artisan migrate:fresh 
 
-_php artisan migrate:refresh_ //elimina todas las migraciones y las crea de nuevo. hace rollback 
+ Elimina todas las migraciones y las crea de nuevo. hace rollback
+ 
+    $ php artisan migrate:refresh  
 
-_php artisan migrate:reset_ //deshace todas las migraciones de la base de datos
+ Deshace todas las migraciones de la base de datos
 
-_php artisan migrate:refresh_ //es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate_
+    $ php artisan migrate:reset 
 
-## _php artisan migrate:fresh --seed_ //el comando --seed también ejecuta los seeders para llenar la base de datos 
-con datos de prueba. Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada. 
+ Es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate
+  
+    $ php artisan migrate:refresh
+
+ El comando --seed también ejecuta los seeders para llenar la base de datos con datos de prueba. 
+ Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada.
+
+    $ php artisan migrate:fresh --seed 
 
 
 ## 8) Para lanzar el sistema utilizando el localhost se puede realizar lo siguiente:
- _php artisan serve --host=localhost_
+ 
+    $ php artisan serve --host=localhost
  
  o si se quiere usar una ip que se encuentre dentro de nuestra red local:
  
- _php artisan serve --host=192.168.1.##_
+    $ php artisan serve --host=192.168.1.##
+ NOTA: Los numerales indican los octales correspondientes a la ip del equipo servicor 
  
 ## 9) Login de usuario Administrador
 
 Usuario: admin@admin.com
+
 Contraseña: 12345
 
 ## 10) Editar Usuario Administrador, por datos de la persona que administrará el sistema
- Una vez iniciada la sesión:
+
+Una vez iniciada la sesión:
  i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
  ii)  Click en en el boton de editar usuario
  iii) Se ingresan los datos personales del usuario:
