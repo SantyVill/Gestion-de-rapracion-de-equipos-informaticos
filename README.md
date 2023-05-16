@@ -96,10 +96,10 @@ y APP_KEY aparecera algo parecido a esto
 
 ## 10) Editar Usuario Administrador, por datos de la persona que administrará el sistema
 
-### Una vez iniciada la sesión:
- ### i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
- ### ii)  Click en en el boton de editar usuario
- ### iii) Se ingresan los datos personales del usuario:
+## Una vez iniciada la sesión:
+    i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
+    ii)  Click en en el boton de editar usuario
+    iii) Se ingresan los datos personales del usuario:
      - Nombre y Apellido
      - Correo Electrónico
      - Contraseña
