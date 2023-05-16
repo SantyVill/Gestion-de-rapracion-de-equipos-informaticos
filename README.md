@@ -52,28 +52,28 @@ y APP_KEY aparecera algo parecido a esto
  
     $ php artisan migrate:rollback 
 
- Elimina la śltima migración creada
+ Para eliminar la śltima migración creada
 
     $ php artisan migrate:rollback --step=1 
 
- Elimina todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
+ Para eliminar todas las migraciones y las crea de nuevo. No hace un rollback de nuevo
  
     $ php artisan migrate:fresh 
 
- Elimina todas las migraciones y las crea de nuevo. hace rollback
+ Para eliminar todas las migraciones y las crea de nuevo. hace rollback
  
     $ php artisan migrate:refresh  
 
- Deshace todas las migraciones de la base de datos
+ Para Deshacer todas las migraciones de la base de datos
 
     $ php artisan migrate:reset 
 
- Es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate
+ El siguiente comando es equivalente a usar _php artisan migrate:reset_ y después _php artisan migrate:
   
     $ php artisan migrate:refresh
 
  El comando --seed también ejecuta los seeders para llenar la base de datos con datos de prueba. 
- Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada.
+ Los seeders son archivos que contienen código para insertar datos en la base de datos de forma automatizada:
 
     $ php artisan migrate:fresh --seed 
 
@@ -85,24 +85,25 @@ y APP_KEY aparecera algo parecido a esto
  o si se quiere usar una ip que se encuentre dentro de nuestra red local:
  
     $ php artisan serve --host=192.168.1.##
+ 
  NOTA: Los numerales indican los octales correspondientes a la ip del equipo servicor 
  
 ## 9) Login de usuario Administrador
 
-Usuario: admin@admin.com
+    Usuario: admin@admin.com
 
-Contraseña: 12345
+    Contraseña: 12345
 
 ## 10) Editar Usuario Administrador, por datos de la persona que administrará el sistema
 
-Una vez iniciada la sesión:
- i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
- ii)  Click en en el boton de editar usuario
- iii) Se ingresan los datos personales del usuario:
+### Una vez iniciada la sesión:
+ ### i)   Hacer click en el Nombre de usuario ("Administrador, admin") 
+ ### ii)  Click en en el boton de editar usuario
+ ### iii) Se ingresan los datos personales del usuario:
      - Nombre y Apellido
      - Correo Electrónico
      - Contraseña
 
 ## Contact
 
-2021 - Tucuman Argentina
+2021 - Tucumán Argentina
