@@ -75,7 +75,7 @@ class RecepcionesController extends Controller
                 request()->validate([
                     'falla'=>'required|max:'.config("tam_falla"),
                     'observacion'=>'',
-                    'accesorio'=>'required|max:'.config("tam_accesorio"),
+                    'accesorio'=>'max:'.config("tam_accesorio"),
                 ]);
                 $estado=Estado::firstOrCreate(['estado'=> 'A presupuestar']);
                 $recepcion = new Recepcion([
@@ -198,11 +198,6 @@ class RecepcionesController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            request()->validate([
-                'falla'=>'required|max:'.config("tam_falla"),
-                'observacion'=>'',
-                'accesorio'=>'required|max:'.config("tam_accesorio"),
-            ]);
             $recepcion = Recepcion::find($id);
             if (isset($request['equipo_id'])) {
                 $recepcion->equipo_id=$request['equipo_id'];
@@ -214,21 +209,20 @@ class RecepcionesController extends Controller
                 $recepcion->save();
                 return redirect()->route('recepciones.show',$recepcion);
             }
-            /* if ($request['informe_final']) {
-                $recepcion['informe_final'] = ucfirst($request['informe_final']);
-                $recepcion['precio']= $request['precio'];
-                $recepcion['garantia'] = $request['garantia'];
-                $recepcion->save();
-                return redirect()->route('recepciones.show',$recepcion);
-            } */
     
             $estado=Estado::firstOrCreate(['estado'=> ucfirst($request['estado'])]);
             /* if ($estado->estado!="Equipo Entregado") {
                 $recepcion->fecha_entrega = null;
             } */
-            $recepcion['falla'] = ucfirst($request['falla']);
-            $recepcion['accesorio'] = ucfirst($request['accesorio']);
-            $recepcion['observacion'] = ucfirst($request['observacion']);
+            if (isset($request['falla']) || isset($request['accesorio'])) {
+                request()->validate([
+                    'falla'=>'required|max:'.config("tam_falla"),
+                    'accesorio'=>'max:'.config("tam_accesorio"),
+                ]);
+                $recepcion['falla'] = ucfirst($request['falla']);
+                $recepcion['observacion'] = ucfirst($request['observacion']);
+                $recepcion['accesorio'] = ucfirst($request['accesorio']);
+            }
             $recepcion['estado_id'] = $estado->id;
             $recepcion -> save();
             return redirect()->route('recepciones.show',$recepcion);

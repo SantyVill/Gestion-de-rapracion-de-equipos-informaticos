@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'rol_id'=>3
         ]);
         Estado::insert([
-            ['estado' => 'A presupuestar'],
+            ['estado' => 'A Presupuestar'],
             ['estado' => 'En Revisión'],
             ['estado' => 'Presupuesto Realizado'],
             ['estado' => 'Presupuesto Aceptado'],

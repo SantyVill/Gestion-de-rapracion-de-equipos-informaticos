@@ -29,7 +29,8 @@ class RevisionesController extends Controller
      */
     public function create(Recepcion $recepcion)
     {
-        return view('revisiones.create',compact('recepcion'));
+        $posiblesEstados = Estado::transicionEstados($recepcion->estado->estado);
+        return view('revisiones.create',compact('recepcion','posiblesEstados'));
     }
 
     /**
@@ -41,30 +42,33 @@ class RevisionesController extends Controller
     public function store(Request $request, Recepcion $recepcion)
     {
         try {
-            request()->validate([
-                'nota'=>'required'
-            ]);
-            $revision = Revision::create([
-                'tecnico_id'=>auth()->user()->id,
-                'recepcion_id'=>$recepcion['id'],
-                'nota'=>ucfirst($request['nota']),
-                'fecha'=>date('Y-m-d H:i:s'),
-                'interna' => ($request['interna'])?true:false,
-            ]);
-            if ($request['estado']!='') {
+            $nota='';
+            if ($request['estado']!=null) {
                 $nuevoEstado = Estado::firstOrCreate(['estado'=>$request['estado']]);
                 if (strcmp($request['estado'],$recepcion->estado->estado)!=0) {
-                    $revision->nota = '###Nuevo estado: ' . $nuevoEstado->estado . '###. ' . $revision->nota;
-                    $revision->save();
+                    $nota = '###Nuevo estado: ' . $nuevoEstado->estado . '###. ';
+                } else {
+                    request()->validate([
+                        'nota'=>'required'
+                    ]);
                 }
                 $recepcion->estado_id= $nuevoEstado['id'];
                 if ($nuevoEstado->estado=="Equipo Entregado") {
                     $recepcion->fecha_entrega = now();
                 }
+                $recepcion->save();
+            } else {
+                request()->validate([
+                    'nota'=>'required'
+                ]);
             }
-            /* return $recepcion; */
-            /* $recepcion = $revision->recepcion; */
-            $recepcion->save();
+            $revision = Revision::create([
+                'tecnico_id'=>auth()->user()->id,
+                'recepcion_id'=>$recepcion['id'],
+                'nota'=>$nota.ucfirst($request['nota']),
+                'fecha'=>date('Y-m-d H:i:s'),
+                'interna' => ($request['interna'])?true:false,
+            ]);
             return redirect() -> route('recepciones.show',$recepcion);
         } catch (\Illuminate\Database\QueryException $e) {
             $mensaje = 'Se ha producido un error al intentar cargar los datos';
