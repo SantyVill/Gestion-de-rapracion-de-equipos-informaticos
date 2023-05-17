@@ -27,23 +27,40 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Recepcion::exists()) {
             
-            $recepcionesPendientes = Recepcion::recepcionesPendientes();
+            /* $equipoMasRegistrado =  */
+            $datos = [];
+            $estadisticasGenerales=[
+                'recepcionesPendientes'=>Recepcion::recepcionesPendientes()->count(),
+                'recepcionesTotales'=>Recepcion::all()->count(),
+                'recepcionesFinalizadas'=>Recepcion::all()->count()-Recepcion::recepcionesPendientes()->count(),
+                'modeloMasFrecuente'=>Recepcion::modeloMasFrecuente(),
+                'marcaMasFrecuente'=>Recepcion::marcaMasFrecuente()->marca,
+                'montoTotal'=>Recepcion::montoRecaudado(),
+            ];
+            $estadisticasPorMes=[];
+            if (isset($request['anio']) && isset($request['mes'])) {
+                $mes= $request['mes'];
+                $anio = $request['anio'];
+                /* return Recepcion::recepcionesFinalizadasEnMes($mes,$anio); */
+                $estadisticasPorMes=[
+                    'montoRecaudado'=>Recepcion::montoRecaudadoPorFecha($mes,$anio),
+                    'marcaMasFrecuente'=>Recepcion::marcaMasFrecuentePorMes($mes,$anio),
+                    'modeloMasFrecuente'=>Recepcion::modeloMasFrecuentePorMes($mes,$anio),
+                    'recepcionesFinalizadas'=>Recepcion::recepcionesFinalizadasEnMes($mes,$anio),
+                ];
+                for ($mes = 1; $mes <= 12; $mes++) {
+                    $recepciones = Recepcion::recepcionesFinalizadasEnMes($mes, $anio);
+                    $datos[] = $recepciones;
+                }
+            }
+            /* return $estadisticasPorMes; */
     
-            $recepciones = Recepcion::all();
-            $equipoMasRegistrado = Equipo::withCount('recepciones')
-            ->orderBy('recepciones_count', 'desc')
-            ->first();
-    
-            $marcaMasRepetida = Recepcion::marcaMasRepetida();
-            
-            $montoTotal = Recepcion::montoRecaudado();
-    
-            $recaudadoMesPasado = Recepcion::recaudacionMesPasado();
-            return view('home', compact('recepciones', 'equipoMasRegistrado', 'marcaMasRepetida', 'recepcionesPendientes', 'montoTotal', 'recaudadoMesPasado'));
+            /* $recaudadoMesPasado = Recepcion::recaudacionMesPasado(); */
+            return view('home', compact('estadisticasGenerales','estadisticasPorMes','datos'));
         } else {
             return view('home');
         }
