@@ -42,6 +42,7 @@ class HomeController extends Controller
                 'montoTotal'=>Recepcion::montoRecaudado(),
             ];
             $estadisticasPorMes=[];
+            $recepcionesPorMes='';
             if (isset($request['anio']) && isset($request['mes'])) {
                 $mes= $request['mes'];
                 $anio = $request['anio'];
@@ -56,11 +57,12 @@ class HomeController extends Controller
                     $recepciones = Recepcion::recepcionesFinalizadasEnMes($mes, $anio);
                     $datos[] = $recepciones;
                 }
+                $recepcionesPorMes= Recepcion::RecepcionesPorAnio($anio);
             }
             /* return $estadisticasPorMes; */
     
             /* $recaudadoMesPasado = Recepcion::recaudacionMesPasado(); */
-            return view('home', compact('estadisticasGenerales','estadisticasPorMes','datos'));
+            return view('home', compact('estadisticasGenerales','estadisticasPorMes','datos','recepcionesPorMes'));
         } else {
             return view('home');
         }

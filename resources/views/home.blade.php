@@ -4,9 +4,11 @@
 
 @php
     setlocale(LC_TIME, 'es_ES');
-@endphp
+    use App\Models\Recepcion;
+    @endphp
 
 @section('contenido')
+<script src="https://code.highcharts.com/highcharts.js"></script>
     <h2 class="text-center m-5 bg-primary" style="color:white" >Bienvenido: 
         @if (auth()->user()->tieneRol(['admin']))
             Administrador
@@ -60,7 +62,7 @@
                 <div class="col-4">
                     <form action="#">
                         <select name="anio">
-                            @for ($i = date('Y'); $i >= 2023; $i--)
+                            @for ($i = date('Y'); $i >= 2022; $i--)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
@@ -95,6 +97,34 @@
                 @else
                     <p class="text-center">Seleccione una fecha</p>
                 @endif
+            </div>
+            <div id="container" class="">
+                <div id="container" class="col-8">
+                    <script>
+                        var datos = {!! $recepcionesPorMes !!};
+                        Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Recepciones por mes'
+                        },
+                        xAxis: {
+                            categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Recepciones'
+                            }
+                        },
+                        series: [{
+                            name: 'Número de Recepciones',
+                            data: datos
+                        }]
+                    });
+                    </script>
+                </div>
             </div>
         </div>
     </div>

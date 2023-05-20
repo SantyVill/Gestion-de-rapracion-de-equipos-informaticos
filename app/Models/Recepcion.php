@@ -206,4 +206,19 @@ class Recepcion extends Model
         ->count();
         return $recepciones;
     }
+    public static function RecepcionesPorMes($mes,$anio){
+        $montoTotal = DB::table('recepciones')
+        ->whereMonth('recepciones.fecha_recepcion', '=', $mes)
+        ->whereYear('recepciones.fecha_recepcion', '=', $anio)->count();
+        return $montoTotal;
+    }
+
+    public static function RecepcionesPorAnio($anio){
+        $puntos = [];
+        for ($i=1; $i < 13; $i++) { 
+            $puntos[]=['name'=>$i,'y'=>Recepcion::RecepcionesPorMes($i,$anio)];
+        }
+        $puntos = json_encode($puntos);
+        return $puntos;
+    }
 }
