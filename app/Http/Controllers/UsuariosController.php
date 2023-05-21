@@ -117,7 +117,7 @@ class UsuariosController extends Controller
                     $user->password=bcrypt($request->password);
                     $user->save();
                 }
-                if (isset($request['nombre'])||isset($request['apellido'])||isset($request['email'])) {
+                if (isset($request['nombre']) || isset($request['apellido']) || isset($request['email'])) {
                     return redirect()->route('usuarios.show',$user)->with('message','No tienes permisos para modificar tus datos (solo puedes cambiar tu contraseña).');
                 }
                 return redirect()->route('usuarios.show',$user);
@@ -146,7 +146,7 @@ class UsuariosController extends Controller
             } else {
                 $user->roles()->detach(Rol::get()->where('rol','=','recepcionista'));
             }
-    
+
             if ($request->password!='') {
                 request()->validate([
                     'password'=>[Rules\password::min(4),'max:255'],

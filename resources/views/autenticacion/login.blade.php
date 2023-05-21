@@ -13,13 +13,12 @@
         <h1 class="text-center bg-dark" style="color: rgb(150 150 150)">Gestión de Reparaciones</h1>
 
     </header>
-    <div class="container text-center mt-4 py-2" style="background-color: #82bbc2">
-        <div class="row">
-            <div class="col-7 position-relative top-50 ">
+    <div class="container text-center mt-4 py-2 col-4" style="background-color: #82bbc2">
+        <div class="row justify-content-center">
+<!--             <div class="col-7 position-relative top-50 ">
                 <img width="350" height="350" src="https://www.facet.unt.edu.ar/wp-content/uploads/2022/03/FACET-logo.jpg" class="attachment-1200x1200 size-1200x1200" alt="" decoding="async" loading="lazy">
-                <!-- <img width="700" height="250" src="https://www.facet.unt.edu.ar/ingenieriainformatica/wp-content/uploads/sites/75/2022/08/Ingenieria-cabecera2.gif" class="attachment-1200x700 size-1200x1200" alt="" decoding="async" loading="lazy"> -->
             </div>
-            <div class="mr-auto col-4 mt-4">
+ -->            <div class="col-11 mt-4 pb-3">
                 <form class="form-signin" method="POST" action="{{route('login.store')}}">
                     @csrf
                     <h2 class="h6 mb-3 fw-normal"><font style="horizontal-align: inherit;">Por favor, ingrese correo electrónico y contraseña</font></h2>
@@ -39,9 +38,9 @@
                             <input type="checkbox" value="remember-me"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Acuérdate de mí
                             </font></font></label>
                         </div> --}}
-                        <button class="w-100 mb-2 border-dark shadow btn btn btn-secondary bg-secondary bg-gradient" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
+                        <button class="col-4 mb-2 border-dark shadow btn btn btn-secondary bg-secondary bg-gradient" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar sesión</font></font></button>
                         {{-- <p class="mt-5 mb-3 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2017–2021</font></font></p> --}}
-                        <div><a class="w-100 border-dark shadow btn btn-sm btn-secondary bg-secondary bg-gradient mt-1 " href="{{route('password.request')}}" style="color:white">Restablecer Contraseña</a></div>
+                        <div><a class="col-5 border-dark shadow btn btn-sm btn-secondary bg-secondary bg-gradient mt-1 " href="{{route('password.request')}}" style="color:white">Restablecer Contraseña</a></div>
                 </form>
             </div>
         </div>
