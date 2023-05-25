@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
+use function PHPUnit\Framework\isEmpty;
+
 class Recepcion extends Model
 {
     protected $table = 'recepciones';
@@ -47,7 +49,7 @@ class Recepcion extends Model
         return '';
     }
     public static function buscarPorId($id){
-        $recepciones=Recepcion::where('id','like','%'.$id.'%')
+        $recepciones=Recepcion::where('id','=',$id)
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         return $recepciones;
@@ -99,7 +101,7 @@ class Recepcion extends Model
         return $recepciones;
     }
 
-    public static function marcaMasRepetida(){
+    public static function marcaMasFrecuente(){
         return Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
         ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
         ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
@@ -117,7 +119,7 @@ class Recepcion extends Model
             return 0;
         }
     }
-
+    
     public static function recaudacionMesPasado(){
         $estadoEntregado=Estado::where('estado','Equipo Entregado')->first();
         $estadoEntregado = Estado::where('estado', 'Equipo Entregado')->first();
@@ -129,5 +131,94 @@ class Recepcion extends Model
         } else {
             return 0;
         }
+    }
+    
+    public function recepcionTerminada(){
+        if (strcmp($this->estado->estado,'Equipo Entregado')==0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static function recaudacionPorMes($mes,$anio){
+        $montoTotal = DB::table('recepciones')
+        ->join('estados', 'recepciones.estado_id', '=', 'estados.id')
+        ->where('estados.estado', '=', 'equipo entregado')
+        ->whereMonth('recepciones.fecha_entrega', '=', $mes)
+        ->whereYear('recepciones.fecha_entrega', '=', $anio)
+        ->sum('recepciones.precio');
+        return $montoTotal;
+    }
+    public static function montoRecaudadoPorFecha($mes,$anio){
+        return DB::table('recepciones')
+                    ->join('estados', 'recepciones.estado_id', '=', 'estados.id')
+                    ->where('estados.estado', '=', 'Equipo Entregado')
+                    ->whereMonth('recepciones.fecha_entrega', '=', $mes)
+                    ->whereYear('recepciones.fecha_entrega', '=', $anio)
+                    ->sum('recepciones.precio');
+    }
+    public static function marcaMasFrecuentePorMes($mes, $anio){
+        $marca= Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
+            ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
+            ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
+            ->whereMonth('recepciones.created_at', $mes)
+            ->whereYear('recepciones.created_at', $anio)
+            ->groupBy('marcas.marca')
+            ->select('marcas.marca', DB::raw('COUNT(*) as cantidad'))
+            ->orderByDesc('cantidad')
+            ->first()/* ->marca */;
+        if ($marca!=null) {
+            return $marca->marca;
+        } else {
+            return '';
+        }
+    }
+    public static function modeloMasFrecuente(){
+        return Equipo::withCount('recepciones')
+                ->orderBy('recepciones_count', 'desc')
+                ->first()->modelo;
+    }
+
+    public static function modeloMasFrecuentePorMes($mes, $anio){
+        $equipo= Equipo::whereHas('recepciones', function($query) use($mes, $anio){
+                $query->whereYear('fecha_recepcion', $anio)
+                    ->whereMonth('fecha_recepcion', $mes);
+            })
+            ->withCount(['recepciones' => function($query) use($mes, $anio){
+                $query->whereYear('fecha_recepcion', $anio)
+                    ->whereMonth('fecha_recepcion', $mes);
+            }])
+            ->orderBy('recepciones_count', 'desc')
+            ->first()/*  */;
+            if ($equipo!=null) {
+                return $equipo->caracteristica->modelo;
+            } else {
+                return '';
+            }
+    }
+
+    public static function recepcionesFinalizadasEnMes($mes, $anio) {
+        $recepciones = Recepcion::join('estados', 'recepciones.estado_id', '=', 'estados.id')
+        ->where('estados.estado', 'Equipo Entregado')
+        ->whereRaw('MONTH(recepciones.fecha_entrega) = ?', [$mes])
+        ->whereYear('recepciones.fecha_entrega', $anio)->get()
+        ->count();
+        return $recepciones;
+    }
+    public static function RecepcionesPorMes($mes,$anio){
+        $montoTotal = DB::table('recepciones')
+        ->whereMonth('recepciones.fecha_recepcion', '=', $mes)
+        ->whereYear('recepciones.fecha_recepcion', '=', $anio)->count();
+        return $montoTotal;
+    }
+
+    public static function RecepcionesPorAnio($anio){
+        $puntos = [];
+        for ($i=1; $i < 13; $i++) { 
+            $puntos[]=['name'=>$i,'y'=>Recepcion::RecepcionesPorMes($i,$anio)];
+        }
+        $puntos = json_encode($puntos);
+        return $puntos;
     }
 }

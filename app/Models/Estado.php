@@ -17,4 +17,33 @@ class Estado extends Model
         }
         return '';
     }
+
+    public static function transicionEstados($estadoActual){
+        switch ($estadoActual) {
+            case 'A Presupuestar':
+                return ['En Revisión'];
+                break;
+            case 'En Revisión':
+                return ['Presupuesto Realizado'];
+                break;
+            case 'Presupuesto Realizado':
+                return ['Presupuesto Aceptado'];
+                break;
+            case 'Presupuesto Aceptado':
+                return ['En Reparación'];
+                break;
+            case 'En Reparación':
+                return ['Reparación Terminada','Presupuesto Realizado'];
+                break;
+            case 'Reparación Terminada':
+                return ['Equipo Entregado'];
+                break;
+            case 'Equipo Entregado':
+                return [''];
+                break;
+            default:
+                return [''];
+                break;
+        }
+    }
 }
