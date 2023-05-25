@@ -14,19 +14,19 @@
                     <div class="row mx-auto col-11">
                         <div class="col-6">
                             <label for="falla" class="form-label">Falla: </label>
-                            <input type="text" name="falla" class="form-control border-dark"  value="{{$recepcion->falla}}" maxlength="{{config("tam_falla")}}">
+                            <input type="text" name="falla" class="form-control border-dark" {{$recepcion->RecepcionTerminada()?'disabled':''}}  value="{{$recepcion->falla}}" maxlength="{{config("tam_falla")}}">
                             {!!$errors->first('falla','<small>:message</small><br>')!!}<br>
                         </div>
                         <div class="col-6">
                             <label for="accesorio" class="form-label">Accesorio: </label>
-                            <input type="text" name="accesorio" class="form-control border-dark" value="{{ $recepcion->accesorio }}" maxlength="{{config("tam_accesorio")}}">
+                            <input type="text" name="accesorio" class="form-control border-dark" {{$recepcion->RecepcionTerminada()?'disabled':''}} value="{{ $recepcion->accesorio }}" maxlength="{{config("tam_accesorio")}}">
                             {!!$errors->first('accesorio','<small>:message</small><br>')!!}<br>
                         </div>
                     </div>
                     <div class="row mb-0 justify-content-center">
                         <div class="col-5">
                             <label for="estado" class="form-label">Estado: </label>
-                            <select class="form-select border-dark" name="estado" aria-label="Default select example">
+                            <select class="form-select border-dark" name="estado" aria-label="Default select example" >
                                 <option value="A presupuestar" {{$recepcion->estado->opSelected("A presupuestar")}}>A presupuestar</option>
                                 <option value="En Revisión" {{$recepcion->estado->opSelected("En Revisión")}}>En Revisión</option>
                                 <option value="Presupuesto Aceptado" {{$recepcion->estado->opSelected("Presupuesto Aceptado")}}>Presupuesto Aceptado</option>
@@ -39,7 +39,7 @@
                     <div class="row mb-0 justify-content-center">
                         <div class="col-8">
                             <label for="observacion" class="form-label">Observación: </label><br>                    
-                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4">{{ old('observacion',$recepcion['observacion'] )}}</textarea>
+                            <textarea name="observacion" class="form-control border-dark" cols="30" rows="4" {{$recepcion->RecepcionTerminada()?'disabled':''}}>{{ old('observacion',$recepcion['observacion'] )}}</textarea>
                             {!!$errors->first('observacion','<small>:message</small><br>')!!}<br>
     
                         </div>
@@ -71,7 +71,7 @@
                             <li>Marca: {{$recepcion->equipo->caracteristica->marca->marca}}</li>
                             <li>Modelo: {{$recepcion->equipo->caracteristica->modelo}}</li>
                             <li>Observacion: {{$recepcion->equipo->observacion}}</li>
-                            <a href="{{route('equipos.update_recepcion',$recepcion)}}" class="btn btn-infobtn btn-primary btn-sm">Elegir otro equipo</a>
+                            <a href="{{route('equipos.update_recepcion',$recepcion)}}" class="btn btn-infobtn btn-primary btn-sm  {{$recepcion->RecepcionTerminada()?'disabled':''}}">Elegir otro equipo</a>
                             
                         </ul>
                         </p>
@@ -88,7 +88,7 @@
                                 <li>Apellido y Nombre: {{$recepcion->cliente['apellido'].", ".$recepcion->cliente->nombre}}</li>
                                 <li>DNI: {{$recepcion->cliente->dni}}</li>
                                 <li>Mail: {{$recepcion->cliente->mail}}</li>
-                                <a href="{{route('clientes.update_recepcion',$recepcion)}}" class="btn btn-infobtn btn-primary btn-sm">Elegir otro cliente</a>
+                                <a href="{{route('clientes.update_recepcion',$recepcion)}}" class="btn btn-infobtn btn-primary btn-sm  {{$recepcion->RecepcionTerminada()?'disabled':''}}">Elegir otro cliente</a>
                           </ul>
                       </p>
                     </div>
