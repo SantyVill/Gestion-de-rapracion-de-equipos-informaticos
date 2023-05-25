@@ -27,7 +27,7 @@ class RecepcionesController extends Controller
     public function index(Request $request)
     {
         $buscar='';
-        if ($request['NumOrden']=='1') {
+        if ($request['NumOrden']=='1' && $request['buscar']!='') {
             $buscarId = $request['buscar'];
             $recepciones=Recepcion::buscarPorId($buscarId);
             return view('recepciones.index',compact('recepciones','buscar'));

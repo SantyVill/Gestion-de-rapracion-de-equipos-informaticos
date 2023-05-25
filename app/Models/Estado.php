@@ -19,7 +19,13 @@ class Estado extends Model
     }
 
     public static function transicionEstados($estadoActual){
-        switch ($estadoActual) {
+        return ['En Revisión',
+         'Presupuesto Realizado',
+         'Presupuesto Aceptado',
+         'En Reparación',
+         'Reparación Terminada',
+         'Equipo Entregado'];
+        /* switch ($estadoActual) {
             case 'A Presupuestar':
                 return ['En Revisión'];
                 break;
@@ -44,6 +50,6 @@ class Estado extends Model
             default:
                 return [''];
                 break;
-        }
+        } */
     }
 }

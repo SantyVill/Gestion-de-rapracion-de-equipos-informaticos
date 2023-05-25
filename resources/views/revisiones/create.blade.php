@@ -12,13 +12,13 @@
                 <label for="accesorio" class="form-label">Estado: </label>
                 <select class="form-select border-dark" id="estado" name="estado" aria-label="Default select example">
                     <option value="{{$recepcion->estado->estado}}" selected>{{$recepcion->estado->estado}}</option>
-                @foreach ($posiblesEstados as $estadoPosible)
-                    @if (auth()->user()->tieneRol(['admin','recepcionista'])&&in_array($estadoPosible,['A Presupuestar','Presupuesto Aceptado','Equipo Entregado']))
-                    <option value="{{$estadoPosible}}" >{{$estadoPosible}}</option>
-                    @endif
-                    @if (auth()->user()->tieneRol(['admin','tecnico'])&&in_array($estadoPosible,['En Revisión','Presupuesto Realizado','En Reparación','Reparación Terminada']))
-                    <option value="{{$estadoPosible}}">{{$estadoPosible}}</option>
-                    @endif
+                    @foreach ($posiblesEstados as $estadoPosible)
+                        @if (auth()->user()->tieneRol(['admin','recepcionista']) && in_array($estadoPosible, ['A Presupuestar','Presupuesto Aceptado','Equipo Entregado']) && $estadoPosible!=$recepcion->estado->estado)
+                            <option value="{{$estadoPosible}}" >{{$estadoPosible}}</option>
+                        @endif
+                        @if (auth()->user()->tieneRol(['admin','tecnico']) && in_array($estadoPosible, ['En Revisión','Presupuesto Realizado','En Reparación','Reparación Terminada']) && $estadoPosible!=$recepcion->estado->estado)
+                            <option value="{{$estadoPosible}}">{{$estadoPosible}}</option>
+                        @endif
                     @endforeach
                 </select>
                 <div class="mt-3 d-inline-flex p-0 bd-highlight form-check form-switch d-inline-flex bd-highlight">
@@ -28,12 +28,12 @@
             </div>
             <div class="col-8">
                 <label for="nota" class="form-label">Nota: </label><br>
-                <textarea  class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3">{{ old('nota')}}</textarea>
+                <textarea class="form-control border-dark" name="nota" placeholder="" cols="30" rows="3">{{ old('nota')}}</textarea>
                 {!!$errors->first('nota','<small>:message Puedes seleccionar otro estado.</small><br>')!!}<br>
             </div>
         </div>
         <div class="row mb-2 justify-content-center">
-            <div class="col-4 me-4 w-auto p-1 rounded " style="background-color: rgb(232, 240, 247)">
+            <div class="col-4 me-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
                 <input type="submit" value="Registrar" class="btn btn-outline-success">
             </div>
             <div class="col-4 ms-4 w-auto p-1 rounded" style="background-color: rgb(232, 240, 247)">
@@ -43,18 +43,20 @@
     </form>
     <script>
         let estadoAnterior = document.getElementById('estado').value;
+        let estadoActual = document.querySelector('option[selected]').value;
+
         document.getElementById('nota-interna').addEventListener('change', function() {
             let estadoSelect = document.getElementById('estado');
             if (this.checked) {
                 estadoAnterior = estadoSelect.value;
                 estadoSelect.disabled = true;
-                estadoSelect.value = '';
+                estadoSelect.value = '{{$recepcion->estado->estado}}';
             } else {
                 estadoSelect.disabled = false;
-                estadoSelect.value = estadoAnterior;
+                estadoSelect.value = estadoAnterior || estadoActual;
             }
         });
-    </script>         
+    </script>
 </section>
 
 @endsection

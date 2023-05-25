@@ -86,7 +86,7 @@
                 </div>
                 {{-- BOTON GENERAR INFORME --}}
                 <div class="col-7 d-flex justify-content-end p-0">
-                    <a class="me-1 btn btn-sm border-dark btn-info" target="_blank" href="{{route('recepciones.generarPdfInforme',$recepcion)}}">
+                    <a class="me-1 btn btn-sm border-dark btn-info {{$recepcion->informe_final==null?'disabled':''}}" target="_blank" href="{{route('recepciones.generarPdfInforme',$recepcion)}}">
                         {{-- <button type="button" class=""> --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
                                 <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
@@ -96,7 +96,7 @@
                         {{-- </button> --}}
                     </a>
                 {{-- BOTON AGREGAR/EDITAR INFORME --}}
-                    <a href="{{route('recepciones.informe_final',$recepcion)}}" class="btn p-1 btn-sm border-dark btn-primary {{$recepcion->terminada()}}" >
+                    <a href="{{route('recepciones.informe_final',$recepcion)}}" class="btn p-1 btn-sm border-dark btn-primary {{$recepcion->terminada()}} {{$recepcion->estado->estado!="Reparación Terminada"?'disabled':''}}" >
                         @if ($recepcion->informe_final)
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
