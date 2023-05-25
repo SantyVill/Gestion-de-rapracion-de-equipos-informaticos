@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="col-6">
-                    <div class="w-auto"><p class="card-text"><b>Modelo más frecuente:</b> {{($estadisticasGenerales)?$estadisticasGenerales['modeloMasFrecuente']:'No se registraron equipos'}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Modelo más frecuente:</b> {{($estadisticasGenerales['modeloMasFrecuente'])?$estadisticasGenerales['modeloMasFrecuente']->modelo.' ('.$estadisticasGenerales['modeloMasFrecuente']->marca.')':'No se registraron equipos'}}</p></div>
                     <div class="w-auto"><p class="card-text"><b>Marca más frecuente:</b> {{($estadisticasGenerales)?$estadisticasGenerales['marcaMasFrecuente']:'No se registro ningun Equipo'}}</p></div>
                     @if (auth()->user()->tieneRol(['admin']))
                     <div class="w-auto"><p class="card-text"><b>Recaudación total:</b> {{($estadisticasGenerales['montoTotal'])?$estadisticasGenerales['montoTotal']:''}}</p></div>

@@ -110,6 +110,16 @@ class Recepcion extends Model
         ->orderByDesc('cantidad')
         ->first();
     }
+    public static function modeloMasFrecuente()
+    {
+    return Recepcion::join('equipos', 'recepciones.equipo_id', '=', 'equipos.id')
+        ->join('caracteristicas', 'equipos.caracteristica_id', '=', 'caracteristicas.id')
+        ->join('marcas', 'caracteristicas.marca_id', '=', 'marcas.id')
+        ->groupBy('caracteristicas.modelo', 'marcas.marca')
+        ->select('caracteristicas.modelo', 'marcas.marca', DB::raw('COUNT(*) as cantidad'))
+        ->orderByDesc('cantidad')
+        ->first();
+    }
 
     public static function montoRecaudado(){
         $estadoEntregado=Estado::where('estado','Equipo Entregado')->first();
@@ -173,11 +183,6 @@ class Recepcion extends Model
         } else {
             return '';
         }
-    }
-    public static function modeloMasFrecuente(){
-        return Equipo::withCount('recepciones')
-                ->orderBy('recepciones_count', 'desc')
-                ->first()->modelo;
     }
 
     public static function modeloMasFrecuentePorMes($mes, $anio){
