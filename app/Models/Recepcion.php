@@ -226,4 +226,13 @@ class Recepcion extends Model
         $puntos = json_encode($puntos);
         return $puntos;
     }
+
+    public static function MontoPorAnio($anio){
+        $puntos = [];
+        for ($i=1; $i < 13; $i++) { 
+            $puntos[]=['name'=>$i,'y'=>Recepcion::montoRecaudadoPorFecha($i,$anio)];
+        }
+        $puntos = json_encode($puntos);
+        return $puntos;
+    }
 }

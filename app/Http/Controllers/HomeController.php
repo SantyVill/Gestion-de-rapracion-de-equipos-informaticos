@@ -42,27 +42,35 @@ class HomeController extends Controller
                 'montoTotal'=>Recepcion::montoRecaudado(),
             ];
             $estadisticasPorMes=[];
-            $recepcionesPorMes='';
-            if (isset($request['anio']) && isset($request['mes'])) {
-                $mes= $request['mes'];
-                $anio = $request['anio'];
-                /* return Recepcion::recepcionesFinalizadasEnMes($mes,$anio); */
-                $estadisticasPorMes=[
-                    'montoRecaudado'=>Recepcion::montoRecaudadoPorFecha($mes,$anio),
-                    'marcaMasFrecuente'=>Recepcion::marcaMasFrecuentePorMes($mes,$anio),
-                    'modeloMasFrecuente'=>Recepcion::modeloMasFrecuentePorMes($mes,$anio),
-                    'recepcionesFinalizadas'=>Recepcion::recepcionesFinalizadasEnMes($mes,$anio),
-                ];
-                for ($mes = 1; $mes <= 12; $mes++) {
-                    $recepciones = Recepcion::recepcionesFinalizadasEnMes($mes, $anio);
-                    $datos[] = $recepciones;
+            $recepcionesPorMes1='';
+            $recepcionesPorMes2='';
+            $datos1[]=null;
+            if (isset($request['anio1'])/*  && isset($request['mes']) */) {
+                /* $mes= $request['mes']; */
+                $anio1 = $request['anio1'];
+                $anio2 = $request['anio2'];
+                /* return Recepcion::recepcionesFinalizadasEnMes($mes,$anio1); */
+                /* $estadisticasPorMes=[
+                    'montoRecaudado'=>Recepcion::montoRecaudadoPorFecha($mes,$anio1),
+                    'marcaMasFrecuente'=>Recepcion::marcaMasFrecuentePorMes($mes,$anio1),
+                    'modeloMasFrecuente'=>Recepcion::modeloMasFrecuentePorMes($mes,$anio1),
+                    'recepcionesFinalizadas'=>Recepcion::recepcionesFinalizadasEnMes($mes,$anio1),
+                ]; */
+                /* for ($mes = 1; $mes <= 12; $mes++) {
+                    $datos1[] = Recepcion::recepcionesFinalizadasEnMes($mes, $anio1);
+                } */
+                if ($request['valor']=='Monto') {
+                    $recepcionesPorMes1= Recepcion::MontoPorAnio($anio1);
+                    $recepcionesPorMes2= Recepcion::MontoPorAnio($anio2);
+                } else {
+                    $recepcionesPorMes1= Recepcion::RecepcionesPorAnio($anio1);
+                    $recepcionesPorMes2= Recepcion::RecepcionesPorAnio($anio2);
                 }
-                $recepcionesPorMes= Recepcion::RecepcionesPorAnio($anio);
             }
             /* return $estadisticasPorMes; */
     
             /* $recaudadoMesPasado = Recepcion::recaudacionMesPasado(); */
-            return view('home', compact('estadisticasGenerales','estadisticasPorMes','datos','recepcionesPorMes'));
+            return view('home', compact('estadisticasGenerales','estadisticasPorMes','datos1','recepcionesPorMes1','recepcionesPorMes2'));
         } else {
             return view('home');
         }
