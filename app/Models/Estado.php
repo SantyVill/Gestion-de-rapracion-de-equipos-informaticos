@@ -19,7 +19,7 @@ class Estado extends Model
     }
 
     public static function transicionEstados($estadoActual){
-        return ['En Revisión',
+        return ['A Presupuestar','En Revisión',
          'Presupuesto Realizado',
          'Presupuesto Aceptado',
          'En Reparación',
