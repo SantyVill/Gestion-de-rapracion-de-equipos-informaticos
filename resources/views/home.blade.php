@@ -33,24 +33,25 @@
                     
                 <div class="col-6">
                     <div class="w-auto"><p class="card-text"><b>Recepciones totales:</b> {{($estadisticasGenerales)?$estadisticasGenerales['recepcionesTotales']:'No se registraron recepciones.'}}</p></div>
-                    <div class="w-auto"><p class="card-text"><b>Recepciones pendientes:</b> {{($estadisticasGenerales)?$estadisticasGenerales['recepcionesPendientes']:'No se registraron recepciones.'}}</p></div>
                     <div class="w-auto"><p class="card-text"><b>Recepciones finalizadas:</b> {{($estadisticasGenerales)?$estadisticasGenerales['recepcionesFinalizadas']:'No se registraron recepciones.'}}</p></div>
+                    <div class="w-auto"><p class="card-text"><b>Recepciones pendientes:</b> {{($estadisticasGenerales)?$estadisticasGenerales['recepcionesPendientes']:'No se registraron recepciones.'}}</p></div>
 
                 </div>
+                @if (auth()->user()->tieneRol(['admin']))
                 <div class="col-6">
                     <div class="w-auto"><p class="card-text"><b>Modelo más frecuente:</b> {{($estadisticasGenerales['modeloMasFrecuente'])?$estadisticasGenerales['modeloMasFrecuente']->modelo.' ('.$estadisticasGenerales['modeloMasFrecuente']->marca.')':'No se registraron equipos'}}</p></div>
                     <div class="w-auto"><p class="card-text"><b>Marca más frecuente:</b> {{($estadisticasGenerales)?$estadisticasGenerales['marcaMasFrecuente']:'No se registro ningun Equipo'}}</p></div>
-                    @if (auth()->user()->tieneRol(['admin']))
                     <div class="w-auto"><p class="card-text"><b>Recaudación total:</b> {{($estadisticasGenerales['montoTotal'])?$estadisticasGenerales['montoTotal']:''}}</p></div>
                     {{-- <div class="w-auto"><p class="card-text"><b>Recaudación del mes pasado:</b> {{($recaudadoMesPasado)?$recaudadoMesPasado:''}}</p></div> --}}
-                    @endif
                 </div>
+                @endif
                 @else
                     <p class="text-center">Aún no se cargó ninguna recepción</p>
                 @endif
             </div>
         </div>
     </div>
+    @if (auth()->user()->tieneRol(['admin']))
     <div class="card border-info mb-3 justify-content-center mx-auto" style="width: 60em">
         <div class="m-0 p-0 card-header text-center">
             <div class="row pt-1">
@@ -135,10 +136,6 @@
                                 text: '<?php echo $_GET['valor']; ?>'
                             }
                         },
-                        /* series: [{
-                            name: 'Número de Recepciones',
-                            data: datos1
-                        }] */
                         series: [{
                             name: 'Año <?php echo $_GET['anio1']; ?>',
                             data: datos1
@@ -154,6 +151,7 @@
             </div>
         </div>
     </div>
+    @endif
     <br>
 @endsection
 
