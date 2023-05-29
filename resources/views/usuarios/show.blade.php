@@ -60,7 +60,7 @@
                     <th>Modelo</th><th>Marca</th><th>N° Serie</th><th>Fecha Recepción</th>
                     <th>Falla:</th> <th>Cliente</th><th>Estado</th> <th colspan="2">Accion</th>
                 </tr>
-                @forelse ($user->recepciones->unique() as $recepcion)
+                @forelse ($recepciones->unique() as $recepcion)
                 <tr>
                     @if (isset($recepcion->equipo))
                         <td>{{$recepcion->equipo->caracteristica->modelo}}</td>
@@ -91,5 +91,8 @@
             </table>
         </div>
     </div>
+</div>
+<div class="mt-2 d-flex justify-content-center">
+    {{ $recepciones->links() }}
 </div>
 @endsection

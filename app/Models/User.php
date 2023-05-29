@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,7 +50,14 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Rol');
     }
     public function recepciones(){
-        return $this->belongsToMany('App\Models\Recepcion','revisions','tecnico_id','recepcion_id');
+        return $this->belongsToMany('App\Models\Recepcion', 'revisions', 'tecnico_id', 'recepcion_id');
+    }
+    public function recepcionesPorPaginas()
+    {
+        return DB::table('recepciones')
+            ->join('revisions', 'recepciones.id', '=', 'revisions.recepcion_id')
+            ->where('revisions.tecnico_id', $this->id)
+            ->paginate(10);
     }
     public function revisiones(){
         return $this->hasMany('App\Models\Revision','tecnico_id');

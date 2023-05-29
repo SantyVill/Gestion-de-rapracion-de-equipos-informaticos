@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
+use Illuminate\Pagination\Paginator;
+use App\Models\Recepcion;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Rol;
 
@@ -79,11 +82,8 @@ class UsuariosController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        /* foreach ($user->revisiones as $revision) {
-            return $revision;
-        }*/
-        /* return $user->recepciones; */
-        return view('usuarios.show',compact('user'));
+        $recepciones = $user->recepciones()->distinct()->paginate(10);
+        return view('usuarios.show', compact('user', 'recepciones'));
     }
 
     /**
