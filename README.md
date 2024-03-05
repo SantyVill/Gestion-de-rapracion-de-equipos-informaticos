@@ -5,7 +5,7 @@
 
 ## 1) Ejecutar en la terminal:
 
-    $ git clone https://MarioGY@bitbucket.org/SantyVillagra/proyectofinal.git
+    $ git clone https://github.com/SantyVill/Gestion-de-rapracion-de-equipos-informaticos.git
 
 Esto debe ejecutarse dentro en el directorio de instalación de laragon "../laragon/www/"
 
